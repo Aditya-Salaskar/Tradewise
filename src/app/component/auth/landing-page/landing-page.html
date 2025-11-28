@@ -27,6 +27,7 @@
       <div class="icon">🔒</div>
       <h2>Secure & Reliable</h2>
       <p>Your trades and data are protected with enterprise-grade security.</p>
+  
     </div>
   </section>
 
@@ -72,7 +73,8 @@
           <div class="field">
             <input type="password" placeholder="Password" [(ngModel)]="loginData.password" name="loginPassword" required />
           </div>
-          <button type="submit" class="primary-btn">Login</button>
+          <button type="submit" class="primary-btn" (click)="invest()">Investor</button>
+          <button type="submit" class="primary-btn"(click)="broke()">Broker</button>
           <p class="switch-link">Don’t have an account? <a (click)="toggleMode()">Register</a></p>
         </form>
 

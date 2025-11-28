@@ -12,8 +12,14 @@ import { FormsModule } from '@angular/forms';
 })
 export class LandingPage {
   constructor(private router: Router) {}
-
+  
   showAuthModal = false;
+  invest(){
+    this.router.navigate(['/investor']);
+  }
+  broke(){
+    this.router.navigate(['/broker/orders']);
+  }
 
   openAuthModal() {
     this.showAuthModal = true;
