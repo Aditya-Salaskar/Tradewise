@@ -34,6 +34,10 @@ toggleMode() {
 
 onLogin() {
   console.log('Login data:', this.loginData);
+  // TODO: Replace with real authentication logic.
+  // For now, simulate successful login and navigate to investor dashboard.
+  this.showAuthModal = false;
+  this.router.navigate(['/investor']);
 }
 
 onRegister() {

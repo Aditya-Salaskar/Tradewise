@@ -1,0 +1,87 @@
+
+<app-investor-nav></app-investor-nav>
+
+<div class="container">
+
+  <div class="page-header-row">
+    <h2 class="page-title">Investor Dashboard</h2>
+  </div>
+
+  <!-- Portfolio Summary -->
+  <div class="summary">
+    <div>
+      <p>Total Value</p>
+      <p class="green">₹{{ portfolioSummary.totalValue | number }}</p>
+    </div>
+    <div>
+      <p>Total Invested</p>
+      <p>₹{{ portfolioSummary.totalInvested | number }}</p>
+    </div>
+    <div>
+      <p>Total Gain/Loss</p>
+      <p class="green">₹{{ portfolioSummary.totalGainLoss | number }}</p>
+    </div>
+    <div>
+      <p>Return</p>
+      <p class="green">+{{ portfolioSummary.gainLossPercent }}%</p>
+    </div>
+  </div>
+
+  <!-- Holdings -->
+  <div class="card">
+    <div class="header">
+      <h3>Top Holdings</h3>
+      <button (click)="onNavigate('portfolio')">View All</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Symbol</th>
+          <th>Quantity</th>
+          <th>Avg Price</th>
+          <th>Current Price</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let h of holdings">
+          <td>{{ h.symbol }}</td>
+          <td>{{ h.quantity }}</td>
+          <td>₹{{ h.avgPrice }}</td>
+          <td>₹{{ h.currentPrice }}</td>
+          <td>₹{{ h.value | number }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Recent Orders -->
+  <div class="card">
+    <div class="header">
+      <h3>Recent Orders</h3>
+      <button (click)="onNavigate('orders')">View All</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Symbol</th>
+          <th>Type</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let o of recentOrders">
+          <td>{{ o.orderId }}</td>
+          <td>{{ o.symbol }}</td>
+          <td [ngClass]="o.type === 'BUY' ? 'green' : 'red'">{{ o.type }}</td>
+          <td>{{ o.quantity }}</td>
+          <td>₹{{ o.price }}</td>
+          <td [ngClass]="o.status === 'EXECUTED' ? 'green' : 'yellow'">{{ o.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

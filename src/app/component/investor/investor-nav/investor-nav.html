@@ -1,0 +1,18 @@
+<header class="top-nav">
+	<div class="nav-inner">
+		<div class="brand">TradeWise</div>
+
+			<nav class="nav-links">
+				<button class="nav-link" [class.active]="currentActive === 'investor'" (click)="onNavigate('investor')">Dashboard</button>
+				<button class="nav-link" [class.active]="currentActive === 'portfolio'" (click)="onNavigate('portfolio')">Portfolio</button>
+				<button class="nav-link" [class.active]="currentActive === 'trade'" (click)="onNavigate('trade')">Trade</button>
+				<button class="nav-link" [class.active]="currentActive === 'orders'" (click)="onNavigate('orders')">Orders</button>
+				<button class="nav-link" [class.active]="currentActive === 'market-data'" (click)="onNavigate('market-data')">Market Data</button>
+			</nav>
+
+		<div class="nav-actions">
+			<button class="button" (click)="goProfile()">Profile</button>
+			<button class="button" (click)="logout()">Logout</button>
+		</div>
+	</div>
+</header>

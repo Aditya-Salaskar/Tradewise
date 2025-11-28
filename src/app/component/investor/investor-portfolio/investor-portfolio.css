@@ -1,0 +1,32 @@
+
+
+
+.page-title {
+  margin: 0px 0 10px -2px;
+  font-size: 1.45rem; /* ~23px */
+  color: #1e3c72; /* Dark blue */
+  font-weight: 700; /* Bold */
+}
+
+
+
+
+/* Container and Summary */
+.container { max-width: 1200px; margin: auto; padding: 20px; }
+.summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+.summary div { background: #fff; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+
+/* Colors */
+.green { color: green; }
+.red { color: red; }
+
+/* Card and Tabs */
+.card { background: #fff; border: 1px solid #ccc; border-radius: 5px; margin-top: 20px; }
+.tabs { display: flex; gap: 15px; padding: 10px; border-bottom: 1px solid #ccc; }
+.tabs button { background: none; border: none; cursor: pointer; padding: 5px 10px; font-size: 14px; }
+.tabs button.active { color: blue; border-bottom: 2px solid blue; }
+
+/* Table */
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th, td { padding: 8px; border-top: 1px solid #ccc; }
+.right { text-align: right; }
