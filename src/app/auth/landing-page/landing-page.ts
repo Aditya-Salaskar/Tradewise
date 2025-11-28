@@ -40,5 +40,7 @@ onRegister() {
   console.log('Register data:', this.registerData);
 }
 
-
+investorDashboard(): void {
+  this.router.navigate(['/investor-dashboard']);
+}
 }
