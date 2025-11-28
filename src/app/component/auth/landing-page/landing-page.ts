@@ -12,8 +12,14 @@ import { FormsModule } from '@angular/forms';
 })
 export class LandingPage {
   constructor(private router: Router) {}
-
+  
   showAuthModal = false;
+  invest(){
+    this.router.navigate(['/investor']);
+  }
+  broke(){
+    this.router.navigate(['/broker/orders']);
+  }
 
   openAuthModal() {
     this.showAuthModal = true;
@@ -34,6 +40,10 @@ toggleMode() {
 
 onLogin() {
   console.log('Login data:', this.loginData);
+  // TODO: Replace with real authentication logic.
+  // For now, simulate successful login and navigate to investor dashboard.
+  this.showAuthModal = false;
+  this.router.navigate(['/investor']);
 }
 
 onRegister() {
