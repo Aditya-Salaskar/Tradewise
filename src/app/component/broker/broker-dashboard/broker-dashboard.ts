@@ -13,13 +13,13 @@ interface TradeOrder {
 }
 
 @Component({
-  selector: 'app-broker-order-list',
+  selector: 'app-broker-dashboard',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './broker-order-list.html',
-  styleUrls: ['./broker-order-list.css']
+  templateUrl: './broker-dashboard.html',
+  styleUrls: ['./broker-dashboard.css']
 })
-export class BrokerOrderList implements OnInit {
+export class BrokerDashboard implements OnInit {
   orders: TradeOrder[] = [];
   loading = true;
 

@@ -15,10 +15,10 @@ export class LandingPage {
   
   showAuthModal = false;
   invest(){
-    this.router.navigate(['/investor']);
+    this.router.navigate(['/investor/dashboard']);
   }
   broke(){
-    this.router.navigate(['/broker/orders']);
+    this.router.navigate(['/broker/dashboard']);
   }
 
   openAuthModal() {

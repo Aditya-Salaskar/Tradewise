@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { InvestorNav } from '../investor-nav/investor-nav';
 
 @Component({
   selector: 'app-investor-dashboard',
   standalone: true,
-  imports: [CommonModule, InvestorNav],
+  imports: [CommonModule],
   templateUrl: './investor-dashboard.html',
   styleUrl: './investor-dashboard.css',
 })

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { InvestorNav } from "../../investor/investor-nav/investor-nav";
 import { RouterModule, Router } from '@angular/router';
 
 interface Stock {
@@ -25,7 +24,7 @@ interface Index {
 @Component({
   selector: 'app-market-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, InvestorNav, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './market-list.html',
   styleUrls: ['./market-list.css']
 })
@@ -34,7 +33,7 @@ constructor(private router: Router) {}
   
 
 navigateToDetails(symbol: string) {
-    this.router.navigate(['/market', symbol]);
+    this.router.navigate(['/investor/market', symbol]);
   }
 
 

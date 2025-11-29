@@ -1,18 +1,20 @@
-<header class="top-nav">
-	<div class="nav-inner">
-		<div class="brand">TradeWise</div>
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <h1 class="logo">TradeWise</h1>
 
-			<nav class="nav-links">
-				<button class="nav-link" [class.active]="currentActive === 'investor'" (click)="onNavigate('investor')">Dashboard</button>
-				<button class="nav-link" [class.active]="currentActive === 'portfolio'" (click)="onNavigate('portfolio')">Portfolio</button>
-				<button class="nav-link" [class.active]="currentActive === 'trade'" (click)="onNavigate('trade')">Trade</button>
-				<button class="nav-link" [class.active]="currentActive === 'orders'" (click)="onNavigate('orders')">Orders</button>
-				<button class="nav-link" [class.active]="currentActive === 'market'" (click)="onNavigate('market')">Market Data</button>
-			</nav>
+    <nav>
+      <ul>
+        <li><a routerLink="/investor/dashboard" routerLinkActive="active">Dashboard</a></li>
+        <li><a routerLink="/investor/portfolio" routerLinkActive="active">Portfolio</a></li>
+        <li><a routerLink="/investor/trade" routerLinkActive="active">Trade</a></li>
+        <li><a routerLink="/investor/order" routerLinkActive="active">Order</a></li>
+        <li><a routerLink="/investor/market" routerLinkActive="active">Market</a></li>
+        <li><a routerLink="/investor/logout" routerLinkActive="active">Logout</a></li>
+      </ul>
+    </nav>
+  </aside>
 
-		<div class="nav-actions">
-			<button class="button" (click)="goProfile()">Profile</button>
-			<button class="button" (click)="logout()">Logout</button>
-		</div>
-	</div>
-</header>
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

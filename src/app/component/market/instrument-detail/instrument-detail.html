@@ -1,28 +1,43 @@
 
-<div class="details-container" *ngIf="stock">
-  <button class="back-btn" (click)="goBack()">← Back to Market</button>
+<div class="dashboard-container" *ngIf="stock">
+  <header>
+    <button class="back-btn" (click)="goBack()">← Back to Market</button>
+    <h2>{{ stock.name }} ({{ stock.symbol }})</h2>
+  </header>
 
-  <h2>{{ stock.name }} ({{ stock.symbol }})</h2>
+  <div class="main-content">
+    <!-- Chart Placeholder -->
+    <div class="chart-placeholder">
+      <p>Chart coming soon...</p>
+    </div>
 
-  <!-- Optional: Add a chart or historical data -->
-  <div class="chart-placeholder">
-    <p>Chart coming soon...</p>
+    <!-- Price Section -->
+    <div class="price-section">
+      <h3 class="price">₹{{ stock.price }}</h3>
+      <p [ngClass]="stock.change >= 0 ? 'green' : 'red'">
+        {{ stock.change >= 0 ? '+' : ''}}{{ stock.change }}
+        ({{ stock.changePercent >= 0 ? '+' : ''}}{{ stock.changePercent }}%)
+      </p>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats">
+      <div class="card">
+        <h3>Volume</h3>
+        <p>{{ stock.volume | number }}</p>
+      </div>
+      <div class="card">
+        <h3>High</h3>
+        <p>₹{{ stock.high }}</p>
+      </div>
+      <div class="card">
+        <h3>Low</h3>
+        <p>₹{{ stock.low }}</p>
+      </div>
+    </div>
   </div>
-
-  <div class="price-section">
-    <p class="price">₹{{ stock.price }}</p>
-    <p [class.green]="stock.change >= 0" [class.red]="stock.change < 0">
-      {{ stock.change >= 0 ? '+' : ''}}{{ stock.change }} ({{ stock.changePercent >= 0 ? '+' : ''}}{{ stock.changePercent }}%)
-    </p>
-  </div>
-
-  <div class="stats-grid">
-    <div><strong>Volume:</strong> {{ stock.volume | number }}</div>
-    <div><strong>High:</strong> ₹{{ stock.high }}</div>
-    <div><strong>Low:</strong> ₹{{ stock.low }}</div>
-  </div>
-
 </div>
 
-<div *ngIf="!stock">
+<div *ngIf="!stock" class="not-found">
   <p>Instrument not found.</p>
+</div>

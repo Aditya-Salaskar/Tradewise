@@ -1,12 +1,11 @@
 
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InvestorNav } from '../investor-nav/investor-nav';
 
 @Component({
   selector: 'app-investor-portfolio',
   standalone: true,
-  imports: [CommonModule, InvestorNav],
+  imports: [CommonModule],
   templateUrl: './investor-portfolio.html',
   styleUrl: './investor-portfolio.css',
 })

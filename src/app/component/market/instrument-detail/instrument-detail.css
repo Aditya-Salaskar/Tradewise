@@ -1,52 +1,97 @@
 
-.details-container {
-  max-width: 800px;
-  margin: auto;
-  padding: 16px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+/* Layout */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: #f4f6f9;
+  padding: 20px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+header h2 {
+  color: #333;
 }
 
 .back-btn {
-  background: none;
+  padding: 8px 14px;
+  background: #0078d7;
+  color: #fff;
   border: none;
-  color: #2563eb;
-  font-size: 14px;
+  border-radius: 4px;
   cursor: pointer;
-  margin-bottom: 12px;
 }
 
+.back-btn:hover {
+  opacity: 0.9;
+}
+
+/* Chart Placeholder */
+.chart-placeholder {
+  background: #fff;
+  border-radius: 8px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Price Section */
 .price-section {
-  display: flex;
-  gap: 12px;
-  align-items: baseline;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
-.price {
-  font-size: 24px;
+.price-section .price {
+  font-size: 32px;
+  font-weight: bold;
+  color: #0078d7;
+}
+
+.price-section p {
+  font-size: 18px;
   font-weight: bold;
 }
 
-.green {
-  color: #16a34a;
-}
-
-.red {
-  color: #dc2626;
-}
-
-.stats-grid {
+/* Stats Cards */
+.stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin-top: 16px;
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
 }
 
-.chart-placeholder {
-  margin-top: 24px;
+.card {
+  background: #fff;
   padding: 20px;
-  background: #f9fafb;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  border-radius: 4px;
+}
+
+.card h3 {
+  color: #0078d7;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Status Colors */
+.green { color: green; font-weight: bold; }
+.red { color: red; font-weight: bold; }
+
+/* Not Found */
+.not-found {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
 }

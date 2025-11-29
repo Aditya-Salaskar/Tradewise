@@ -43,6 +43,6 @@ export class InstrumentDetails implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/market']);
+    this.router.navigate(['/investor/market']);
   }
 }
