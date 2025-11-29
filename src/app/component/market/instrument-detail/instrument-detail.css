@@ -1,0 +1,52 @@
+
+.details-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.price-section {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.green {
+  color: #16a34a;
+}
+
+.red {
+  color: #dc2626;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 16px;
+  gap: 12px;
+}
+
+.chart-placeholder {
+  margin-top: 24px;
+  padding: 20px;
+  background: #f9fafb;
+  text-align: center;
+  border-radius: 4px;
+}

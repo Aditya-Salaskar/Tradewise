@@ -1,1 +1,61 @@
-<p>market-list works!</p>
+<app-investor-nav></app-investor-nav>
+
+<div class="market-container">
+  <!-- Indices -->
+  <div class="indices-grid">
+    <div *ngFor="let index of indices" class="index-card">
+      <p class="index-name">{{ index.name }}</p>
+      <p class="index-value">{{ index.value | number:'1.2-2' }}</p>
+      <p [class.green]="index.change >= 0" [class.red]="index.change < 0">
+        {{ index.change >= 0 ? '+' : ''}}{{ index.change | number:'1.2-2' }}
+        ({{ index.changePercent >= 0 ? '+' : ''}}{{ index.changePercent }}%)
+      </p>
+    </div>
+  </div>
+
+  <!-- Search & Filter -->
+  <div class="search-filter">
+    <input type="text" placeholder="Search symbol..." [(ngModel)]="searchTerm" />
+    <select [(ngModel)]="sectorFilter">
+      <option>All Sectors</option>
+      <option>Banking</option>
+      <option>IT</option>
+      <option>Energy</option>
+      <option>FMCG</option>
+    </select>
+    <button (click)="onSearch(searchTerm)">Search</button>
+  </div>
+
+  <!-- Stock List -->
+  <div class="stock-table">
+    <h3>Live Stock Prices</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Symbol</th>
+          <th>Name</th>
+          <th class="text-right">Price</th>
+          <th class="text-right">Change</th>
+          <th class="text-right">Change %</th>
+          <th class="text-right">Volume</th>
+          <th class="text-right">High</th>
+          <th class="text-right">Low</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stock of filteredStocks" (click)="navigateToDetails(stock.symbol)" class="clickable-row">
+          <td>{{ stock.symbol }}</td>
+          <td>{{ stock.name }}</td>
+          <td [class.green]="stock.change >= 0" [class.red]="stock.change < 0">
+            {{ stock.change >= 0 ? '+' : ''}}{{ stock.change }}
+          </td>
+          <td class="text-right" [class.green]="stock.changePercent >= 0" [class.red]="stock.changePercent < 0">
+            {{ stock.changePercent >= 0 ? '+' : ''}}{{ stock.changePercent }}%
+          </td>
+          <td class="text-right">{{ stock.volume | number }}</td>
+                   <td class="text-right">₹{{ stock.low }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

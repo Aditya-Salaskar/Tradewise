@@ -1,0 +1,94 @@
+
+.market-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 16px;
+}
+
+.indices-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.index-card {
+  background: #fff;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.index-name {
+  color: #666;
+  font-size: 14px;
+}
+
+.index-value {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.green {
+  color: #16a34a;
+}
+
+.red {
+  color: #dc2626;
+}
+
+.search-filter {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.search-filter input,
+.search-filter select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-filter button {
+  background: #2563eb;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.stock-table {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+.stock-table h3 {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px 12px;
+}
+
+th {
+  background: #f9fafb;
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.clickable-row { cursor: pointer; }
+.clickable-row:hover { background-color: #f1f5f9; }

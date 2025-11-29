@@ -20,7 +20,7 @@ export class InvestorNav {
       portfolio: '/portfolio',
       orders: '/orders',
       trade: '/trade',
-      'market-data': '/market',
+      market: '/market',
     };
     const route = map[path] || path;
     this.currentActive = path;
@@ -34,6 +34,5 @@ export class InvestorNav {
   goProfile() {
     this.router.navigate(['/profile']);
   }
-
 
 }

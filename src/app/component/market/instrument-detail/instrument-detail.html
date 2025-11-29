@@ -1,1 +1,28 @@
-<p>instrument-detail works!</p>
+
+<div class="details-container" *ngIf="stock">
+  <button class="back-btn" (click)="goBack()">← Back to Market</button>
+
+  <h2>{{ stock.name }} ({{ stock.symbol }})</h2>
+
+  <!-- Optional: Add a chart or historical data -->
+  <div class="chart-placeholder">
+    <p>Chart coming soon...</p>
+  </div>
+
+  <div class="price-section">
+    <p class="price">₹{{ stock.price }}</p>
+    <p [class.green]="stock.change >= 0" [class.red]="stock.change < 0">
+      {{ stock.change >= 0 ? '+' : ''}}{{ stock.change }} ({{ stock.changePercent >= 0 ? '+' : ''}}{{ stock.changePercent }}%)
+    </p>
+  </div>
+
+  <div class="stats-grid">
+    <div><strong>Volume:</strong> {{ stock.volume | number }}</div>
+    <div><strong>High:</strong> ₹{{ stock.high }}</div>
+    <div><strong>Low:</strong> ₹{{ stock.low }}</div>
+  </div>
+
+</div>
+
+<div *ngIf="!stock">
+  <p>Instrument not found.</p>

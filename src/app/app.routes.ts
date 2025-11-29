@@ -6,6 +6,8 @@ import { BrokerOrderList } from './component/broker/broker-order-list/broker-ord
 import { LandingPage } from './component/auth/landing-page/landing-page';
 import { InvestorDashboard } from './component/investor/investor-dashboard/investor-dashboard';
 import { InvestorPortfolio } from './component/investor/investor-portfolio/investor-portfolio';
+import { MarketList } from './component/market/market-list/market-list';
+import { InstrumentDetails } from './component/market/instrument-detail/instrument-detail';
 
 export const routes: Routes = [
   { path: '', component: LandingPage },
@@ -13,5 +15,7 @@ export const routes: Routes = [
   //{ path: 'broker/orders/:id', component: BrokerOrderDetailComponent }
   { path: 'investor', component: InvestorDashboard },
   { path: 'portfolio', component: InvestorPortfolio },
+  { path: 'market', component: MarketList },
+  { path: 'market/:symbol', component: InstrumentDetails }
 
 ];
