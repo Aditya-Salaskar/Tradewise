@@ -1,0 +1,117 @@
+.risk-wrap {
+  padding: 20px;
+  background: #f8fafc;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.summary-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.summary-row.small {
+  margin-bottom: 24px;
+}
+
+.card {
+  flex: 1;
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.card-title {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.card-value {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.red { color: #dc2626; }
+.green { color: #059669; }
+
+.card-sub {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.section-title {
+  margin: 10px 0;
+  font-weight: 600;
+}
+
+.risk-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  margin-top: 8px;
+}
+
+.risk-table th {
+  background: #f1f5f9;
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.risk-table td {
+  padding: 10px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.right {
+  text-align: right;
+}
+
+.settings {
+  margin-top: 20px;
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.field select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+}
+
+.btn {
+  background: #2563eb;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  margin-top: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn:hover {
+  background: #1d4ed8;
+}
