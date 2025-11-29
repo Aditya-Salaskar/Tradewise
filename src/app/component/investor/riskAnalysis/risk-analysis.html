@@ -1,94 +1,99 @@
-<div class="risk-wrap">
+<div class="page-container">
 
-  <h2 class="page-title">Risk Analysis</h2>
+  <h2>Risk Analysis</h2>
 
-  <div class="summary-row">
-    <div class="card">
-      <div class="card-title">Portfolio Value</div>
-      <div class="card-value">₹{{ summary.portfolioValue | number }}</div>
+  <div class="summary-grid">
+
+    <div class="summary-card">
+      <p class="label">Portfolio Value</p>
+      <h3>₹1,250,000</h3>
     </div>
 
-    <div class="card">
-      <div class="card-title">Value at Risk (95% CI)</div>
-      <div class="card-value red">₹{{ summary.varValue | number }}</div>
-      <div class="card-sub">{{ summary.varPercent }} of Portfolio</div>
+    <div class="summary-card">
+      <p class="label">Value at Risk (95% CI)</p>
+      <h3 class="red">₹62,500</h3>
+      <p class="sub">5% of Portfolio</p>
     </div>
 
-    <div class="card">
-      <div class="card-title">Sharpe Ratio</div>
-      <div class="card-value">{{ summary.sharpeRatio }}</div>
+    <div class="summary-card">
+      <p class="label">Sharpe Ratio</p>
+      <h3>1.45</h3>
     </div>
+
   </div>
 
-  <div class="summary-row small">
-    <div class="card">
-      <div class="card-title">Portfolio Beta</div>
-      <div class="card-value">{{ summary.beta }}</div>
+  <div class="summary-grid">
+
+    <div class="summary-card">
+      <p class="label">Portfolio Beta</p>
+      <h3>1.12</h3>
     </div>
 
-    <div class="card">
-      <div class="card-title">Portfolio Alpha</div>
-      <div class="card-value green">{{ summary.alpha }}</div>
+    <div class="summary-card">
+      <p class="label">Portfolio Alpha</p>
+      <h3 class="green">2.3%</h3>
     </div>
+
   </div>
 
-  <h3 class="section-title">Risk Contribution by Holding</h3>
+  <h3>Risk Contribution by Holding</h3>
 
-  <table class="risk-table">
-    <thead>
-      <tr>
-        <th>Symbol</th>
-        <th>Portfolio Weight %</th>
-        <th>Beta</th>
-        <th>VaR (₹)</th>
-        <th>Risk Contribution %</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let h of holdings">
-        <td>{{ h.symbol }}</td>
-        <td class="right">{{ h.weight }}%</td>
-        <td class="right">{{ h.beta }}</td>
-        <td class="right">₹{{ h.var | number }}</td>
-        <td class="right">{{ h.risk }}%</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Symbol</th>
+          <th>Portfolio Weight %</th>
+          <th>Beta</th>
+          <th>VaR (₹)</th>
+          <th>Risk Contribution %</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>RELIANCE</td><td>20.64%</td><td>1.15</td><td>₹12,900</td><td>20.6%</td>
+        </tr>
+        <tr>
+          <td>TCS</td><td>13.8%</td><td>0.95</td><td>₹8,625</td><td>13.8%</td>
+        </tr>
+        <tr>
+          <td>INFY</td><td>18.24%</td><td>1.05</td><td>₹11,400</td><td>18.2%</td>
+        </tr>
+        <tr>
+          <td>HDFC</td><td>17.41%</td><td>1.2</td><td>₹10,880</td><td>17.4%</td>
+        </tr>
+        <tr>
+          <td>ITC</td><td>7.12%</td><td>0.85</td><td>₹4,450</td><td>7.1%</td>
+        </tr>
+        <tr>
+          <td>BOND-001</td><td>22.79%</td><td>0.25</td><td>₹4,960</td><td>7.9%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <div class="settings">
-    <h3 class="section-title">VaR Calculation Settings</h3>
+  <h3>VaR Calculation Settings</h3>
 
-    <div class="settings-grid">
+  <div class="settings-grid">
 
-      <div class="field">
-        <label>Confidence Level</label>
-        <select>
-          <option>95%</option>
-          <option>99%</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Time Horizon</label>
-        <select>
-          <option>1 Day</option>
-          <option>10 Days</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Method</label>
-        <select>
-          <option>Historical Simulation</option>
-          <option>Monte Carlo</option>
-          <option>Parametric</option>
-        </select>
-      </div>
-
+    <div class="settings-field">
+      <select>
+        <option>Historical Simulation</option>
+        <option>Monte Carlo</option>
+        <option>Parametric</option>
+      </select>
     </div>
 
-    <button class="btn" (click)="recalculate()">Recalculate VaR</button>
+    <div class="settings-field">
+      <select>
+        <option>1 Day</option>
+        <option>7 Days</option>
+        <option>30 Days</option>
+      </select>
+    </div>
 
   </div>
+
+  <button class="btn" (click)="recalculate()">Recalculate VaR</button>
 
 </div>

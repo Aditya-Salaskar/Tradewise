@@ -1,1 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
+/* Default Light Mode (nothing changes) */
+body {
+  background: #f4f4f4;
+  color: #111;
+}
+
+/* 🌙 DARK MODE THEME */
+body.dark-mode {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.dark-mode .sidebar {
+  background: #1e293b !important;
+}
+
+.dark-mode .sidebar a {
+  color: #e2e8f0 !important;
+}
+
+.dark-mode .main-content {
+  background: #0f172a !important;
+  color: #e2e8f0 !important;
+}
+
+.dark-mode .summary-card,
+.dark-mode .table-container,
+.dark-mode table,
+.dark-mode th,
+.dark-mode td {
+  background: #1e293b !important;
+  color: #e2e8f0 !important;
+  border-color: #334155 !important;
+}
+
+.dark-mode .btn {
+  background: #3b82f6 !important;
+}
+
+.dark-mode .active {
+  background: #3b82f6 !important;
+  color: white !important;
+}
+.dark-mode {
+  background-color: #111827 !important;
+  color: #e5e7eb !important;
+}
