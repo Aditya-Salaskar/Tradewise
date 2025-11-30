@@ -29,7 +29,8 @@ export const routes: Routes = [
     component: BrokerLayout,
     children: [
       { path: 'dashboard', component: BrokerDashboard },
-      { path: 'orders', component: BrokerDashboard },
+      { path: 'market', component: MarketList },
+      { path: 'market/:symbol', component: InstrumentDetails },
       { path: 'risk-analysis', component: RiskAnalysis },
       { path: 'profile', component: BrokerProfile },
       { path: 'logout', component: BrokerLogout }
