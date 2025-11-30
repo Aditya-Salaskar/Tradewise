@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BrokerOrderList } from './broker-order-list';
+import { BrokerOrderList } from './broker-dashboard';
 
 describe('BrokerOrderList', () => {
   let component: BrokerOrderList;
