@@ -33,22 +33,17 @@
           </a>
         </li>
         <li>
+          <a routerLink="/investor/profile" routerLinkActive="active">
+            <span class="icon">📊</span> Profile
+          </a>
+        </li>
+        <li>
           <a routerLink="/investor/logout" routerLinkActive="active">
             <span class="icon">🔓</span> Logout
           </a>
         </li>
       </ul>
     </nav>
-
-    <!-- Dark Mode Toggle -->
-    <div class="toggle-container">
-      <label class="switch">
-        <input type="checkbox" (change)="toggleTheme($event)">
-        <span class="slider round"></span>
-      </label>
-      <span class="toggle-text">Light Mode</span>
-    </div>
-
   </aside>
 
   <main class="main-content">
