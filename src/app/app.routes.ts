@@ -43,8 +43,8 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: InvestorDashboard },
       { path: 'portfolio', component: InvestorPortfolio },
-      { path: 'trade', component: RiskAnalysis }, // Replace later
-      { path: 'orders', component: BrokerProfile }, // Replace later
+     // { path: 'trade', component: RiskAnalysis }, // Replace later
+     // { path: 'orders', component: BrokerProfile }, // Replace later
       { path: 'market', component: MarketList },
       { path: 'market/:symbol', component: InstrumentDetails },
       { path: 'profile', component: InvestorProfile }, // ✅ Corrected
