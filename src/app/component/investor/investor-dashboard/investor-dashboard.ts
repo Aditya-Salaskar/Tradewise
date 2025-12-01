@@ -32,4 +32,5 @@ recentOrders = [
   { orderId: 'ORD-004', symbol: 'HDFC', type: 'BUY', quantity: 30, price: 2720, status: 'EXECUTED' },
   { orderId: 'ORD-005', symbol: 'RELIANCE', type: 'SELL', quantity: 10, price: 2585, status: 'CANCELLED' }
 ];
+
 }

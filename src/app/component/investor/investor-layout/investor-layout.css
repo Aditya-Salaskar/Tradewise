@@ -1,168 +1,69 @@
-
-/* Dashboard Container */
+/* LAYOUT */
 .dashboard-container {
   display: flex;
-  min-height: 100vh;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  background: #f4f6f9;
 }
 
-/* Sidebar */
+/* SIDEBAR */
 .sidebar {
-  width: 220px;
+  width: 260px;
   background: linear-gradient(180deg, #0b4fc0, #063e9b);
   color: #fff;
-  padding: 20px;
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-.sidebar .logo {
-  font-size: 22px;
-  font-weight: bold;
-  margin-bottom: 20px;
+.logo-link {
+  text-decoration: none;
 }
 
-.sidebar nav ul {
+.logo {
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #fff;
+}
+
+/* NAVIGATION ITEMS */
+nav ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.sidebar nav ul li {
-  margin: 15px 0;
+nav ul li {
+  margin-bottom: 18px;
 }
 
-.sidebar nav ul li a {
-  color: #fff;
+nav ul li a {
   text-decoration: none;
-  font-size: 16px;
-  display: block;
+  color: #e4e9f7;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 8px 12px;
-  border-radius: 4px;
-  transition: background 0.3s ease, padding-left 0.3s ease;
+  border-radius: 8px;
+  transition: 0.2s;
 }
 
-.sidebar nav ul li a.active {
-  background: #005a9e;
+nav ul li a:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
-/* Hover effect for sidebar links */
-.sidebar nav ul li a:hover {
-  background: #0d6efd; /* Lighter blue shade */
-  padding-left: 18px; /* Slight indent for opening effect */
+nav ul li a.active {
+  background: rgba(255, 255, 255, 0.3);
+  font-weight: bold;
 }
 
-/* Main Content */
+/* ICON STYLE */
+.icon {
+  width: 22px;
+  display: inline-block;
+}
+
+/* MAIN CONTENT */
 .main-content {
   flex: 1;
-  padding: 20px;
-}
-
-header h2 {
-  margin-bottom: 20px;
-  color: #333;
-}
-
-/* Stats Cards */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
-  margin-bottom: 30px;
-}
-
-.card {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.card h3 {
-  color: #0078d7;
-  margin-bottom: 10px;
-}
-
-.card p {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-/* Filter Tabs */
-.filter-tabs {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.filter-tabs button {
-  background: none;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 8px 12px;
-  transition: color 0.3s ease, border-bottom 0.3s ease;
-}
-
-.filter-tabs .active-tab {
-  color: #0078d7;
-  border-bottom: 2px solid #0078d7;
-}
-
-/* Table Section */
-.table-section h3 {
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.table-container {
-  overflow-x: auto;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 800px;
-}
-
-thead {
-  background: #0078d7;
-  color: #fff;
-}
-
-th, td {
-  padding: 12px 15px;
-  text-align: left;
-}
-
-tbody tr:nth-child(even) {
-  background: #f9f9f9;
-}
-
-tbody tr:hover {
-  background: #eef6ff;
-}
-
-/* Gain/Loss Colors */
-.gain {
-  color: green;
-  font-weight: bold;
-}
-
-.loss {
-  color: red;
-  font-weight: bold;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .sidebar {
-    display: none;
-  }
-  .main-content {
-    padding: 10px;
-  }
+  padding: 30px;
+  background: #f5f6fa;
 }
