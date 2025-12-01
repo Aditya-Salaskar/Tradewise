@@ -1,4 +1,5 @@
 
+/* Dashboard Container */
 .dashboard-container {
   display: flex;
   min-height: 100vh;
@@ -6,9 +7,10 @@
   background: #f4f6f9;
 }
 
+/* Sidebar */
 .sidebar {
   width: 220px;
-  background: #0078d7;
+  background: linear-gradient(180deg, #0b4fc0, #063e9b);
   color: #fff;
   padding: 20px;
 }
@@ -35,12 +37,20 @@
   display: block;
   padding: 8px 12px;
   border-radius: 4px;
+  transition: background 0.3s ease, padding-left 0.3s ease;
 }
 
 .sidebar nav ul li a.active {
   background: #005a9e;
 }
 
+/* Hover effect for sidebar links */
+.sidebar nav ul li a:hover {
+  background: #0d6efd; /* Lighter blue shade */
+  padding-left: 18px; /* Slight indent for opening effect */
+}
+
+/* Main Content */
 .main-content {
   flex: 1;
   padding: 20px;
@@ -51,6 +61,7 @@ header h2 {
   color: #333;
 }
 
+/* Stats Cards */
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -76,6 +87,7 @@ header h2 {
   font-weight: bold;
 }
 
+/* Filter Tabs */
 .filter-tabs {
   display: flex;
   gap: 15px;
@@ -88,6 +100,7 @@ header h2 {
   font-size: 16px;
   cursor: pointer;
   padding: 8px 12px;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
 }
 
 .filter-tabs .active-tab {
@@ -95,6 +108,7 @@ header h2 {
   border-bottom: 2px solid #0078d7;
 }
 
+/* Table Section */
 .table-section h3 {
   margin-bottom: 10px;
   color: #333;
@@ -132,9 +146,18 @@ tbody tr:hover {
   background: #eef6ff;
 }
 
-.gain { color: green; font-weight: bold; }
-.loss { color: red; font-weight: bold; }
+/* Gain/Loss Colors */
+.gain {
+  color: green;
+  font-weight: bold;
+}
 
+.loss {
+  color: red;
+  font-weight: bold;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .sidebar {
     display: none;

@@ -1,0 +1,58 @@
+<div class="profile-container">
+
+  <div class="profile-card">
+
+    <!-- PROFILE HEADER -->
+    <div class="profile-header">
+      <img [src]="profileImg" class="profile-img" alt="Profile Photo" />
+
+      <h2 class="profile-name">{{ name }}</h2>
+      <p class="profile-role">{{ role }}</p>
+    </div>
+
+    <!-- PROFILE INFORMATION -->
+    <div class="profile-info">
+
+      <!-- Name -->
+      <div class="info-row">
+        <label>Name</label>
+        <input *ngIf="editMode" [(ngModel)]="name" />
+        <p *ngIf="!editMode">{{ name }}</p>
+      </div>
+
+      <!-- Email -->
+      <div class="info-row">
+        <label>Email</label>
+        <input *ngIf="editMode" [(ngModel)]="email" />
+        <p *ngIf="!editMode">{{ email }}</p>
+      </div>
+
+      <!-- Member Since -->
+      <div class="info-row">
+        <label>Member Since</label>
+        <input *ngIf="editMode" [(ngModel)]="memberSince" />
+        <p *ngIf="!editMode">{{ memberSince }}</p>
+      </div>
+
+      <!-- Change Profile Photo Input -->
+      <div *ngIf="editMode" class="info-row">
+        <label>Change Profile Photo</label>
+        <input type="file" accept="image/*" (change)="onPhotoSelected($event)" />
+      </div>
+
+    </div>
+
+    <!-- EDIT BUTTON -->
+    <div *ngIf="!editMode" class="edit-btn-wrapper">
+      <button class="btn-edit" (click)="startEdit()">Edit Profile</button>
+    </div>
+
+    <!-- SAVE / CANCEL ACTIONS -->
+    <div *ngIf="editMode" class="edit-actions">
+      <button class="btn-cancel" (click)="cancelEdit()">Cancel</button>
+      <button class="btn-save" (click)="saveChanges()">Save Changes</button>
+    </div>
+
+  </div>
+
+</div>
