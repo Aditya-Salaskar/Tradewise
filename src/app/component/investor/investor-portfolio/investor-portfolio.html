@@ -1,28 +1,37 @@
 
 <div class="dashboard-container">
-  <header>
-    <h2>Investor Portfolio</h2>
-  </header>
+  <!-- Main Content -->
+  <main class="main-content">
+    <header>
+      <h2>Portfolio Details</h2>
+    </header>
 
-  <div class="main-content">
-    <!-- Stats Cards -->
-    <div class="stats">
+    <!-- Summary Cards -->
+    <section class="stats">
       <div class="card">
         <h3>Total Portfolio Value</h3>
         <p>₹{{ totalValue | number }}</p>
       </div>
       <div class="card">
         <h3>Total Gain/Loss</h3>
-        <p [ngClass]="totalGainLoss >= 0 ? 'green' : 'red'">₹{{ totalGainLoss | number }}</p>
+        <p [ngClass]="totalGainLoss >= 0 ? 'gain' : 'loss'">₹{{ totalGainLoss | number }}</p>
       </div>
       <div class="card">
         <h3>Total Holdings</h3>
-        <p>{{ holdings.length }}</p>
+        <p>{{ filteredHoldings.length }}</p>
       </div>
-    </div>
+    </section>
+
+    <!-- Filter Tabs -->
+    <section class="filter-tabs">
+      <button [class.active-tab]="activeFilter === 'All'" (click)="filterHoldings('All')">All</button>
+      <button [class.active-tab]="activeFilter === 'Equity'" (click)="filterHoldings('Equity')">Equity</button>
+      <button [class.active-tab]="activeFilter === 'Bond'" (click)="filterHoldings('Bond')">Bonds</button>
+      <button disabled>Mutual Funds</button>
+    </section>
 
     <!-- Holdings Table -->
-    <div class="table-section">
+    <section class="table-section">
       <h3>Holdings</h3>
       <div class="table-container">
         <table>
@@ -40,22 +49,22 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let h of holdings">
-              <td>{{ h.symbol }}</td>
-              <td>{{ h.name }}</td>
-              <td>{{ h.type }}</td>
-              <td>{{ h.quantity }}</td>
-              <td>₹{{ h.avgPrice | number }}</td>
-              <td>₹{{ h.currentPrice | number }}</td>
-              <td>₹{{ h.value | number }}</td>
-              <td [ngClass]="h.gainLoss >= 0 ? 'green' : 'red'">₹{{ h.gainLoss | number }}</td>
-              <td [ngClass]="h.gainLossPercent >= 0 ? 'green' : 'red'">
-                {{ h.gainLossPercent >= 0 ? '+' : ''}}{{ h.gainLossPercent }}%
+            <tr *ngFor="let holding of filteredHoldings">
+              <td>{{ holding.symbol }}</td>
+              <td>{{ holding.name }}</td>
+              <td>{{ holding.type }}</td>
+              <td>{{ holding.quantity }}</td>
+              <td>₹{{ holding.avgPrice | number }}</td>
+              <td>₹{{ holding.currentPrice | number }}</td>
+              <td>₹{{ holding.value | number }}</td>
+              <td [ngClass]="holding.gainLoss >= 0 ? 'gain' : 'loss'">₹{{ holding.gainLoss | number }}</td>
+              <td [ngClass]="holding.gainLossPercent >= 0 ? 'gain' : 'loss'">
+                {{ holding.gainLossPercent >= 0 ? '+' : ''}}{{ holding.gainLossPercent }}%
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 </div>

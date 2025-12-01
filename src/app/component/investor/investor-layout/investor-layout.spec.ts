@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InvestorNav } from './investor-nav';
+import { InvestorLayout } from './investor-layout';
 
-describe('InvestorNav', () => {
-  let component: InvestorNav;
-  let fixture: ComponentFixture<InvestorNav>;
+describe('InvestorLayout', () => {
+  let component: InvestorLayout;
+  let fixture: ComponentFixture<InvestorLayout>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InvestorNav]
+      imports: [InvestorLayout]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(InvestorNav);
+    fixture = TestBed.createComponent(InvestorLayout);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

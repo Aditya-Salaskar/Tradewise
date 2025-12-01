@@ -1,86 +1,40 @@
-<main class="main-content">
-  <header>
-    <h2>Investor Dashboard</h2>
-  </header>
 
-  <!-- Stats Cards -->
-  <section class="stats">
-    <div class="card">
-      <h3>Total Value</h3>
-      <p class="green">₹{{ portfolioSummary.totalValue | number }}</p>
-    </div>
-    <div class="card">
-      <h3>Total Invested</h3>
-      <p>₹{{ portfolioSummary.totalInvested | number }}</p>
-    </div>
-    <div class="card">
-      <h3>Total Gain/Loss</h3>
-      <p [ngClass]="portfolioSummary.totalGainLoss >= 0 ? 'green' : 'red'">
-        ₹{{ portfolioSummary.totalGainLoss | number }}
-      </p>
-    </div>
-    <div class="card">
-      <h3>Return</h3>
-      <p class="green">+{{ portfolioSummary.gainLossPercent }}%</p>
-    </div>
-  </section>
+<header>
+  <h2>Investor Dashboard</h2>
+</header>
 
-  <!-- Holdings -->
-  <section class="table-section">
-    <h3>Top Holdings</h3>
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Symbol</th>
-            <th>Quantity</th>
-            <th>Avg Price</th>
-            <th>Current Price</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let h of holdings">
-            <td>{{ h.symbol }}</td>
-            <td>{{ h.quantity }}</td>
-            <td>₹{{ h.avgPrice }}</td>
-            <td>₹{{ h.currentPrice }}</td>
-            <td>₹{{ h.value | number }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <button (click)="onNavigate('portfolio')">View All</button>
-  </section>
+<section class="stats">
+  <div class="card"><h3>Total Value</h3><p>₹{{ portfolioSummary.totalValue | number }}</p></div>
+  <div class="card"><h3>Total Invested</h3><p>₹{{ portfolioSummary.totalInvested | number }}</p></div>
+  <div class="card"><h3>Total Gain/Loss</h3><p class="gain">₹{{ portfolioSummary.totalGainLoss | number }}</p></div>
+  <div class="card"><h3>Return</h3><p class="gain">+{{ portfolioSummary.gainLossPercent }}%</p></div>
+</section>
 
-  <!-- Recent Orders -->
-  <section class="table-section">
-    <h3>Recent Orders</h3>
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Symbol</th>
+<section class="table-section">
+  <h3>Top Holdings</h3>
+  <table>
+    <thead><tr><th>Symbol</th><th>Quantity</th><th>Avg Price</th><th>Current Price</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr *ngFor="let h of holdings">
+        <td>{{ h.symbol }}</td><td>{{ h.quantity }}</td><td>₹{{ h.avgPrice }}</td><td>₹{{ h.currentPrice }}</td><td>₹{{ h.value | number }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
 
-              <th>Type</th>
-              <th>Quantity</th>
-              <th>Price</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let o of recentOrders">
-              <td>{{ o.orderId }}</td>
-              <td>{{ o.symbol }}</td>
-              <td [ngClass]="o.type === 'BUY' ? 'green' : 'red'">{{ o.type }}</td>
-              <td>{{ o.quantity }}</td>
-              <td>₹{{ o.price }}</td>
-              <td [ngClass]="o.status === 'EXECUTED' ? 'executed' : 'pending'">{{ o.status }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <button (click)="onNavigate('orders')">View All</button>
-    </section>
-  </main>
+<section class="table-section">
+  <h3>Recent Orders</h3>
+  <table>
+    <thead><tr><th>Order ID</th><th>Symbol</th><th>Type</th><th>Quantity</th><th>Price</th><th>Status</th></tr></thead>
+    <tbody>
+      
+<tr *ngFor="let o of recentOrders">
+  <td>{{ o.orderId }}</td>
+  <td>{{ o.symbol }}</td>
+  <td>{{ o.type }}</td>
+  <td>{{ o.quantity }}</td>
+  <td>₹{{ o.price }}</td>
+  <td>{{ o.status }}</td>
+</tr>
+    </tbody>
+  </table>
