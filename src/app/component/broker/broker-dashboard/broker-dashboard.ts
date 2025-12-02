@@ -42,3 +42,4 @@ export class BrokerDashboard implements OnInit {
     this.router.navigate(['/broker/orders', orderId]);
   }
 }
+
