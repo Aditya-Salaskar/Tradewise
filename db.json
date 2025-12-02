@@ -1,4 +1,3 @@
-
 {
   "stats": {
     "totalClients": 145,
@@ -7,16 +6,127 @@
     "todaysCommission": "₹1,25,000"
   },
   "clients": [
-    { "id": "CLI-001", "name": "Rajesh Kumar", "portfolioValue": "₹25,00,000", "todaysOrders": 3, "status": "ACTIVE" },
-    { "id": "CLI-002", "name": "Priya Singh", "portfolioValue": "₹18,00,000", "todaysOrders": 1, "status": "ACTIVE" },
-    { "id": "CLI-003", "name": "Amit Patel", "portfolioValue": "₹32,00,000", "todaysOrders": 5, "status": "ACTIVE" },
-    { "id": "CLI-004", "name": "Sneha Sharma", "portfolioValue": "₹9,50,000", "todaysOrders": 0, "status": "INACTIVE" },
-    { "id": "CLI-005", "name": "Vikram Mehta", "portfolioValue": "₹15,00,000", "todaysOrders": 2, "status": "ACTIVE" }
+    {
+      "id": "CLI-001",
+      "name": "Rajesh Kumar",
+      "portfolioValue": "₹25,00,000",
+      "todaysOrders": 3,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "CLI-002",
+      "name": "Priya Singh",
+      "portfolioValue": "₹18,00,000",
+      "todaysOrders": 1,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "CLI-003",
+      "name": "Amit Patel",
+      "portfolioValue": "₹32,00,000",
+      "todaysOrders": 5,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "CLI-004",
+      "name": "Sneha Sharma",
+      "portfolioValue": "₹9,50,000",
+      "todaysOrders": 0,
+      "status": "INACTIVE"
+    },
+    {
+      "id": "CLI-005",
+      "name": "Vikram Mehta",
+      "portfolioValue": "₹15,00,000",
+      "todaysOrders": 2,
+      "status": "ACTIVE"
+    }
   ],
   "orders": [
-    { "orderId": "ORD-101", "client": "Rajesh Kumar", "symbol": "RELIANCE", "type": "BUY", "quantity": 50, "price": "₹2580", "status": "EXECUTED" },
-    { "orderId": "ORD-102", "client": "Amit Patel", "symbol": "TCS", "type": "SELL", "quantity": 30, "price": "₹3450", "status": "PENDING" },
-    { "orderId": "ORD-103", "client": "Priya Singh", "symbol": "INFY", "type": "BUY", "quantity": 100, "price": "₹1520", "status": "EXECUTED" },
-    { "orderId": "ORD-104", "client": "Vikram Mehta", "symbol": "HDFC", "type": "BUY", "quantity": 40, "price": "₹2720", "status": "PENDING" }
+    {
+      "orderId": "ORD-101",
+      "client": "Rajesh Kumar",
+      "symbol": "RELIANCE",
+      "type": "BUY",
+      "quantity": 50,
+      "price": "₹2580",
+      "status": "EXECUTED"
+    },
+    {
+      "orderId": "ORD-102",
+      "client": "Amit Patel",
+      "symbol": "TCS",
+      "type": "SELL",
+      "quantity": 30,
+      "price": "₹3450",
+      "status": "PENDING"
+    },
+    {
+      "orderId": "ORD-103",
+      "client": "Priya Singh",
+      "symbol": "INFY",
+      "type": "BUY",
+      "quantity": 100,
+      "price": "₹1520",
+      "status": "EXECUTED"
+    },
+    {
+      "orderId": "ORD-104",
+      "client": "Vikram Mehta",
+      "symbol": "HDFC",
+      "type": "BUY",
+      "quantity": 40,
+      "price": "₹2720",
+      "status": "PENDING"
+    },
+    {
+      "orderId": "ORD-201",
+      "symbol": "RELIANCE",
+      "type": "BUY",
+      "quantity": 20,
+      "price": "₹2580",
+      "status": "EXECUTED"
+    },
+    {
+      "orderId": "ORD-202",
+      "symbol": "HDFC",
+      "type": "SELL",
+      "quantity": 10,
+      "price": "₹2720",
+      "status": "PENDING"
+    },
+    {
+      "id": "f4f0",
+      "orderId": "010",
+      "symbol": "NSE",
+      "type": "BUY",
+      "quantity": 100,
+      "price": "100",
+      "status": "PENDING"
+    }
+
+
+
+
+  ],
+  "investorStats": {
+    "portfolioValue": "₹50,00,000",
+    "totalOrders": 12,
+    "profitLoss": "+₹1,20,000",
+    "availableBalance": "₹5,00,000"
+  },
+  "holdings": [
+    {
+      "symbol": "TCS",
+      "quantity": 50,
+      "price": "₹3450",
+      "currentValue": "₹1,72,500"
+    },
+    {
+      "symbol": "INFY",
+      "quantity": 100,
+      "price": "₹1520",
+      "currentValue": "₹1,52,000"
+    }
   ]
 }
