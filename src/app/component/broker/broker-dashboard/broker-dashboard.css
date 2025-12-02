@@ -1,9 +1,8 @@
 
-/* Layout */
+/* Header */
 .dashboard-container {
   display: flex;
   min-height: 100vh;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
   background: #f4f6f9;
 }
 
