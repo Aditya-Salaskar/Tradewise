@@ -129,5 +129,74 @@
        "gainLoss": 4000,
     "gainLossPercent": 4.5,
     "lastUpdated": "2025-12-01"
+  },
+  
+{
+  "symbol": "MF-001",
+  "name": "HDFC Balanced Advantage Fund",
+  "sector": "Mutual Fund",
+  "type": "Mutual Fund",
+  "quantity": 100,
+  "avgPrice": 45,
+  "currentPrice": 50,
+  "value": 5000,
+  "gainLoss": 500,
+  "gainLossPercent": 10,
+   "lastUpdated": "2025-12-01"
+  },
+  
+  {
+    "symbol": "BOND-001",
+    "name": "Govt Bond 7.5% 2030",
+    "sector": "Government",
+    "type": "Bond",
+    "quantity": 10,
+    "avgPrice": 98500,
+    "currentPrice": 99200,
+    "value": 992000,
+    "gainLoss": 7000,
+    "gainLossPercent": 0.7,
+    "lastUpdated": "2025-12-01"
+  },
+  {
+    "symbol": "BOND-002",
+    "name": "Corporate Bond 8% 2028",
+    "sector": "Corporate",
+    "type": "Bond",
+    "quantity": 5,
+    "avgPrice": 101000,
+    "currentPrice": 102500,
+    "value": 512500,
+    "gainLoss": 7500,
+    "gainLossPercent": 1.5,
+    "lastUpdated": "2025-12-01"
+  },
+  {
+    "symbol": "MF-001",
+    "name": "HDFC Balanced Advantage Fund",
+    "sector": "Mutual Fund",
+    "type": "Mutual Fund",
+    "quantity": 100,
+    "avgPrice": 45,
+    "currentPrice": 50,
+    "value": 5000,
+    "gainLoss": 500,
+    "gainLossPercent": 10,
+    "lastUpdated": "2025-12-01"
+  },
+  {
+    "symbol": "MF-002",
+    "name": "SBI Equity Hybrid Fund",
+    "sector": "Mutual Fund",
+    "type": "Mutual Fund",
+    "quantity": 200,
+    "avgPrice": 60,
+    "currentPrice": 65,
+    "value": 13000,
+    "gainLoss": 1000,
+    "gainLossPercent": 8.3,
+    "lastUpdated": "2025-12-01"
   }
+
+
 ]

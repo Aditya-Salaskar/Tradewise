@@ -1,8 +1,9 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortfolioService } from '../../../services/investor-portfolio.service';
 import { HttpClientModule } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-investor-portfolio',
@@ -11,34 +12,33 @@ import { HttpClientModule } from '@angular/common/http';
   templateUrl: './investor-portfolio.html',
   styleUrls: ['./investor-portfolio.css']
 })
-export class InvestorPortfolio implements OnInit {
+export class InvestorPortfolio {
+  portfolioSummary$: Observable<{ totalValue: number; totalGainLoss: number; holdings: any[] }>;
   holdings: any[] = [];
   filteredHoldings: any[] = [];
   activeFilter = 'All';
-  totalValue = 0;
-  totalGainLoss = 0;
+  availableTypes: string[] = []; // ✅ Dynamic filter types
 
-  constructor(private portfolioService: PortfolioService) {}
+  constructor(private portfolioService: PortfolioService) {
+    this.portfolioSummary$ = this.portfolioService.getPortfolioSummary();
 
-  ngOnInit() {
-    this.portfolioService.getPortfolioSummary().subscribe(summary => {
+    // Load holdings and initialize filters
+    this.portfolioSummary$.subscribe(summary => {
       this.holdings = summary.holdings;
-      this.filteredHoldings = [...this.holdings];
-      this.totalValue = summary.totalValue;
-      this.totalGainLoss = summary.totalGainLoss;
+      this.filteredHoldings = [...this.holdings]; // Show all initially
+      this.availableTypes = this.getAvailableTypes(this.holdings); // ✅ Extract types dynamically
     });
   }
 
   filterHoldings(type: string) {
     this.activeFilter = type;
     this.filteredHoldings = type === 'All'
-           ? [...this.holdings]
+      ? [...this.holdings]
       : this.holdings.filter(h => h.type === type);
-    this.calculateTotals();
   }
 
-  private calculateTotals() {
-    this.totalValue = this.filteredHoldings.reduce((sum, h) => sum + h.value, 0);
-    this.totalGainLoss = this.filteredHoldings.reduce((sum, h) => sum + h.gainLoss, 0);
+  private getAvailableTypes(holdings: any[]): string[] {
+    const types = holdings.map(h => h.type);
+       return Array.from(new Set(types)); // ✅ Unique types
   }
 }
