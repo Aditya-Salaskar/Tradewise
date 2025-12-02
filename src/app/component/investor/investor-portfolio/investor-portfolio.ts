@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortfolioService } from '../../../services/investor-portfolio.service';
 import { HttpClientModule } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-investor-portfolio',
@@ -13,32 +14,23 @@ import { Observable } from 'rxjs';
   styleUrls: ['./investor-portfolio.css']
 })
 export class InvestorPortfolio {
-  portfolioSummary$: Observable<{ totalValue: number; totalGainLoss: number; holdings: any[] }>;
-  holdings: any[] = [];
-  filteredHoldings: any[] = [];
-  orders: any[] = [];
+  holdings$: Observable<any[]>;
+  portfolioSummary$: Observable<{ totalValue: number; totalGainLoss: number }>;
+  filteredHoldings$ = new BehaviorSubject<any[]>([]);
   activeFilter = 'All';
-  availableTypes: string[] = [];
 
   constructor(private portfolioService: PortfolioService) {
+    this.holdings$ = this.portfolioService.getHoldings();
     this.portfolioSummary$ = this.portfolioService.getPortfolioSummary();
 
-       this.portfolioService.getPortfolioData().subscribe(data => {
-      this.holdings = data.holdings;
-      this.filteredHoldings = [...this.holdings];
-      this.availableTypes = this.getAvailableTypes(this.holdings);
-      this.orders = data.orders;
-    });
+    // Initialize filteredHoldings with all holdings
+    this.holdings$.subscribe(holdings => this.filteredHoldings$.next(holdings));
   }
 
   filterHoldings(type: string) {
     this.activeFilter = type;
-    this.filteredHoldings = type === 'All'
-      ? [...this.holdings]
-      : this.holdings.filter(h => h.type === type);
-  }
-
-  private getAvailableTypes(holdings: any[]): string[] {
-    return Array.from(new Set(holdings.map(h => h.type)));
+    this.holdings$.pipe(
+      map(holdings => type === 'All' ? holdings : holdings.filter(h => h.type === type))
+    ).subscribe(filtered => this.filteredHoldings$.next(filtered));
   }
 }

@@ -13,24 +13,20 @@
       </div>
       <div class="card">
         <h3>Total Gain/Loss</h3>
-        <p [ngClass]="summary.totalGainLoss >= 0 ? 'gain' : 'loss'">
-          ₹{{ summary.totalGainLoss | number }}
-        </p>
+        <p [ngClass]="summary.totalGainLoss >= 0 ? 'gain' : 'loss'">₹{{ summary.totalGainLoss | number }}</p>
       </div>
       <div class="card">
         <h3>Total Holdings</h3>
-        <p>{{ filteredHoldings.length }}</p>
+        <p>{{ (filteredHoldings$ | async)?.length }}</p>
       </div>
     </section>
 
     <!-- Filter Tabs -->
     <section class="filter-tabs">
       <button [class.active-tab]="activeFilter === 'All'" (click)="filterHoldings('All')">All</button>
-      <button *ngFor="let type of availableTypes"
-              [class.active-tab]="activeFilter === type"
-              (click)="filterHoldings(type)">
-        {{ type }}
-      </button>
+      <button [class.active-tab]="activeFilter === 'Equity'" (click)="filterHoldings('Equity')">Equity</button>
+      <button [class.active-tab]="activeFilter === 'Bond'" (click)="filterHoldings('Bond')">Bonds</button>
+      <button disabled>Mutual Funds</button>
     </section>
 
     <!-- Holdings Table -->
@@ -40,13 +36,19 @@
         <table>
           <thead>
             <tr>
-              <th>Symbol</th><th>Name</th><th>Type</th><th>Quantity</th>
-              <th>Avg Price</th><th>Current Price</th><th>Value</th>
-              <th>Gain/Loss</th><th>Return %</th>
+              <th>Symbol</th>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Quantity</th>
+              <th>Avg Price</th>
+              <th>Current Price</th>
+              <th>Value</th>
+              <th>Gain/Loss</th>
+              <th>Return %</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let holding of filteredHoldings">
+            <tr *ngFor="let holding of (filteredHoldings$ | async)">
               <td>{{ holding.symbol }}</td>
               <td>{{ holding.name }}</td>
               <td>{{ holding.type }}</td>
@@ -61,32 +63,7 @@
             </tr>
           </tbody>
         </table>
-      </div>
-    </section>
-
-    <!-- Orders Table -->
-    <section class="table-section" *ngIf="orders.length > 0">
-      <h3>Orders</h3>
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Order ID</th><th>Symbol</th><th>Type</th><th>Quantity</th>
-              <th>Price</th><th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let order of orders">
-              <td>{{ order.orderId }}</td>
-              <td>{{ order.symbol }}</td>
-              <td>{{ order.type }}</td>
-              <td>{{ order.quantity }}</td>
-                           <td>₹{{ order.price | number }}</td>
-              <td>{{ order.status }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+           </div>
     </section>
   </main>
 </div>
