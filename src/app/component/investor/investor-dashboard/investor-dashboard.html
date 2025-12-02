@@ -1,47 +1,54 @@
 
-<header>
-  <h2>Investor Dashboard</h2>
-</header>
-
-<section class="stats" *ngIf="portfolioSummary$ | async as portfolioSummary">
-  <div class="card"><h3>Total Value</h3><p>₹{{ portfolioSummary.totalValue | number }}</p></div>
-  <div class="card"><h3>Total Invested</h3><p>₹{{ portfolioSummary.totalInvested | number }}</p></div>
-  <div class="card"><h3>Total Gain/Loss</h3><p class="gain">₹{{ portfolioSummary.totalGainLoss | number }}</p></div>
-  <div class="card"><h3>Return</h3><p class="gain">+{{ portfolioSummary.gainLossPercent }}%</p></div>
+<!-- Investor Stats -->
+<section class="stats">
+  <div class="card"><h3>Total Value</h3><p>{{ stats?.totalValue | currency:'INR' }}</p></div>
+  <div class="card"><h3>Total Invested</h3><p>{{ stats?.totalInvested | currency:'INR' }}</p></div>
+  <div class="card"><h3>Gain/Loss</h3><p>{{ stats?.totalGainLoss | currency:'INR' }} ({{ stats?.gainLossPercent }}%)</p></div>
 </section>
 
+<!-- Holdings -->
 <section class="table-section">
-  <h3>Top Holdings</h3>
-  <table>
-    <thead>
-      <tr><th>Symbol</th><th>Quantity</th><th>Avg Price</th><th>Current Price</th><th>Value</th></tr>
-       </thead>
-    <tbody>
-      <tr *ngFor="let h of holdings$ | async">
-        <td>{{ h.symbol }}</td>
-        <td>{{ h.quantity }}</td>
-        <td>₹{{ h.avgPrice }}</td>
-        <td>₹{{ h.currentPrice }}</td>
-        <td>₹{{ h.value | number }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <h3>My Holdings</h3>
+  <div class="table-container">
+    <table>
+      <thead><tr><th>Symbol</th><th>Qty</th><th>Avg Price</th><th>Current Price</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let h of holdings">
+          <td>{{ h.symbol }}</td><td>{{ h.quantity }}</td><td>{{ h.avgPrice }}</td><td>{{ h.currentPrice }}</td><td>{{ h.value }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </section>
 
+<!-- Add New Order -->
+<section class="add-order-section">
+  <h3>Add New Order</h3>
+  <form (ngSubmit)="addOrder()" class="add-order-form">
+    <input type="text" placeholder="Order ID" [(ngModel)]="newOrder.orderId" name="orderId" required>
+    <input type="text" placeholder="Symbol" [(ngModel)]="newOrder.symbol" name="symbol" required>
+    <select [(ngModel)]="newOrder.type" name="type">
+      <option value="BUY">BUY</option>
+      <option value="SELL">SELL</option>
+    </select>
+    <input type="number" placeholder="Quantity" [(ngModel)]="newOrder.quantity" name="quantity" required>
+    <input type="text" placeholder="Price" [(ngModel)]="newOrder.price" name="price" required>
+    <button type="submit">Add Order</button>
+  </form>
+</section>
+
+<!-- Recent Orders -->
 <section class="table-section">
   <h3>Recent Orders</h3>
-  <table>
-    <thead>
-      <tr><th>Order ID</th><th>Symbol</th><th>Type</th><th>Quantity</th><th>Price</th><th>Status</th></tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let o of recentOrders$ | async">
-        <td>{{ o.orderId }}</td>
-        <td>{{ o.symbol }}</td>
-        <td>{{ o.type }}</td>
-        <td>{{ o.quantity }}</td>
-        <td>₹{{ o.price }}</td>
-        <td>{{ o.status }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-container">
+    <table>
+      <thead><tr><th>Order ID</th><th>Symbol</th><th>Type</th><th>Qty</th><th>Price</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let o of recentOrders">
+          <td>{{ o.orderId }}</td><td>{{ o.symbol }}</td><td>{{ o.type }}</td><td>{{ o.quantity }}</td><td>{{ o.price }}</td>
+          <td [class.executed]="o.status==='EXECUTED'" [class.pending]="o.status==='PENDING'">{{ o.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
