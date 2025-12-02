@@ -12,8 +12,8 @@ import { FormsModule } from '@angular/forms';
 export class BrokerProfile {
 
   // -------- Actual Profile Data --------
-  name: string = "Aditya Salaskar";
-  email: string = "aditya.broker@tradewise.com";
+  name: string = "John Broker";
+  email: string = "john.broker@tradewise.com";
   role: string = "Broker";
   memberSince: string = "Jan 2023";
   profileImg: string = "https://i.pravatar.cc/150?img=12";

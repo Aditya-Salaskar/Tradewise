@@ -1,46 +1,44 @@
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PortfolioService } from '../../../services/investor-portfolio.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-investor-portfolio',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './investor-portfolio.html',
   styleUrls: ['./investor-portfolio.css']
 })
-export class InvestorPortfolio {
-  holdings = [
-    { symbol: 'RELIANCE', name: 'Reliance Industries', type: 'Equity', quantity: 100, avgPrice: 2450, currentPrice: 2580, value: 258000, gainLoss: 13000, gainLossPercent: 5.3 },
-    { symbol: 'TCS', name: 'Tata Consultancy Services', type: 'Equity', quantity: 50, avgPrice: 3200, currentPrice: 3450, value: 172500, gainLoss: 12500, gainLossPercent: 7.8 },
-    { symbol: 'INFY', name: 'Infosys Limited', type: 'Equity', quantity: 150, avgPrice: 1420, currentPrice: 1520, value: 228000, gainLoss: 15000, gainLossPercent: 7.0 },
-    { symbol: 'HDFC', name: 'HDFC Bank', type: 'Equity', quantity: 80, avgPrice: 2650, currentPrice: 2720, value: 217600, gainLoss: 5600, gainLossPercent: 2.6 },
-    { symbol: 'ITC', name: 'ITC Limited', type: 'Equity', quantity: 200, avgPrice: 420, currentPrice: 445, value: 89000, gainLoss: 5000, gainLossPercent: 6.0 },
-    { symbol: 'BOND-001', name: 'Govt Bond 7.5% 2030', type: 'Bond', quantity: 10, avgPrice: 98500, currentPrice: 99200, value: 992000, gainLoss: 7000, gainLossPercent: 0.7 }
-  ];
-
-  filteredHoldings = [...this.holdings];
+export class InvestorPortfolio implements OnInit {
+  holdings: any[] = [];
+  filteredHoldings: any[] = [];
   activeFilter = 'All';
+  totalValue = 0;
+  totalGainLoss = 0;
 
-  totalValue = this.getTotalValue(this.filteredHoldings);
-  totalGainLoss = this.getTotalGainLoss(this.filteredHoldings);
+  constructor(private portfolioService: PortfolioService) {}
+
+  ngOnInit() {
+    this.portfolioService.getPortfolioSummary().subscribe(summary => {
+      this.holdings = summary.holdings;
+      this.filteredHoldings = [...this.holdings];
+      this.totalValue = summary.totalValue;
+      this.totalGainLoss = summary.totalGainLoss;
+    });
+  }
 
   filterHoldings(type: string) {
     this.activeFilter = type;
-    if (type === 'All') {
-      this.filteredHoldings = [...this.holdings];
-    } else {
-      this.filteredHoldings = this.holdings.filter(h => h.type === type);
-    }
-    this.totalValue = this.getTotalValue(this.filteredHoldings);
-    this.totalGainLoss = this.getTotalGainLoss(this.filteredHoldings);
+    this.filteredHoldings = type === 'All'
+           ? [...this.holdings]
+      : this.holdings.filter(h => h.type === type);
+    this.calculateTotals();
   }
 
-  private getTotalValue(list: any[]) {
-    return list.reduce((sum, h) => sum + h.value, 0);
-  }
-
-  private getTotalGainLoss(list: any[]) {
-    return list.reduce((sum, h) => sum + h.gainLoss, 0);
+  private calculateTotals() {
+    this.totalValue = this.filteredHoldings.reduce((sum, h) => sum + h.value, 0);
+    this.totalGainLoss = this.filteredHoldings.reduce((sum, h) => sum + h.gainLoss, 0);
   }
 }
