@@ -15,7 +15,7 @@
   <table>
     <thead>
       <tr><th>Symbol</th><th>Quantity</th><th>Avg Price</th><th>Current Price</th><th>Value</th></tr>
-       </thead>
+    </thead>
     <tbody>
       <tr *ngFor="let h of holdings$ | async">
         <td>{{ h.symbol }}</td>
@@ -45,3 +45,4 @@
       </tr>
     </tbody>
   </table>
+</section>

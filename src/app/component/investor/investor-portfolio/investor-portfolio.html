@@ -13,7 +13,9 @@
       </div>
       <div class="card">
         <h3>Total Gain/Loss</h3>
-        <p [ngClass]="summary.totalGainLoss >= 0 ? 'gain' : 'loss'">₹{{ summary.totalGainLoss | number }}</p>
+        <p [ngClass]="summary.totalGainLoss >= 0 ? 'gain' : 'loss'">
+          ₹{{ summary.totalGainLoss | number }}
+        </p>
       </div>
       <div class="card">
         <h3>Total Holdings</h3>
@@ -21,7 +23,7 @@
       </div>
     </section>
 
-    <!-- Dynamic Filter Tabs -->
+    <!-- Filter Tabs -->
     <section class="filter-tabs">
       <button [class.active-tab]="activeFilter === 'All'" (click)="filterHoldings('All')">All</button>
       <button *ngFor="let type of availableTypes"
@@ -61,4 +63,30 @@
         </table>
       </div>
     </section>
+
+    <!-- Orders Table -->
+    <section class="table-section" *ngIf="orders.length > 0">
+      <h3>Orders</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th><th>Symbol</th><th>Type</th><th>Quantity</th>
+              <th>Price</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of orders">
+              <td>{{ order.orderId }}</td>
+              <td>{{ order.symbol }}</td>
+              <td>{{ order.type }}</td>
+              <td>{{ order.quantity }}</td>
+                           <td>₹{{ order.price | number }}</td>
+              <td>{{ order.status }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </main>
+</div>

@@ -16,17 +16,18 @@ export class InvestorPortfolio {
   portfolioSummary$: Observable<{ totalValue: number; totalGainLoss: number; holdings: any[] }>;
   holdings: any[] = [];
   filteredHoldings: any[] = [];
+  orders: any[] = [];
   activeFilter = 'All';
-  availableTypes: string[] = []; // ✅ Dynamic filter types
+  availableTypes: string[] = [];
 
   constructor(private portfolioService: PortfolioService) {
     this.portfolioSummary$ = this.portfolioService.getPortfolioSummary();
 
-    // Load holdings and initialize filters
-    this.portfolioSummary$.subscribe(summary => {
-      this.holdings = summary.holdings;
-      this.filteredHoldings = [...this.holdings]; // Show all initially
-      this.availableTypes = this.getAvailableTypes(this.holdings); // ✅ Extract types dynamically
+       this.portfolioService.getPortfolioData().subscribe(data => {
+      this.holdings = data.holdings;
+      this.filteredHoldings = [...this.holdings];
+      this.availableTypes = this.getAvailableTypes(this.holdings);
+      this.orders = data.orders;
     });
   }
 
@@ -38,7 +39,6 @@ export class InvestorPortfolio {
   }
 
   private getAvailableTypes(holdings: any[]): string[] {
-    const types = holdings.map(h => h.type);
-       return Array.from(new Set(types)); // ✅ Unique types
+    return Array.from(new Set(holdings.map(h => h.type)));
   }
 }
