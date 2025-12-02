@@ -1,20 +1,19 @@
 
 <div class="dashboard-container">
-  <!-- Main Content -->
   <main class="main-content">
     <header>
       <h2>Portfolio Details</h2>
     </header>
 
     <!-- Summary Cards -->
-    <section class="stats">
+    <section class="stats" *ngIf="portfolioSummary$ | async as summary">
       <div class="card">
         <h3>Total Portfolio Value</h3>
-        <p>₹{{ totalValue | number }}</p>
+        <p>₹{{ summary.totalValue | number }}</p>
       </div>
       <div class="card">
         <h3>Total Gain/Loss</h3>
-        <p [ngClass]="totalGainLoss >= 0 ? 'gain' : 'loss'">₹{{ totalGainLoss | number }}</p>
+        <p [ngClass]="summary.totalGainLoss >= 0 ? 'gain' : 'loss'">₹{{ summary.totalGainLoss | number }}</p>
       </div>
       <div class="card">
         <h3>Total Holdings</h3>
@@ -22,12 +21,14 @@
       </div>
     </section>
 
-    <!-- Filter Tabs -->
+    <!-- Dynamic Filter Tabs -->
     <section class="filter-tabs">
       <button [class.active-tab]="activeFilter === 'All'" (click)="filterHoldings('All')">All</button>
-      <button [class.active-tab]="activeFilter === 'Equity'" (click)="filterHoldings('Equity')">Equity</button>
-      <button [class.active-tab]="activeFilter === 'Bond'" (click)="filterHoldings('Bond')">Bonds</button>
-      <button disabled>Mutual Funds</button>
+      <button *ngFor="let type of availableTypes"
+              [class.active-tab]="activeFilter === type"
+              (click)="filterHoldings(type)">
+        {{ type }}
+      </button>
     </section>
 
     <!-- Holdings Table -->
@@ -37,15 +38,9 @@
         <table>
           <thead>
             <tr>
-              <th>Symbol</th>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Quantity</th>
-              <th>Avg Price</th>
-              <th>Current Price</th>
-              <th>Value</th>
-              <th>Gain/Loss</th>
-              <th>Return %</th>
+              <th>Symbol</th><th>Name</th><th>Type</th><th>Quantity</th>
+              <th>Avg Price</th><th>Current Price</th><th>Value</th>
+              <th>Gain/Loss</th><th>Return %</th>
             </tr>
           </thead>
           <tbody>
@@ -67,4 +62,3 @@
       </div>
     </section>
   </main>
-</div>

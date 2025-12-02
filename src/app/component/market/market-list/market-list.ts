@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 
 interface Stock {
   symbol: string;
@@ -29,11 +29,11 @@ interface Index {
   styleUrls: ['./market-list.css']
 })
 export class MarketList {
-constructor(private router: Router) {}
+constructor(private router: Router, private route: ActivatedRoute) {}
   
 
 navigateToDetails(symbol: string) {
-    this.router.navigate(['/investor/market', symbol]);
+    this.router.navigate([symbol], { relativeTo: this.route });
   }
 
 
