@@ -1,0 +1,93 @@
+<div class="orders-page">
+  <header class="orders-header">
+    <h2>Order Summary</h2>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="label">Total (Today)</div>
+        <div class="value">{{ totalToday }}</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Total (This Month)</div>
+        <div class="value">{{ totalMonth }}</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Pending</div>
+        <div class="value pending">{{ pendingCount }}</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Executed</div>
+        <div class="value executed">{{ executedCount }}</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Cancelled</div>
+        <div class="value cancelled">{{ cancelledCount }}</div>
+      </div>
+    </div>
+  </header>
+
+  
+<section class="filters">
+  <div class="filter-row">
+    <input placeholder="Search by Order ID or Instrument" [(ngModel)]="searchTerm" (ngModelChange)="applyFilters()" />
+    <select [(ngModel)]="statusFilter" (ngModelChange)="applyFilters()">
+      <option value="">All Status</option>
+      <option value="PENDING">PENDING</option>
+      <option value="EXECUTED">EXECUTED</option>
+      <option value="CANCELLED">CANCELLED</option>
+    </select>
+    <input placeholder="Instrument" [(ngModel)]="instrumentFilter" (ngModelChange)="applyFilters()" />
+    <label class="date">
+      From <input type="date" [(ngModel)]="dateFrom" (ngModelChange)="applyFilters()" />
+    </label>
+    <label class="date">
+      To <input type="date" [(ngModel)]="dateTo" (ngModelChange)="applyFilters()" />
+    </label>
+  </div>
+
+  <!-- Buttons on next line -->
+  <div class="actions-row">
+    <button (click)="applyFilters()">Apply</button>
+    <button (click)="exportCSV()">Export CSV</button>
+    <button (click)="exportPDF()">Export PDF</button>
+  </div>
+</section>
+
+
+  <section class="table-section" *ngIf="!loading">
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Instrument</th>
+            <th>Type</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Timestamp</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let o of filteredOrders">
+            <td>{{ o.orderId }}</td>
+            <td>{{ o.instrument }}</td>
+            <td>{{ o.type }}</td>
+            <td>{{ o.quantity }}</td>
+            <td>{{ o.price }}</td>
+            <td [class.pending]="o.status==='PENDING'" [class.executed]="o.status==='EXECUTED'" [class.cancelled]="o.status==='CANCELLED'">{{ o.status }}</td>
+            <td>{{ formatDate(o.timestamp) }}</td>
+            <!-- <td>
+              <button class="cancel-btn" [disabled]="o.status !== 'PENDING'" (click)="confirmCancel(o)">Cancel</button>
+            </td> -->
+          </tr>
+          <tr *ngIf="filteredOrders.length === 0">
+            <td colspan="8" class="empty">No orders match the filters.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section *ngIf="loading" class="loading">Loading orders...</section>
+</div>
