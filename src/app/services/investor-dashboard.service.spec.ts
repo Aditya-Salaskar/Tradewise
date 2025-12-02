@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { InvestorDashboardService } from './investor-dashboard-service';
+import { InvestorDashboardService } from './investor-dashboard.service';
 
 describe('InvestorDashboardService', () => {
   let service: InvestorDashboardService;
