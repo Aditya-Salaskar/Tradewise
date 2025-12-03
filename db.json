@@ -35,6 +35,107 @@
     { "orderId": "ORD-115", "symbol": "POWERGRID", "type": "BUY", "quantity": 70, "price": 210, "status": "EXECUTED" }
    ]
 
-
+,"Investororders": [
+    {
+      "id": 1,
+      "orderId": "ORD-1001",
+      "instrument": "ACME Corp",
+      "type": "BUY",
+      "quantity": 100,
+      "price": 120.5,
+      "status": "PENDING",
+      "timestamp": "2025-12-02T09:15:00.000Z"
+    },
+    {
+      "id": 2,
+      "orderId": "ORD-1002",
+      "instrument": "Global Bank Bond",
+      "type": "BUY",
+      "quantity": 50,
+      "price": 99.75,
+      "status": "EXECUTED",
+      "timestamp": "2025-12-01T14:30:00.000Z"
+    },
+    {
+      "id": 3,
+      "orderId": "ORD-1003",
+      "instrument": "TechWorks",
+      "type": "SELL",
+      "quantity": 20,
+      "price": 310.0,
+      "status": "CANCELLED",
+      "timestamp": "2025-11-28T11:05:00.000Z"
+    },
+    {
+      "id": 4,
+      "orderId": "ORD-1004",
+      "instrument": "ACME Corp",
+      "type": "SELL",
+      "quantity": 40,
+      "price": 125.0,
+      "status": "EXECUTED",
+      "timestamp": "2025-12-02T08:45:00.000Z"
+    },
+    {
+      "id": 5,
+      "orderId": "ORD-1005",
+      "instrument": "Green Energy",
+      "type": "BUY",
+      "quantity": 150,
+      "price": 42.25,
+      "status": "PENDING",
+      "timestamp": "2025-12-02T10:05:00.000Z"
+    },
+    {
+      "id": 6,
+      "orderId": "ORD-1006",
+      "instrument": "Global Bank Bond",
+      "type": "SELL",
+      "quantity": 30,
+      "price": 101.0,
+      "status": "EXECUTED",
+      "timestamp": "2025-11-30T16:20:00.000Z"
+    },
+    {
+      "id": 7,
+      "orderId": "ORD-1007",
+      "instrument": "BlueChip Inc",
+      "type": "BUY",
+      "quantity": 10,
+      "price": 980.0,
+      "status": "PENDING",
+      "timestamp": "2025-12-01T09:00:00.000Z"
+    },
+    {
+      "id": 8,
+      "orderId": "ORD-1008",
+      "instrument": "TechWorks",
+      "type": "BUY",
+      "quantity": 5,
+      "price": 312.5,
+      "status": "EXECUTED",
+      "timestamp": "2025-12-02T07:30:00.000Z"
+    },
+    {
+      "id": 9,
+      "orderId": "ORD-1009",
+      "instrument": "Regional Utilities",
+      "type": "SELL",
+      "quantity": 200,
+      "price": 15.8,
+      "status": "CANCELLED",
+      "timestamp": "2025-11-25T12:00:00.000Z"
+    },
+    {
+      "id": 10,
+      "orderId": "ORD-1010",
+      "instrument": "Green Energy",
+      "type": "SELL",
+      "quantity": 60,
+      "price": 43.0,
+      "status": "EXECUTED",
+      "timestamp": "2025-12-02T06:45:00.000Z"
+    }
+  ]
 
 }
