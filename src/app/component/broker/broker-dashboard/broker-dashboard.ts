@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+=======
+import { Component, OnInit } from '@angular/core';
+>>>>>>> origin/Market-Data-Module
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { DashboardService } from '../../../services/dashboard.service';
