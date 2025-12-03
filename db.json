@@ -29,10 +29,8 @@
       "role": "INVESTOR",
       "riskProfile": "aggressive"
     }
-  ]
-}
-
-{
+  ],
+  
   "holdings": [
     { "symbol": "TCS", "name": "Tata Consultancy Services", "type": "Equity", "quantity": 50, "avgPrice": 3450, "currentPrice": 3600 },
     { "symbol": "INFY", "name": "Infosys", "type": "Equity", "quantity": 100, "avgPrice": 1520, "currentPrice": 1550 },

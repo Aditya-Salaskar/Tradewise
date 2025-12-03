@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 // Broker Components
 import { BrokerDashboard } from './component/broker/broker-dashboard/broker-dashboard';
-import { BrokerLayout } from './component/broker/broker-layout/broker-layout';
+import { BrokerLayout } from './component/shared/broker-layout/broker-layout';
 import { BrokerProfile } from './component/broker/broker-profile/broker-profile';
 import { BrokerLogout } from './component/broker/broker-logout/broker-logout';
 import { RiskAnalysis } from './component/broker/riskAnalysis/risk-analysis';
@@ -17,7 +17,7 @@ import { InvestorPortfolio } from './component/investor/investor-portfolio/inves
 import { MarketList } from './component/market/market-list/market-list';
 import { InstrumentDetails } from './component/market/instrument-detail/instrument-detail';
 import { InvestorLogout } from './component/investor/investor-logout/investor-logout';
-import { InvestorProfile } from './component/investor/investor-profile/investor-profile';
+import { InvestorProfile } from './component/shared/investor-profile/investor-profile';
 import { InvestorOrder } from './component/investor/investor-order/investor-order';
 
 export const routes: Routes = [
