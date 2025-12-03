@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -25,20 +26,4 @@ export class AuthService {
   updateUser(id: string, user: Partial<User>): Observable<User> {
     return this.http.put<User>(`${this.apiUrl}/${id}`, user);
   } 
-}
-
-
-export interface User {
-  id?: string;
-  username: string;
-  email: string;
-  password: string;
-  role: 'INVESTOR' | 'BROKER' | 'ADMIN' | string;
-  fullName?: string;
-  phone?: string;
-  accountNumber?: string;
-  panNumber?: string;
-  bankAccount?: string;
-  ifscCode?: string;
-  profilePicture?: string;
 }

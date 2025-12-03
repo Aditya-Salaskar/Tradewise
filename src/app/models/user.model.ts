@@ -10,5 +10,6 @@ export interface User {
   panNumber?: string;
    bankAccount?: string;
   ifscCode?: string;
+  riskProfile?: 'aggressive' | 'moderate' | 'conservative' | null;
   profilePicture?: string;
 }

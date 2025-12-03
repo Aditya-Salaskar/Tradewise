@@ -66,6 +66,50 @@
   color: #333;
 }
 
+.profile-item input,
+.profile-item select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 20px;
+  background-color: #fff;
+  color: #333;
+  box-sizing: border-box;
+  width: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-item input[readonly],
+.profile-item select:disabled {
+  background-color: #f9f9f9;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.profile-item input:hover,
+.profile-item select:hover {
+  border-color: #0078d4;
+}
+.profile-item input:focus,
+.profile-item select:focus {
+  outline: none;
+  border-color: #0078d4;
+  box-shadow: 0 0 4px rgba(0, 120, 212, 0.4);
+}
+
+.profile-item select {
+  appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  padding-right: 36px;
+}
+
+.profile-item select option[disabled] {
+  color: #999;
+}
+
 .password-section {
   display: flex;
   flex-direction: column;

@@ -2,7 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService, User } from '../../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
+import { User } from '../../../models/user.model';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -37,6 +38,7 @@ this.auth.getUserById(userId).subscribe({
           panNumber: '',
           bankAccount: '',
           ifscCode: '',
+          riskProfile: null,
           profilePicture: 'assets/default-avatar.png', // safe default
           ...data
         };
