@@ -1,28 +1,30 @@
 
 <!-- Stats -->
-<section class="stats">
+<section class="stats" *ngIf="stats$ | async as stats; else loadingStats">
   <div class="card">
     <h3>Total Clients</h3>
-    <p>{{ stats?.totalClients }}</p>
+    <p>{{ stats.totalClients }}</p>
   </div>
+
   <div class="card">
     <h3>Active Orders</h3>
-    <p>{{ stats?.activeOrders }}</p>
+    <p>{{ stats.activeOrders }}</p>
   </div>
+
   <div class="card">
     <h3>Today's Volume</h3>
-    <p>{{ stats?.todaysVolume }}</p>
-  </div>
-  <div class="card">
-    <h3>Today's Commission</h3>
-    <p>{{ stats?.todaysCommission }}</p>
+    <p>{{ stats.todaysVolume | currency:'INR':'symbol' }}</p>
   </div>
 </section>
+<ng-template #loadingStats>
+  <p style="color: gray;">Loading stats...</p>
+</ng-template>
 
 <!-- Client Overview -->
 <section class="table-section">
   <h3>Client Overview</h3>
-  <div class="table-container">
+
+  <div class="table-container" *ngIf="clients$ | async as clients; else loadingClients">
     <table>
       <thead>
         <tr>
@@ -34,25 +36,35 @@
           <th>Actions</th>
         </tr>
       </thead>
+
       <tbody>
-        <tr *ngFor="let client of clients">
+        <tr *ngFor="let client of clients; trackBy: trackByClientId">
           <td>{{ client.id }}</td>
           <td>{{ client.name }}</td>
           <td>{{ client.portfolioValue }}</td>
           <td>{{ client.todaysOrders }}</td>
-          <td [class.active]="client.status === 'ACTIVE'" [class.inactive]="client.status === 'INACTIVE'">{{ client.status }}</td>
-          <td><button>View Details</button></td>
+          <td [class.active]="client.status === 'ACTIVE'"
+              [class.inactive]="client.status === 'INACTIVE'">
+            {{ client.status }}
+          </td>
+          <td>
+            <button (click)="goToOrderDetails(client.id)">View Details</button>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
+
+  <ng-template #loadingClients>
+    <p style="color: gray;">Loading clients...</p>
+  </ng-template>
 </section>
 
 <!-- Recent Orders -->
 <section class="table-section">
   <h3>Recent Client Orders</h3>
-  <div class="table-container">
 
+  <div class="table-container" *ngIf="orders$ | async as orders; else loadingOrders">
     <table>
       <thead>
         <tr>
@@ -63,19 +75,38 @@
           <th>Quantity</th>
           <th>Price</th>
           <th>Status</th>
+          <th style="width: 180px;">Actions</th>
         </tr>
       </thead>
+
       <tbody>
-        <tr *ngFor="let order of orders">
+        <tr *ngFor="let order of orders; trackBy: trackByOrderId">
           <td>{{ order.orderId }}</td>
           <td>{{ order.client }}</td>
           <td>{{ order.symbol }}</td>
           <td>{{ order.type }}</td>
           <td>{{ order.quantity }}</td>
           <td>{{ order.price }}</td>
-          <td [class.executed]="order.status === 'EXECUTED'" [class.pending]="order.status === 'PENDING'">{{ order.status }}</td>
+          <td [class.executed]="order.status === 'EXECUTED'"
+              [class.pending]="order.status === 'PENDING'"
+              [class.cancelled]="order.status === 'CANCELLED'">
+            {{ order.status }}
+          </td>
+          <td>
+            <button (click)="approveOrder(order.orderId)" [disabled]="order.status !== 'PENDING'">
+              Approve
+            </button>
+            <button (click)="rejectOrder(order.orderId)" [disabled]="order.status !== 'PENDING'">
+              Reject
+            </button>
+            <button (click)="goToOrderDetails(order.orderId)">Details</button>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
+
+  <ng-template #loadingOrders>
+    <p style="color: gray;">Loading orders...</p>
+  </ng-template>
 </section>
