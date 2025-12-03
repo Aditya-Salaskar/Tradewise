@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';  // *ngFor, *ngIf
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -11,15 +12,9 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './landing-page.css',
 })
 export class LandingPage {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
   
   showAuthModal = false;
-  invest(){
-    this.router.navigate(['/investor/dashboard']);
-  }
-  broke(){
-    this.router.navigate(['/broker/dashboard']);
-  }
 
   openAuthModal() {
     this.showAuthModal = true;
@@ -39,18 +34,47 @@ toggleMode() {
 }
 
 onLogin() {
-  console.log('Login data:', this.loginData);
-  // TODO: Replace with real authentication logic.
-  // For now, simulate successful login and navigate to investor dashboard.
-  this.showAuthModal = false;
-  this.router.navigate(['/investor']);
+  
+if (!this.loginData.username || !this.loginData.password) {
+    alert('Please enter both username and password.');
+    return;
+  }
+
+  this.authService.login(this.loginData.username, this.loginData.password).subscribe((users) => {
+    if (users.length > 0){
+      alert('Login successfull');
+      const user = users[0];
+      const role = users[0].role;
+      if(role === 'INVESTOR'){
+        localStorage.setItem('userId', String(user.id));
+        this.router.navigate(['/investor/dashboard']);
+      } else if(role === 'BROKER'){
+        this.router.navigate(['broker/dashboard']);
+      } else if(role === 'ADMIN'){
+        this.router.navigate(['admin/dashboard']);
+      }
+    } else {
+      alert('Invalid credentials');
+    }
+  });
 }
 
 onRegister() {
-  console.log('Register data:', this.registerData);
-}
+  
+const newUser = {
+    ...this.registerData,
+    fullName: '',
+    phone: '',
+    accountNumber: '',
+    panNumber: '',
+    bankAccount: '',
+    ifscCode: '',
+    profilePicture: ''
+  };
 
-investorDashboard(): void {
-  this.router.navigate(['/investor-dashboard']);
+  this.authService.register(newUser).subscribe(()=>{
+    alert('Registration successful! Please log in.');
+    this.toggleMode();
+  });
 }
 }
