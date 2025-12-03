@@ -21,9 +21,11 @@
             "tsConfig": "tsconfig.app.json",
            
  "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/assets/mock-data"
+            {
+              "glob":"**/*",
+              "input": "public"
+            } 
+
             ],
 
             
