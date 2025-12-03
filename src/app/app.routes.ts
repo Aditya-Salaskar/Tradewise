@@ -23,6 +23,7 @@ import { InvestorOrder } from './component/investor/investor-order/investor-orde
 
 // Risk Analysis
 import { RiskAnalysis } from './component/investor/riskAnalysis/risk-analysis';
+import { InvestorTrade } from './component/investor/investor-trade/investor-trade';
 
 export const routes: Routes = [
   { path: '', component: LandingPage },
@@ -49,6 +50,7 @@ export const routes: Routes = [
 
       // ADDED: orders route for investor -> investor-order component
       { path: 'orders', component: InvestorOrder },
+      { path: 'trade', component: InvestorTrade },
 
       // existing market/profile/logout routes
       { path: 'market', component: MarketList },
