@@ -1,4 +1,3 @@
-
 import { Routes } from '@angular/router';
 
 // Broker Components
@@ -19,6 +18,7 @@ import { MarketList } from './component/market/market-list/market-list';
 import { InstrumentDetails } from './component/market/instrument-detail/instrument-detail';
 import { InvestorLogout } from './component/investor/investor-logout/investor-logout';
 import { InvestorProfile } from './component/investor/investor-profile/investor-profile';
+import { InvestorOrder } from './component/investor/investor-order/investor-order';
 
 export const routes: Routes = [
   { path: '', component: LandingPage },
@@ -42,8 +42,11 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: InvestorDashboard },
       { path: 'portfolio', component: InvestorPortfolio },
-      // { path: 'trade', component: RiskAnalysis }, 
-      // { path: 'orders', component: BrokerProfile },
+
+      // ADDED: orders route for investor -> investor-order component
+      { path: 'orders', component: InvestorOrder },
+
+      // existing market/profile/logout routes
       { path: 'market', component: MarketList },
       { path: 'market/:symbol', component: InstrumentDetails },
       { path: 'profile', component: InvestorProfile },

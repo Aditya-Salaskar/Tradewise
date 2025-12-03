@@ -3,38 +3,59 @@
   <h2>Investor Dashboard</h2>
 </header>
 
+<!-- Portfolio Summary -->
 <section class="stats">
-  <div class="card"><h3>Total Value</h3><p>₹{{ (portfolioSummary$ | async)?.totalValue | number }}</p></div>
-  <div class="card"><h3>Total Invested</h3><p>₹{{ (portfolioSummary$ | async)?.totalInvested | number }}</p></div>
-  <div class="card"><h3>Total Gain/Loss</h3><p>₹{{ (portfolioSummary$ | async)?.totalGainLoss | number }}</p></div>
-  <div class="card"><h3>Return</h3><p class="gain">+{{ (portfolioSummary$ | async)?.gainLossPercent }}%</p></div>
+  <ng-container *ngIf="portfolioSummary$ | async as summary; else loading">
+    <div class="card"><h3>Total Value</h3><p>{{ summary.totalValue | number }}</p></div>
+    <div class="card"><h3>Total Invested</h3><p>{{ summary.totalInvested | number }}</p></div>
+    <div class="card"><h3>Total Gain/Loss</h3><p class="gain">{{ summary.totalGainLoss | number }}</p></div>
+    <div class="card"><h3>Return</h3><p class="gain">+{{ summary.gainLossPercent }}%</p></div>
+  </ng-container>
+  <ng-template #loading>
+    <p style="color: gray;">Loading portfolio summary...</p>
+  </ng-template>
 </section>
 
+<!-- Top Holdings -->
 <section class="table-section">
   <h3>Top Holdings</h3>
-  <table>
-    <thead><tr><th>Symbol</th><th>Quantity</th><th>Avg Price</th><th>Current Price</th><th>Value</th></tr></thead>
-    <tbody>
-      <tr *ngFor="let h of (holdings$ | async)?.slice(0,5)">
-        <td>{{ h.symbol }}</td><td>{{ h.quantity }}</td><td>₹{{ h.avgPrice }}</td><td>₹{{ h.currentPrice }}</td><td>₹{{ h.value | number }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div *ngIf="holdings$ | async as holdings; else loadingHoldings">
+    <table>
+      <thead><tr><th>Symbol</th><th>Quantity</th><th>Avg Price</th><th>Current Price</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let h of holdings">
+          <td>{{ h.symbol }}</td>
+          <td>{{ h.quantity }}</td>
+          <td>{{ h.avgPrice }}</td>
+          <td>{{ h.currentPrice }}</td>
+          <td>{{ h.value | number }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #loadingHoldings>
+    <p style="color: gray;">Loading holdings...</p>
+  </ng-template>
 </section>
 
+<!-- Recent Orders -->
 <section class="table-section">
   <h3>Recent Orders</h3>
-  <table>
-    <thead><tr><th>Order ID</th><th>Symbol</th><th>Type</th><th>Quantity</th><th>Price</th><th>Status</th></tr></thead>
-    <tbody>
-      
-<tr *ngFor="let o of (recentOrders$ | async)?.slice(0,5)">
-  <td>{{ o.orderId }}</td>
-  <td>{{ o.symbol }}</td>
-  <td>{{ o.type }}</td>
-  <td>{{ o.quantity }}</td>
-  <td>₹{{ o.price }}</td>
-  <td>{{ o.status }}</td>
-</tr>
-    </tbody>
-  </table>
+  <div *ngIf="recentOrders$ | async as orders; else loadingOrders">
+    <table>
+      <thead><tr><th>Order ID</th><th>Symbol</th><th>Type</th><th>Quantity</th><th>Price</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let o of orders">
+          <td>{{ o.orderId }}</td>
+          <td>{{ o.symbol }}</td>
+          <td>{{ o.type }}</td>
+          <td>{{ o.quantity }}</td>
+          <td>{{ o.price }}</td>
+          <td>{{ o.status }}</td>
+               </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #loadingOrders>
+    <p style="color: gray;">Loading orders...</p>
+  </ng-template>

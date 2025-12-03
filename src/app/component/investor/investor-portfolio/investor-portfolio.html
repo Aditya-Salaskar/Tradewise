@@ -1,22 +1,19 @@
 
-<header>
-  <h2>Portfolio Details</h2>
-</header>
+<div class="dashboard-container">
+  <main class="main-content">
+    <header>
+      <h2>Portfolio Details</h2>
+    </header>
 
     <!-- Summary Cards -->
-    <section class="stats">
+    <section class="stats" *ngIf="portfolioSummary$ | async as summary">
       <div class="card">
         <h3>Total Portfolio Value</h3>
-        <p>₹{{ (portfolioSummary$ | async)?.totalValue | number }}</p>
+        <p>₹{{ summary.totalValue | number }}</p>
       </div>
       <div class="card">
         <h3>Total Gain/Loss</h3>
-        
-
-        <!-- <p [ngClass]="(portfolioSummary$ | async)?.totalGainLoss >= 0 ? 'gain' : 'loss'">
-         ₹{{ (portfolioSummary$ | async)?.totalGainLoss | number }}
-        </p> -->
-
+        <p [ngClass]="summary.totalGainLoss >= 0 ? 'gain' : 'loss'">₹{{ summary.totalGainLoss | number }}</p>
       </div>
       <div class="card">
         <h3>Total Holdings</h3>
@@ -66,5 +63,7 @@
             </tr>
           </tbody>
         </table>
-      </div>
+           </div>
     </section>
+  </main>
+</div>
