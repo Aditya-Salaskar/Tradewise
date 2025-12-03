@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InvestorDashboardService } from '../../../services/investor-dashboard.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-investor-dashboard',
@@ -10,24 +11,16 @@ import { InvestorDashboardService } from '../../../services/investor-dashboard.s
   templateUrl: './investor-dashboard.html',
   styleUrls: ['./investor-dashboard.css']
 })
-export class InvestorDashboard implements OnInit {
-  portfolioSummary: any;
-  holdings: any[] = [];
-  recentOrders: any[] = [];
+export class InvestorDashboard {
+  
+portfolioSummary$: Observable<any>;
+  holdings$: Observable<any[]>;
+  recentOrders$: Observable<any[]>;
 
-  constructor(private dashboardService: InvestorDashboardService) {}
+  constructor(private dashboardService: InvestorDashboardService) {
+    this.portfolioSummary$ = this.dashboardService.getPortfolioSummary();
+    this.holdings$ = this.dashboardService.getHoldings();
+    this.recentOrders$ = this.dashboardService.getOrders();
+   }
 
-  ngOnInit(): void {
-    this.dashboardService.getPortfolioSummary().subscribe((summary: any) => {
-      this.portfolioSummary = summary;
-    });
-
-    this.dashboardService.getHoldings().subscribe((data: any[]) => {
-      this.holdings = data.slice(0, 5);
-    });
-
-    this.dashboardService.getOrders().subscribe((data: any[]) => {
-           this.recentOrders = data.slice(0, 5);
-    });
-  }
 }

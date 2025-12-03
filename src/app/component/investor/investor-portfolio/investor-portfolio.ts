@@ -2,43 +2,33 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortfolioService } from '../../../services/investor-portfolio.service';
-import { HttpClientModule } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-investor-portfolio',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule],
   templateUrl: './investor-portfolio.html',
   styleUrls: ['./investor-portfolio.css']
 })
-export class InvestorPortfolio implements OnInit {
-  holdings: any[] = [];
-  filteredHoldings: any[] = [];
+export class InvestorPortfolio {
+  
+portfolioSummary$: Observable<{ totalValue: number; totalGainLoss: number; holdings: any[] }>;
+  filteredHoldings$: Observable<any[]>;
   activeFilter = 'All';
-  totalValue = 0;
-  totalGainLoss = 0;
-
-  constructor(private portfolioService: PortfolioService) {}
-
-  ngOnInit() {
-    this.portfolioService.getPortfolioSummary().subscribe(summary => {
-      this.holdings = summary.holdings;
-      this.filteredHoldings = [...this.holdings];
-      this.totalValue = summary.totalValue;
-      this.totalGainLoss = summary.totalGainLoss;
-    });
+  
+constructor(private portfolioService: PortfolioService) {
+    this.portfolioSummary$ = this.portfolioService.getPortfolioSummary();
+    this.filteredHoldings$ = this.portfolioSummary$.pipe(map(summary => summary.holdings));
   }
 
-  filterHoldings(type: string) {
+filterHoldings(type: string) {
     this.activeFilter = type;
-    this.filteredHoldings = type === 'All'
-           ? [...this.holdings]
-      : this.holdings.filter(h => h.type === type);
-    this.calculateTotals();
-  }
-
-  private calculateTotals() {
-    this.totalValue = this.filteredHoldings.reduce((sum, h) => sum + h.value, 0);
-    this.totalGainLoss = this.filteredHoldings.reduce((sum, h) => sum + h.gainLoss, 0);
+    this.filteredHoldings$ = this.portfolioSummary$.pipe(
+      map(summary =>
+        type === 'All' ? summary.holdings : summary.holdings.filter(h => h.type === type)
+      )
+    );
   }
 }

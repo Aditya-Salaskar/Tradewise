@@ -6,6 +6,7 @@ import { BrokerDashboard } from './component/broker/broker-dashboard/broker-dash
 import { BrokerLayout } from './component/broker/broker-layout/broker-layout';
 import { BrokerProfile } from './component/broker/broker-profile/broker-profile';
 import { BrokerLogout } from './component/broker/broker-logout/broker-logout';
+import { RiskAnalysis } from './component/broker/riskAnalysis/risk-analysis';
 
 // Auth
 import { LandingPage } from './component/auth/landing-page/landing-page';
@@ -18,9 +19,6 @@ import { MarketList } from './component/market/market-list/market-list';
 import { InstrumentDetails } from './component/market/instrument-detail/instrument-detail';
 import { InvestorLogout } from './component/investor/investor-logout/investor-logout';
 import { InvestorProfile } from './component/investor/investor-profile/investor-profile';
-
-// Risk Analysis
-import { RiskAnalysis } from './component/investor/riskAnalysis/risk-analysis';
 
 export const routes: Routes = [
   { path: '', component: LandingPage },
@@ -53,5 +51,4 @@ export const routes: Routes = [
     ]
   },
 
-  { path: 'risk-analysis', component: RiskAnalysis }
 ];

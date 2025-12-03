@@ -1,7 +1,9 @@
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService, User } from '../../../services/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-investor-profile',
@@ -10,25 +12,40 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './investor-profile.html',
   styleUrls: ['./investor-profile.css']
 })
-export class InvestorProfile {
+export class InvestorProfile implements OnInit {
   isEditing = false;
   showPasswordSection = false;
-
-  user = {
-    fullName: 'John Doe',
-    email: 'john.doe@example.com',
-    phone: '+91 9876543210',
-    username: 'john_doe',
-    role: 'INVESTOR',
-    accountNumber: 'ACC-123456789',
-    panNumber: 'ABCDE1234F',
-    bankAccount: '1234567890',
-    ifscCode: 'HDFC0001234',
-    profilePicture: 'assets/default-avatar.png' // Default image
-  };
-
+  user: User | any = {};
   newPassword = '';
   confirmPassword = '';
+
+  constructor(private http: HttpClient,private auth: AuthService) {}
+
+  ngOnInit() {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      alert('No user session found. Please log in.');
+      return;
+    }
+    
+this.auth.getUserById(userId).subscribe({
+      next: (data) => {
+        this.user = {
+          fullName: '',
+          phone: '',
+          accountNumber: '',
+          panNumber: '',
+          bankAccount: '',
+          ifscCode: '',
+          profilePicture: 'assets/default-avatar.png', // safe default
+          ...data
+        };
+      },
+      error: () => {
+        alert('Could not load user profile. Is json-server running?');
+      }
+    });
+}
 
   enableEdit() {
     this.isEditing = true;
@@ -39,9 +56,18 @@ export class InvestorProfile {
   }
 
   saveProfile() {
-    console.log('Profile updated:', this.user);
-    this.isEditing = false;
-    // TODO: API call to save changes
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
+    this.auth.updateUser(userId, this.user).subscribe({
+      next: () => {
+        alert('Profile updated');
+        this.isEditing = false;
+      },
+      error: () => {
+        alert('Update failed');
+      }
+    });
+
   }
 
   togglePasswordSection() {
@@ -49,24 +75,40 @@ export class InvestorProfile {
   }
 
   updatePassword() {
-    if (this.newPassword === this.confirmPassword) {
-      console.log('Password updated successfully');
-      this.showPasswordSection = false;
-      this.newPassword = '';
-      this.confirmPassword = '';
-    } else {
+    if (this.newPassword !== this.confirmPassword) {
       alert('Passwords do not match!');
+      return;
     }
+
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
+
+    const updated = { ...this.user, password: this.newPassword };
+
+    this.auth.updateUser(userId, updated).subscribe({
+      next: () => {
+        alert('Password updated successfully');
+        this.showPasswordSection = false;
+        this.newPassword = '';
+        this.confirmPassword = '';
+      },
+      error: () => {
+        alert('Password update failed');
+      }
+    });
   }
 
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.user.profilePicture = reader.result as string;
-      };
-      reader.readAsDataURL(file);
-    }
+
+  
+onFileSelected(event: any) {
+    const file = event.target.files?.[0];
+       if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.user.profilePicture = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 }
+

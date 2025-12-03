@@ -7,15 +7,20 @@
     <section class="stats">
       <div class="card">
         <h3>Total Portfolio Value</h3>
-        <p>₹{{ totalValue | number }}</p>
+        <p>₹{{ (portfolioSummary$ | async)?.totalValue | number }}</p>
       </div>
       <div class="card">
         <h3>Total Gain/Loss</h3>
-        <p [ngClass]="totalGainLoss >= 0 ? 'gain' : 'loss'">₹{{ totalGainLoss | number }}</p>
+        
+
+        <!-- <p [ngClass]="(portfolioSummary$ | async)?.totalGainLoss >= 0 ? 'gain' : 'loss'">
+         ₹{{ (portfolioSummary$ | async)?.totalGainLoss | number }}
+        </p> -->
+
       </div>
       <div class="card">
         <h3>Total Holdings</h3>
-        <p>{{ filteredHoldings.length }}</p>
+        <p>{{ (filteredHoldings$ | async)?.length }}</p>
       </div>
     </section>
 
@@ -46,7 +51,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let holding of filteredHoldings">
+            <tr *ngFor="let holding of (filteredHoldings$ | async)">
               <td>{{ holding.symbol }}</td>
               <td>{{ holding.name }}</td>
               <td>{{ holding.type }}</td>
@@ -56,8 +61,8 @@
               <td>₹{{ holding.value | number }}</td>
               <td [ngClass]="holding.gainLoss >= 0 ? 'gain' : 'loss'">₹{{ holding.gainLoss | number }}</td>
               <td [ngClass]="holding.gainLossPercent >= 0 ? 'gain' : 'loss'">
-                {{ holding.gainLossPercent >= 0 ? '+' : ''}}{{ holding.gainLossPercent }}%
-              </td>
+                   {{ holding.gainLossPercent >= 0 ? '+' : ''}}{{ holding.gainLossPercent }}%
+             </td>
             </tr>
           </tbody>
         </table>
