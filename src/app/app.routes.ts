@@ -19,7 +19,7 @@ import { InstrumentDetails } from './component/market/instrument-detail/instrume
 import { InvestorLogout } from './component/investor/investor-logout/investor-logout';
 import { InvestorProfile } from './component/shared/investor-profile/investor-profile';
 import { InvestorOrder } from './component/investor/investor-order/investor-order';
-
+import { InvestorTrade } from './component/investor/investor-trade/investor-trade';
 export const routes: Routes = [
   { path: '', component: LandingPage },
 
