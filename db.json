@@ -388,261 +388,51 @@
       "quantity": 10,
       "price": 980,
       "status": "PENDING",
-      "timestamp": "2025-12-01T09:00:00.000Z"
+      "timestamp": "2025-12-03T09:15:00Z"
     },
     {
-      "id": "8",
-      "orderId": "ORD-1008",
-      "instrument": "TechWorks",
+      "orderID": "ORD-102",
+      "portfolioID": 102,
+      "instrument": "RELIANCE",
       "type": "BUY",
-      "quantity": 5,
-      "price": 312.5,
+      "quantity": 50,
+      "price": 2580,
       "status": "EXECUTED",
-      "timestamp": "2025-12-02T07:30:00.000Z"
-    },
-    {
-      "id": "9",
-      "orderId": "ORD-1009",
-      "instrument": "Regional Utilities",
-      "type": "SELL",
-      "quantity": 200,
-      "price": 15.8,
-      "status": "CANCELLED",
-      "timestamp": "2025-11-25T12:00:00.000Z"
-    },
-    {
-      "id": "10",
-      "orderId": "ORD-1010",
-      "instrument": "Green Energy",
-      "type": "SELL",
-      "quantity": 60,
-      "price": 43,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-02T06:45:00.000Z"
-    },
-    {
-      "id": "862c",
-      "orderId": "ORD-8735",
-      "instrument": "ACME Corp",
-      "type": "BUY",
-      "quantity": 1,
-      "price": 120.5,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-03T09:21:25.957Z"
-    },
-    {
-      "id": "c1ca",
-      "orderId": "ORD-3566",
-      "instrument": "ACME Corp",
-      "type": "SELL",
-      "quantity": 1,
-      "price": 120.5,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-03T09:21:40.507Z"
-    },
-    {
-      "id": "2250",
-      "orderId": "ORD-7347",
-      "instrument": "ACME Corp",
-      "type": "BUY",
-      "quantity": 1,
-      "price": 0,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-03T09:24:09.443Z"
-    },
-    {
-      "id": "f211",
-      "orderId": "ORD-7116",
-      "instrument": "ACME Corp",
-      "type": "BUY",
-      "quantity": 1,
-      "price": 120.5,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-03T10:07:52.064Z"
-    },
-    {
-      "id": "a41e",
-      "orderId": "ORD-4070",
-      "instrument": "ACME Corp",
-      "type": "BUY",
-      "quantity": 1,
-      "price": 120.5,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-03T10:12:16.764Z"
-    },
-    {
-      "id": "59ae",
-      "orderId": "ORD-7844",
-      "instrument": "ACME Corp",
-      "type": "SELL",
-      "quantity": 1,
-      "price": 120.5,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-03T10:12:36.757Z"
-    },
-    {
-      "id": "72ba",
-      "orderId": "ORD-5236",
-      "instrument": "ACME Corp",
-      "type": "SELL",
-      "quantity": 1,
-      "price": 120.5,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-04T04:28:44.551Z"
-    },
-    {
-      "id": "b07c",
-      "orderId": "ORD-4830",
-      "instrument": "ACME Corp",
-      "type": "BUY",
-      "quantity": 1,
-      "price": 120.5,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-04T04:28:52.440Z"
-    },
-    {
-      "id": "ce85",
-      "orderId": "ORD-6514",
-      "instrument": "Global Bank Bond",
-      "type": "BUY",
-      "quantity": 1,
-      "price": 99.75,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-04T04:28:53.594Z"
-    },
-    {
-      "id": "9c91",
-      "orderId": "ORD-2388",
-      "instrument": "Green Energy",
-      "type": "BUY",
-      "quantity": 1,
-      "price": 42.25,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-04T04:28:54.655Z"
-    },
-    {
-      "id": "e2ac",
-      "orderId": "ORD-9655",
-      "instrument": "Green Energy",
-      "type": "BUY",
-      "quantity": 1,
-      "price": 42.25,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-04T04:28:58.827Z"
-    },
-    {
-      "id": "12bc",
-      "orderId": "ORD-7282",
-      "instrument": "ACME Corp",
-      "type": "BUY",
-      "quantity": 1,
-      "price": 120.5,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-04T04:29:36.609Z"
-    },
-    {
-      "id": "8581",
-      "orderId": "ORD-4808",
-      "instrument": "Green Energy",
-      "type": "SELL",
-      "quantity": 1,
-      "price": 42.25,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-04T04:29:45.243Z"
-    },
-    {
-      "id": "2428",
-      "orderId": "ORD-1991",
-      "instrument": "ACME Corp",
-      "type": "SELL",
-      "quantity": 1,
-      "price": 120.5,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-04T04:29:54.700Z"
-    },
-    {
-      "id": "e177",
-      "orderId": "ORD-2038",
-      "instrument": "ACME Corp",
-      "type": "SELL",
-      "quantity": 1,
-      "price": 120.5,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-04T04:29:56.888Z"
-    },
-    {
-      "id": "6aba",
-      "orderId": "ORD-8645",
-      "instrument": "ACME Corp",
-      "type": "SELL",
-      "quantity": 1,
-      "price": 120.5,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-04T04:29:58.016Z"
-    },
-    {
-      "id": "1c0d",
-      "orderId": "ORD-6391",
-      "instrument": "ACME Corp",
-      "type": "BUY",
-      "quantity": 1,
-      "price": 120.5,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-04T05:44:58.120Z"
-    },
-    {
-      "id": "4e46",
-      "orderId": "ORD-4214",
-      "instrument": "ACME Corp",
-      "type": "BUY",
-      "quantity": 1,
-      "price": 120.5,
-      "status": "EXECUTED",
-      "timestamp": "2025-12-04T08:40:38.744Z"
+      "timestamp": "2025-12-02T14:30:00Z"
     }
   ],
-  "marketOffers": [
+  "marketPrices": [
     {
-      "id": "1",
-      "instrument": "ACME Corp",
-      "availableQuantity": 99,
-      "price": 120.5,
-      "type": "SELL",
-      "timestamp": "2025-12-02T09:00:00Z"
+      "priceID": 1,
+      "instrument": "TCS",
+      "currentPrice": 3600,
+      "timestamp": "2025-12-03T10:00:00Z"
     },
     {
-      "id": "2",
-      "instrument": "Global Bank Bond",
-      "availableQuantity": 200,
-      "price": 99.75,
-      "type": "SELL",
-      "timestamp": "2025-12-01T08:30:00Z"
-    },
-    {
-      "id": "3",
-      "instrument": "Green Energy",
-      "availableQuantity": 150,
-      "price": 42.25,
-      "type": "SELL",
-      "timestamp": "2025-12-02T10:00:00Z"
+      "priceID": 2,
+      "instrument": "RELIANCE",
+      "currentPrice": 2600,
+      "timestamp": "2025-12-03T10:00:00Z"
     }
   ],
-  "boughtTrades": [
+  "riskReports": [
     {
-      "id": "9c6c",
-      "instrument": "ACME Corp",
-      "quantity": 1,
-      "price": 120.5,
-      "status": "BOUGHT",
-      "timestamp": "2025-12-04T05:44:58.120Z"
+      "reportID": 1,
+      "portfolioID": 101,
+      "metrics": {
+        "VaR": 12000,
+        "Exposure": 50000
+      },
+      "generatedDate": "2025-12-01"
     },
     {
-      "id": "e119",
-      "instrument": "ACME Corp",
-      "quantity": 1,
-      "price": 120.5,
-      "status": "BOUGHT",
-      "timestamp": "2025-12-04T08:40:38.744Z"
+      "reportID": 2,
+      "portfolioID": 102,
+      "metrics": {
+        "VaR": 15000,
+        "Exposure": 70000
+      },
+      "generatedDate": "2025-12-01"
     }
   ]
 }

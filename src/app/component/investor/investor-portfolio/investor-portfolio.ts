@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortfolioService } from '../../../services/investor-portfolio.service';
@@ -19,11 +18,12 @@ export class InvestorPortfolio {
   filteredHoldings$ = new BehaviorSubject<any[]>([]);
   activeFilter = 'All';
 
-  constructor(private portfolioService: PortfolioService) {
-    this.holdings$ = this.portfolioService.getHoldings();
-    this.portfolioSummary$ = this.portfolioService.getPortfolioSummary();
+  private portfolioID = 101; // hardcoded for demo, later bind to logged-in investor
 
-    // Initialize filteredHoldings with all holdings
+  constructor(private portfolioService: PortfolioService) {
+    this.holdings$ = this.portfolioService.getHoldings(this.portfolioID);
+    this.portfolioSummary$ = this.portfolioService.getPortfolioSummary(this.portfolioID);
+
     this.holdings$.subscribe(holdings => this.filteredHoldings$.next(holdings));
   }
 
