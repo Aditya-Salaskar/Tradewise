@@ -17,6 +17,7 @@ import { RiskAnalysis } from './component/broker/riskAnalysis/risk-analysis';
 import { InvestorDashboard } from './component/investor/investor-dashboard/investor-dashboard';
 import { InvestorPortfolio } from './component/investor/investor-portfolio/investor-portfolio';
 import { InvestorOrder } from './component/investor/investor-order/investor-order';
+import { InvestorTrade } from './component/investor/investor-trade/investor-trade';
 
 import { RoleGuard } from './guards/role.guard';
 
@@ -44,6 +45,9 @@ export const routes: Routes = [
       { path: 'dashboard', component: InvestorDashboard },
       { path: 'portfolio', component: InvestorPortfolio },
       { path: 'orders', component: InvestorOrder },
+      { path: 'trade', component: InvestorTrade },
+
+      // existing market/profile/logout routes
       { path: 'market', component: MarketList },
       { path: 'market/:symbol', component: InstrumentDetails },
       { path: 'profile', component: UserProfile },
