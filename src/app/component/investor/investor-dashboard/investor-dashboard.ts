@@ -1,10 +1,9 @@
- 
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { InvestorDashboardService } from '../../../services/investor-dashboard.service';
-import { Observable, map } from 'rxjs';
- 
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-investor-dashboard',
   standalone: true,
@@ -12,16 +11,22 @@ import { Observable, map } from 'rxjs';
   templateUrl: './investor-dashboard.html',
   styleUrls: ['./investor-dashboard.css']
 })
-export class InvestorDashboard {
+export class InvestorDashboard implements AfterViewInit {
   portfolioSummary$: Observable<any>;
   holdings$: Observable<any[]>;
   recentOrders$: Observable<any[]>;
- 
+  marketOverview$: Observable<any>;
+
+  private investorID = 1;
+
   constructor(private dashboardService: InvestorDashboardService) {
-    // ✅ Reactive streams using async pipe
-    this.portfolioSummary$ = this.dashboardService.getPortfolioSummary();
-     this.holdings$ = this.dashboardService.getHoldings().pipe(map(h => h.slice(0, 5)));
-    this.recentOrders$ = this.dashboardService.getOrders().pipe(map(o => o.slice(0, 5)));
+    this.portfolioSummary$ = this.dashboardService.getPortfolioSummary(this.investorID);
+    this.holdings$ = this.dashboardService.getTopHoldings(this.investorID, 5);
+    this.recentOrders$ = this.dashboardService.getRecentOrders(this.investorID, 5);
+    this.marketOverview$ = this.dashboardService.getMarketOverview(); // new
+  }
+
+  ngAfterViewInit(): void {
+    this.dashboardService.buildAssetPieChart('assetPieChart', this.investorID);
   }
 }
- 

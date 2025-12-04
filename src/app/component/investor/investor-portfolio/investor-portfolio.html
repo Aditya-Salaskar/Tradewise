@@ -1,4 +1,3 @@
-
 <div class="dashboard-container">
   <main class="main-content">
     <header>
@@ -26,7 +25,6 @@
       <button [class.active-tab]="activeFilter === 'All'" (click)="filterHoldings('All')">All</button>
       <button [class.active-tab]="activeFilter === 'Equity'" (click)="filterHoldings('Equity')">Equity</button>
       <button [class.active-tab]="activeFilter === 'Bond'" (click)="filterHoldings('Bond')">Bonds</button>
-      <button disabled>Mutual Funds</button>
     </section>
 
     <!-- Holdings Table -->
@@ -63,7 +61,7 @@
             </tr>
           </tbody>
         </table>
-           </div>
+      </div>
     </section>
   </main>
 </div>
