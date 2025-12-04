@@ -3,7 +3,7 @@ export interface User {
   username: string;
   email: string;
   password: string;
-  role: 'INVESTOR' | 'BROKER' | 'ADMIN';
+  role: 'investor' | 'broker' | 'admin';
   fullName?: string;
   phone?: string;
   accountNumber?: string;

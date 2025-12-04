@@ -7,13 +7,13 @@ import { User } from '../../../models/user.model';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-investor-profile',
+  selector: 'app-user-profile',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './investor-profile.html',
-  styleUrls: ['./investor-profile.css']
+  templateUrl: './user-profile.html',
+  styleUrls: ['./user-profile.css']
 })
-export class InvestorProfile implements OnInit {
+export class UserProfile implements OnInit {
   isEditing = false;
   showPasswordSection = false;
   user: User | any = {};
