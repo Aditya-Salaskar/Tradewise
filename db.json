@@ -46,41 +46,280 @@
     }
   ],
   "holdings": [
-    { "symbol": "TCS", "name": "Tata Consultancy Services", "type": "Equity", "quantity": 50, "avgPrice": 3450, "currentPrice": 3600 },
-    { "symbol": "INFY", "name": "Infosys", "type": "Equity", "quantity": 100, "avgPrice": 1520, "currentPrice": 1550 },
-    { "symbol": "RELIANCE", "name": "Reliance Industries", "type": "Equity", "quantity": 20, "avgPrice": 2580, "currentPrice": 2600 },
-    { "symbol": "HDFC", "name": "HDFC Bank", "type": "Bond", "quantity": 40, "avgPrice": 2720, "currentPrice": 2750 },
-    { "symbol": "ICICI", "name": "ICICI Bank", "type": "Mutual Funds", "quantity": 30, "avgPrice": 950, "currentPrice": 970 },
-    { "symbol": "SBIN", "name": "State Bank of India", "type": "Equity", "quantity": 60, "avgPrice": 620, "currentPrice": 635 },
-    { "symbol": "AXIS", "name": "Axis Bank", "type": "Equity", "quantity": 25, "avgPrice": 780, "currentPrice": 800 },
-    { "symbol": "KOTAK", "name": "Kotak Mahindra Bank", "type": "Equity", "quantity": 35, "avgPrice": 1850, "currentPrice": 1900 },
-    { "symbol": "BAJAJ", "name": "Bajaj Finance", "type": "Equity", "quantity": 15, "avgPrice": 4800, "currentPrice": 4900 },
-    { "symbol": "LT", "name": "Larsen & Toubro", "type": "Equity", "quantity": 20, "avgPrice": 2200, "currentPrice": 2250 },
-    { "symbol": "ADANIPORTS", "name": "Adani Ports", "type": "Equity", "quantity": 50, "avgPrice": 720, "currentPrice": 740 },
-    { "symbol": "WIPRO", "name": "Wipro", "type": "Equity", "quantity": 80, "avgPrice": 420, "currentPrice": 430 },
-    { "symbol": "TECHM", "name": "Tech Mahindra", "type": "Equity", "quantity": 45, "avgPrice": 1120, "currentPrice": 1150 },
-    { "symbol": "HCLTECH", "name": "HCL Technologies", "type": "Equity", "quantity": 55, "avgPrice": 980, "currentPrice": 1000 },
-    { "symbol": "POWERGRID", "name": "Power Grid Corp", "type": "Equity", "quantity": 70, "avgPrice": 210, "currentPrice": 220 }
+    {
+      "symbol": "TCS",
+      "name": "Tata Consultancy Services",
+      "type": "Equity",
+      "quantity": 50,
+      "avgPrice": 3450,
+      "currentPrice": 3600,
+      "id": "609c"
+    },
+    {
+      "symbol": "INFY",
+      "name": "Infosys",
+      "type": "Equity",
+      "quantity": 100,
+      "avgPrice": 1520,
+      "currentPrice": 1550,
+      "id": "3d87"
+    },
+    {
+      "symbol": "RELIANCE",
+      "name": "Reliance Industries",
+      "type": "Equity",
+      "quantity": 20,
+      "avgPrice": 2580,
+      "currentPrice": 2600,
+      "id": "f597"
+    },
+    {
+      "symbol": "HDFC",
+      "name": "HDFC Bank",
+      "type": "Bond",
+      "quantity": 40,
+      "avgPrice": 2720,
+      "currentPrice": 2750,
+      "id": "2717"
+    },
+    {
+      "symbol": "ICICI",
+      "name": "ICICI Bank",
+      "type": "Mutual Funds",
+      "quantity": 30,
+      "avgPrice": 950,
+      "currentPrice": 970,
+      "id": "270f"
+    },
+    {
+      "symbol": "SBIN",
+      "name": "State Bank of India",
+      "type": "Equity",
+      "quantity": 60,
+      "avgPrice": 620,
+      "currentPrice": 635,
+      "id": "cb43"
+    },
+    {
+      "symbol": "AXIS",
+      "name": "Axis Bank",
+      "type": "Equity",
+      "quantity": 25,
+      "avgPrice": 780,
+      "currentPrice": 800,
+      "id": "b9ea"
+    },
+    {
+      "symbol": "KOTAK",
+      "name": "Kotak Mahindra Bank",
+      "type": "Equity",
+      "quantity": 35,
+      "avgPrice": 1850,
+      "currentPrice": 1900,
+      "id": "7a10"
+    },
+    {
+      "symbol": "BAJAJ",
+      "name": "Bajaj Finance",
+      "type": "Equity",
+      "quantity": 15,
+      "avgPrice": 4800,
+      "currentPrice": 4900,
+      "id": "35e3"
+    },
+    {
+      "symbol": "LT",
+      "name": "Larsen & Toubro",
+      "type": "Equity",
+      "quantity": 20,
+      "avgPrice": 2200,
+      "currentPrice": 2250,
+      "id": "9cc7"
+    },
+    {
+      "symbol": "ADANIPORTS",
+      "name": "Adani Ports",
+      "type": "Equity",
+      "quantity": 50,
+      "avgPrice": 720,
+      "currentPrice": 740,
+      "id": "71a6"
+    },
+    {
+      "symbol": "WIPRO",
+      "name": "Wipro",
+      "type": "Equity",
+      "quantity": 80,
+      "avgPrice": 420,
+      "currentPrice": 430,
+      "id": "d53a"
+    },
+    {
+      "symbol": "TECHM",
+      "name": "Tech Mahindra",
+      "type": "Equity",
+      "quantity": 45,
+      "avgPrice": 1120,
+      "currentPrice": 1150,
+      "id": "1a5e"
+    },
+    {
+      "symbol": "HCLTECH",
+      "name": "HCL Technologies",
+      "type": "Equity",
+      "quantity": 55,
+      "avgPrice": 980,
+      "currentPrice": 1000,
+      "id": "f420"
+    },
+    {
+      "symbol": "POWERGRID",
+      "name": "Power Grid Corp",
+      "type": "Equity",
+      "quantity": 70,
+      "avgPrice": 210,
+      "currentPrice": 220,
+      "id": "b59f"
+    }
   ],
   "orders": [
-    { "orderId": "ORD-101", "symbol": "RELIANCE", "type": "BUY", "quantity": 50, "price": 2580, "status": "EXECUTED" },
-    { "orderId": "ORD-102", "symbol": "TCS", "type": "SELL", "quantity": 30, "price": 3450, "status": "PENDING" },
-    { "orderId": "ORD-103", "symbol": "INFY", "type": "BUY", "quantity": 100, "price": 1520, "status": "EXECUTED" },
-    { "orderId": "ORD-104", "symbol": "HDFC", "type": "BUY", "quantity": 40, "price": 2720, "status": "EXECUTED" },
-    { "orderId": "ORD-105", "symbol": "ICICI", "type": "SELL", "quantity": 30, "price": 950, "status": "PENDING" },
-    { "orderId": "ORD-106", "symbol": "SBIN", "type": "BUY", "quantity": 60, "price": 620, "status": "EXECUTED" },
-    { "orderId": "ORD-107", "symbol": "AXIS", "type": "BUY", "quantity": 25, "price": 780, "status": "EXECUTED" },
-    { "orderId": "ORD-108", "symbol": "KOTAK", "type": "SELL", "quantity": 35, "price": 1850, "status": "PENDING" },
-    { "orderId": "ORD-109", "symbol": "BAJAJ", "type": "BUY", "quantity": 15, "price": 4800, "status": "EXECUTED" },
-    { "orderId": "ORD-110", "symbol": "LT", "type": "BUY", "quantity": 20, "price": 2200, "status": "EXECUTED" },
-    { "orderId": "ORD-111", "symbol": "ADANIPORTS", "type": "SELL", "quantity": 50, "price": 720, "status": "PENDING" },
-    { "orderId": "ORD-112", "symbol": "WIPRO", "type": "BUY", "quantity": 80, "price": 420, "status": "EXECUTED" },
-    { "orderId": "ORD-113", "symbol": "TECHM", "type": "BUY", "quantity": 45, "price": 1120, "status": "EXECUTED" },
-    { "orderId": "ORD-114", "symbol": "HCLTECH", "type": "SELL", "quantity": 55, "price": 980, "status": "PENDING" },
-    { "orderId": "ORD-115", "symbol": "POWERGRID", "type": "BUY", "quantity": 70, "price": 210, "status": "EXECUTED" }
-   ]
-
-,"Investororders": [
+    {
+      "orderId": "ORD-101",
+      "symbol": "RELIANCE",
+      "type": "BUY",
+      "quantity": 50,
+      "price": 2580,
+      "status": "EXECUTED",
+      "id": "36a5"
+    },
+    {
+      "orderId": "ORD-102",
+      "symbol": "TCS",
+      "type": "SELL",
+      "quantity": 30,
+      "price": 3450,
+      "status": "PENDING",
+      "id": "6ba1"
+    },
+    {
+      "orderId": "ORD-103",
+      "symbol": "INFY",
+      "type": "BUY",
+      "quantity": 100,
+      "price": 1520,
+      "status": "EXECUTED",
+      "id": "34fb"
+    },
+    {
+      "orderId": "ORD-104",
+      "symbol": "HDFC",
+      "type": "BUY",
+      "quantity": 40,
+      "price": 2720,
+      "status": "EXECUTED",
+      "id": "3a2c"
+    },
+    {
+      "orderId": "ORD-105",
+      "symbol": "ICICI",
+      "type": "SELL",
+      "quantity": 30,
+      "price": 950,
+      "status": "PENDING",
+      "id": "dbd4"
+    },
+    {
+      "orderId": "ORD-106",
+      "symbol": "SBIN",
+      "type": "BUY",
+      "quantity": 60,
+      "price": 620,
+      "status": "EXECUTED",
+      "id": "9bc0"
+    },
+    {
+      "orderId": "ORD-107",
+      "symbol": "AXIS",
+      "type": "BUY",
+      "quantity": 25,
+      "price": 780,
+      "status": "EXECUTED",
+      "id": "9864"
+    },
+    {
+      "orderId": "ORD-108",
+      "symbol": "KOTAK",
+      "type": "SELL",
+      "quantity": 35,
+      "price": 1850,
+      "status": "PENDING",
+      "id": "64ae"
+    },
+    {
+      "orderId": "ORD-109",
+      "symbol": "BAJAJ",
+      "type": "BUY",
+      "quantity": 15,
+      "price": 4800,
+      "status": "EXECUTED",
+      "id": "7d5b"
+    },
+    {
+      "orderId": "ORD-110",
+      "symbol": "LT",
+      "type": "BUY",
+      "quantity": 20,
+      "price": 2200,
+      "status": "EXECUTED",
+      "id": "1415"
+    },
+    {
+      "orderId": "ORD-111",
+      "symbol": "ADANIPORTS",
+      "type": "SELL",
+      "quantity": 50,
+      "price": 720,
+      "status": "PENDING",
+      "id": "3cc3"
+    },
+    {
+      "orderId": "ORD-112",
+      "symbol": "WIPRO",
+      "type": "BUY",
+      "quantity": 80,
+      "price": 420,
+      "status": "EXECUTED",
+      "id": "d3f8"
+    },
+    {
+      "orderId": "ORD-113",
+      "symbol": "TECHM",
+      "type": "BUY",
+      "quantity": 45,
+      "price": 1120,
+      "status": "EXECUTED",
+      "id": "101f"
+    },
+    {
+      "orderId": "ORD-114",
+      "symbol": "HCLTECH",
+      "type": "SELL",
+      "quantity": 55,
+      "price": 980,
+      "status": "PENDING",
+      "id": "32e0"
+    },
+    {
+      "orderId": "ORD-115",
+      "symbol": "POWERGRID",
+      "type": "BUY",
+      "quantity": 70,
+      "price": 210,
+      "status": "EXECUTED",
+      "id": "e9d0"
+    }
+  ],
+  "Investororders": [
     {
       "id": "1",
       "orderId": "ORD-1001",
@@ -350,19 +589,29 @@
       "price": 120.5,
       "status": "EXECUTED",
       "timestamp": "2025-12-04T05:44:58.120Z"
+    },
+    {
+      "id": "4e46",
+      "orderId": "ORD-4214",
+      "instrument": "ACME Corp",
+      "type": "BUY",
+      "quantity": 1,
+      "price": 120.5,
+      "status": "EXECUTED",
+      "timestamp": "2025-12-04T08:40:38.744Z"
     }
   ],
   "marketOffers": [
     {
-      "id": 1,
+      "id": "1",
       "instrument": "ACME Corp",
-      "availableQuantity": 100,
+      "availableQuantity": 99,
       "price": 120.5,
       "type": "SELL",
       "timestamp": "2025-12-02T09:00:00Z"
     },
     {
-      "id": 2,
+      "id": "2",
       "instrument": "Global Bank Bond",
       "availableQuantity": 200,
       "price": 99.75,
@@ -370,7 +619,7 @@
       "timestamp": "2025-12-01T08:30:00Z"
     },
     {
-      "id": 3,
+      "id": "3",
       "instrument": "Green Energy",
       "availableQuantity": 150,
       "price": 42.25,
@@ -386,6 +635,14 @@
       "price": 120.5,
       "status": "BOUGHT",
       "timestamp": "2025-12-04T05:44:58.120Z"
+    },
+    {
+      "id": "e119",
+      "instrument": "ACME Corp",
+      "quantity": 1,
+      "price": 120.5,
+      "status": "BOUGHT",
+      "timestamp": "2025-12-04T08:40:38.744Z"
     }
   ]
 }
