@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-investor-portfolio',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule],
   templateUrl: './investor-portfolio.html',
   styleUrls: ['./investor-portfolio.css']
 })
@@ -27,7 +27,7 @@ export class InvestorPortfolio {
     this.holdings$.subscribe(holdings => this.filteredHoldings$.next(holdings));
   }
 
-  filterHoldings(type: string) {
+filterHoldings(type: string) {
     this.activeFilter = type;
     this.holdings$.pipe(
       map(holdings => type === 'All' ? holdings : holdings.filter(h => h.type === type))

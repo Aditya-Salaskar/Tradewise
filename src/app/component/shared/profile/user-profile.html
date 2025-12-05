@@ -32,6 +32,15 @@
         <label>Role</label>
         <input type="text" [(ngModel)]="user.role" readonly />
       </div>
+      <div class="profile-item">
+        <label>Risk Profile</label>
+        <select [(ngModel)]="user.riskProfile" [disabled]="!isEditing">
+          <option value="null" disabled selected>Select risk profile</option>
+          <option value="aggressive">Aggressive</option>
+          <option value="moderate">Moderate</option>
+          <option value="conservative">Conservative</option>
+        </select>
+      </div>
     </div>
   </section>
 

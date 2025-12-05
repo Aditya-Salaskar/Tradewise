@@ -1,119 +1,141 @@
+
 {
-  "investors": [
-    {
-      "investorID": 1,
-      "name": "Alice Johnson",
-      "contactInfo": "alice@example.com",
-      "riskProfile": "Moderate"
-    },
-    {
-      "investorID": 2,
-      "name": "Bob Smith",
-      "contactInfo": "bob@example.com",
-      "riskProfile": "Aggressive"
-    }
+  "holdings": [
+    { "symbol": "TCS", "name": "Tata Consultancy Services", "type": "Equity", "quantity": 50, "avgPrice": 3450, "currentPrice": 3600 },
+    { "symbol": "INFY", "name": "Infosys", "type": "Equity", "quantity": 100, "avgPrice": 1520, "currentPrice": 1550 },
+    { "symbol": "RELIANCE", "name": "Reliance Industries", "type": "Equity", "quantity": 20, "avgPrice": 2580, "currentPrice": 2600 },
+    { "symbol": "HDFC", "name": "HDFC Bank", "type": "Bond", "quantity": 40, "avgPrice": 2720, "currentPrice": 2750 },
+    { "symbol": "ICICI", "name": "ICICI Bank", "type": "Mutual Funds", "quantity": 30, "avgPrice": 950, "currentPrice": 970 },
+    { "symbol": "SBIN", "name": "State Bank of India", "type": "Equity", "quantity": 60, "avgPrice": 620, "currentPrice": 635 },
+    { "symbol": "AXIS", "name": "Axis Bank", "type": "Equity", "quantity": 25, "avgPrice": 780, "currentPrice": 800 },
+    { "symbol": "KOTAK", "name": "Kotak Mahindra Bank", "type": "Equity", "quantity": 35, "avgPrice": 1850, "currentPrice": 1900 },
+    { "symbol": "BAJAJ", "name": "Bajaj Finance", "type": "Equity", "quantity": 15, "avgPrice": 4800, "currentPrice": 4900 },
+    { "symbol": "LT", "name": "Larsen & Toubro", "type": "Equity", "quantity": 20, "avgPrice": 2200, "currentPrice": 2250 },
+    { "symbol": "ADANIPORTS", "name": "Adani Ports", "type": "Equity", "quantity": 50, "avgPrice": 720, "currentPrice": 740 },
+    { "symbol": "WIPRO", "name": "Wipro", "type": "Equity", "quantity": 80, "avgPrice": 420, "currentPrice": 430 },
+    { "symbol": "TECHM", "name": "Tech Mahindra", "type": "Equity", "quantity": 45, "avgPrice": 1120, "currentPrice": 1150 },
+    { "symbol": "HCLTECH", "name": "HCL Technologies", "type": "Equity", "quantity": 55, "avgPrice": 980, "currentPrice": 1000 },
+    { "symbol": "POWERGRID", "name": "Power Grid Corp", "type": "Equity", "quantity": 70, "avgPrice": 210, "currentPrice": 220 }
   ],
-  "portfolios": [
+  "orders": [
+    { "orderId": "ORD-101", "symbol": "RELIANCE", "type": "BUY", "quantity": 50, "price": 2580, "status": "EXECUTED" },
+    { "orderId": "ORD-102", "symbol": "TCS", "type": "SELL", "quantity": 30, "price": 3450, "status": "PENDING" },
+    { "orderId": "ORD-103", "symbol": "INFY", "type": "BUY", "quantity": 100, "price": 1520, "status": "EXECUTED" },
+    { "orderId": "ORD-104", "symbol": "HDFC", "type": "BUY", "quantity": 40, "price": 2720, "status": "EXECUTED" },
+    { "orderId": "ORD-105", "symbol": "ICICI", "type": "SELL", "quantity": 30, "price": 950, "status": "PENDING" },
+    { "orderId": "ORD-106", "symbol": "SBIN", "type": "BUY", "quantity": 60, "price": 620, "status": "EXECUTED" },
+    { "orderId": "ORD-107", "symbol": "AXIS", "type": "BUY", "quantity": 25, "price": 780, "status": "EXECUTED" },
+    { "orderId": "ORD-108", "symbol": "KOTAK", "type": "SELL", "quantity": 35, "price": 1850, "status": "PENDING" },
+    { "orderId": "ORD-109", "symbol": "BAJAJ", "type": "BUY", "quantity": 15, "price": 4800, "status": "EXECUTED" },
+    { "orderId": "ORD-110", "symbol": "LT", "type": "BUY", "quantity": 20, "price": 2200, "status": "EXECUTED" },
+    { "orderId": "ORD-111", "symbol": "ADANIPORTS", "type": "SELL", "quantity": 50, "price": 720, "status": "PENDING" },
+    { "orderId": "ORD-112", "symbol": "WIPRO", "type": "BUY", "quantity": 80, "price": 420, "status": "EXECUTED" },
+    { "orderId": "ORD-113", "symbol": "TECHM", "type": "BUY", "quantity": 45, "price": 1120, "status": "EXECUTED" },
+    { "orderId": "ORD-114", "symbol": "HCLTECH", "type": "SELL", "quantity": 55, "price": 980, "status": "PENDING" },
+    { "orderId": "ORD-115", "symbol": "POWERGRID", "type": "BUY", "quantity": 70, "price": 210, "status": "EXECUTED" }
+   ]
+
+,"Investororders": [
     {
-   
-      "portfolioID": 101,
-      "investorID": 1,
-      "assetList": [
-        { "symbol": "TCS", "name": "Tata Consultancy Services", "type": "Equity", "quantity": 50, "avgPrice": 3450, "currentPrice": 3600 },
-        { "symbol": "INFY", "name": "Infosys", "type": "Equity", "quantity": 100, "avgPrice": 1520, "currentPrice": 1550 },
-        { "symbol": "Accenture", "name": "Accenture", "type": "Equity", "quantity": 10, "avgPrice": 100, "currentPrice": 2000 },
-        { "symbol": "Cognizant", "name": "Cognizant", "type": "Bond", "quantity": 100, "avgPrice": 1520, "currentPrice": 1550 },
-        { "symbol": "LTI", "name": "Larsen & Toubro Infotech", "type": "Equity", "quantity": 20, "avgPrice": 200, "currentPrice": 2403 },
-        { "symbol": "TATA", "name": "Tata Motors", "type": "Equity", "quantity": 50, "avgPrice": 3000, "currentPrice": 3434 },
-        { "symbol": "Tesla", "name": "Tesla Inc.", "type": "Equity", "quantity": 200, "avgPrice": 1000, "currentPrice": 2345 }
-      ],
-      "totalValue": 150000
-    },
-    {
-      "portfolioID": 102,
-      "investorID": 2,
-      "assetList": [
-        { "symbol": "RELIANCE", "quantity": 20, "avgPrice": 2580, "currentPrice": 2600 },
-        { "symbol": "HDFC", "quantity": 40, "avgPrice": 2720, "currentPrice": 2750 }
-      ],
-      "totalValue": 200000
-    }
-  ],
-  "tradeOrders": [
-    {
-      "orderID": "ORD-101",
-      "portfolioID": 101,
-      "instrument": "TCS",
-      "type": "SELL",
-      "quantity": 30,
-      "price": 3450,
+      "id": 1,
+      "orderId": "ORD-1001",
+      "instrument": "ACME Corp",
+      "type": "BUY",
+      "quantity": 100,
+      "price": 120.5,
       "status": "PENDING",
       "timestamp": "2025-12-03T09:15:00Z"
     },
     {
-      "orderID": "ORD-102",
-      "portfolioID": 102,
-      "instrument": "RELIANCE",
+      "id": 2,
+      "orderId": "ORD-1002",
+      "instrument": "Global Bank Bond",
       "type": "BUY",
       "quantity": 50,
       "price": 2580,
       "status": "EXECUTED",
-      "timestamp": "2025-12-02T14:30:00Z"
-    }
-  ],
-  "marketPrices": [
-    {
-      "priceID": 1,
-      "instrument": "TCS",
-      "currentPrice": 3600,
-      "timestamp": "2025-12-03T10:00:00Z"
+      "timestamp": "2025-12-01T14:30:00.000Z"
     },
     {
-      "priceID": 2,
-      "instrument": "RELIANCE",
-      "currentPrice": 2600,
-      "timestamp": "2025-12-03T10:00:00Z"
-    }
-  ],
-  "riskReports": [
-    {
-      "reportID": 1,
-      "portfolioID": 101,
-      "metrics": {
-        "VaR": 12000,
-        "Exposure": 50000
-      },
-      "generatedDate": "2025-12-01"
+      "id": 3,
+      "orderId": "ORD-1003",
+      "instrument": "TechWorks",
+      "type": "SELL",
+      "quantity": 20,
+      "price": 310.0,
+      "status": "CANCELLED",
+      "timestamp": "2025-11-28T11:05:00.000Z"
     },
     {
-      "reportID": 2,
-      "portfolioID": 102,
-      "metrics": {
-        "VaR": 15000,
-        "Exposure": 70000
-      },
-      "generatedDate": "2025-12-01"
-    }
-  ],
-  "users": [
-    {
-      "userID": 1,
-      "username": "alice_investor",
-      "password": "password123",
-      "role": "INVESTOR",
-      "investorID": 1
+      "id": 4,
+      "orderId": "ORD-1004",
+      "instrument": "ACME Corp",
+      "type": "SELL",
+      "quantity": 40,
+      "price": 125.0,
+      "status": "EXECUTED",
+      "timestamp": "2025-12-02T08:45:00.000Z"
     },
     {
-      "userID": 2,
-      "username": "bob_broker",
-      "password": "password456",
-      "role": "BROKER"
+      "id": 5,
+      "orderId": "ORD-1005",
+      "instrument": "Green Energy",
+      "type": "BUY",
+      "quantity": 150,
+      "price": 42.25,
+      "status": "PENDING",
+      "timestamp": "2025-12-02T10:05:00.000Z"
     },
     {
-      "userID": 3,
-      "username": "admin_user",
-      "password": "admin789",
-      "role": "ADMIN"
+      "id": 6,
+      "orderId": "ORD-1006",
+      "instrument": "Global Bank Bond",
+      "type": "SELL",
+      "quantity": 30,
+      "price": 101.0,
+      "status": "EXECUTED",
+      "timestamp": "2025-11-30T16:20:00.000Z"
+    },
+    {
+      "id": 7,
+      "orderId": "ORD-1007",
+      "instrument": "BlueChip Inc",
+      "type": "BUY",
+      "quantity": 10,
+      "price": 980.0,
+      "status": "PENDING",
+      "timestamp": "2025-12-01T09:00:00.000Z"
+    },
+    {
+      "id": 8,
+      "orderId": "ORD-1008",
+      "instrument": "TechWorks",
+      "type": "BUY",
+      "quantity": 5,
+      "price": 312.5,
+      "status": "EXECUTED",
+      "timestamp": "2025-12-02T07:30:00.000Z"
+    },
+    {
+      "id": 9,
+      "orderId": "ORD-1009",
+      "instrument": "Regional Utilities",
+      "type": "SELL",
+      "quantity": 200,
+      "price": 15.8,
+      "status": "CANCELLED",
+      "timestamp": "2025-11-25T12:00:00.000Z"
+    },
+    {
+      "id": 10,
+      "orderId": "ORD-1010",
+      "instrument": "Green Energy",
+      "type": "SELL",
+      "quantity": 60,
+      "price": 43.0,
+      "status": "EXECUTED",
+      "timestamp": "2025-12-02T06:45:00.000Z"
     }
   ]
+
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .dashboard-container {
   display: flex;
   min-height: 100vh;
@@ -9,6 +10,8 @@
   flex: 1;
   padding: 20px;
 }
+=======
+>>>>>>> Market-Data-Module
 
 header h2 {
   margin-bottom: 20px;

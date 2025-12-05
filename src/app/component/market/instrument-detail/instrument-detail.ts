@@ -42,8 +42,7 @@ export class InstrumentDetails implements OnInit {
     this.stock = this.allStocks.find(s => s.symbol === symbol);
   }
 
-  
-goBack() {
+  goBack() {
     this.router.navigate(['../'], { relativeTo: this.route });
-  }
+   }
 }

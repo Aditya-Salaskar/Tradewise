@@ -56,8 +56,8 @@
               <td>₹{{ holding.value | number }}</td>
               <td [ngClass]="holding.gainLoss >= 0 ? 'gain' : 'loss'">₹{{ holding.gainLoss | number }}</td>
               <td [ngClass]="holding.gainLossPercent >= 0 ? 'gain' : 'loss'">
-                {{ holding.gainLossPercent >= 0 ? '+' : ''}}{{ holding.gainLossPercent }}%
-              </td>
+                   {{ holding.gainLossPercent >= 0 ? '+' : ''}}{{ holding.gainLossPercent }}%
+             </td>
             </tr>
           </tbody>
         </table>
