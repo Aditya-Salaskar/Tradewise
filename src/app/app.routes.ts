@@ -17,7 +17,6 @@ import { AdminRoles } from './component/admin/admin-roles/admin-roles';
 // Broker Components
 import { BrokerDashboard } from './component/broker/broker-dashboard/broker-dashboard';
 import { RiskAnalysis } from './component/broker/riskAnalysis/risk-analysis';
-// import { BrokerInvestorPortfolio } from './component/broker/investor-portfolio-page/broker-investor-portfolio';
 
 // Investor Components
 import { InvestorDashboard } from './component/investor/investor-dashboard/investor-dashboard';
@@ -47,11 +46,8 @@ export const routes: Routes = [
     canActivate: [RoleGuard],
     children: [
       { path: 'dashboard', component: BrokerDashboard },
-      { path: 'market', component: MarketList },
-      { path: 'market/:symbol', component: InstrumentDetails },
       { path: 'risk-analysis', component: RiskAnalysis },
       { path: 'profile', component: UserProfile },
-      // { path: 'investor-portfolios', component: BrokerInvestorPortfolio }
     ]
   },
 

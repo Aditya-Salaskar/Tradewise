@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-landing-page',
@@ -80,7 +81,11 @@ onLogin() {
     });
   }
 
-onRegister() {
+onRegister(form: NgForm) {
+  if (form.invalid) {
+    alert('Please fill all required fields correctly!');
+    return;
+  }
   
 const newUser = {
     ...this.registerData,

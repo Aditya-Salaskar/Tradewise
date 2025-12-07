@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
-import { BrokerDashboardService } from '../../../services/broker-dashboard.service'; // ⭐ Renamed service
+import { BrokerDashboardService } from '../../../services/broker-dashboard.service';
 
 @Component({
   selector: 'app-broker-dashboard',

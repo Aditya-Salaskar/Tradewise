@@ -44,6 +44,20 @@
       "password": "password",
       "role": "admin",
       "riskProfile": null
+    },
+    {
+      "id": "d2f8",
+      "username": "username",
+      "email": "sadfsdgf",
+      "password": "1234567890",
+      "role": "investor",
+      "fullName": "",
+      "phone": "",
+      "accountNumber": "",
+      "panNumber": "",
+      "bankAccount": "",
+      "ifscCode": "",
+      "profilePicture": ""
     }
   ],
   "instruments": [
@@ -1035,6 +1049,16 @@
       "price": 3845,
       "status": "PENDING",
       "timestamp": "2025-12-07T08:20:21.128Z"
+    },
+    {
+      "id": "b4a2",
+      "investorId": "e88b",
+      "instrumentId": 10,
+      "orderType": "BUY",
+      "quantity": 100,
+      "price": 765,
+      "status": "PENDING",
+      "timestamp": "2025-12-07T10:32:19.482Z"
     }
   ],
   "trades": [
