@@ -1,57 +1,74 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
-import { BrokerDashboardService } from '../../../services/broker-dashboard.service';
+import { DashboardService, OrderDisplay, ClientDisplay, DashboardStats } from '../../../services/dashboard.service';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { map, switchMap, shareReplay } from 'rxjs/operators';
+
+// ✅ Interface defines structure for the HTML to prevent 'unknown' errors
+interface DashboardViewData {
+  orders: OrderDisplay[];
+  clients: ClientDisplay[];
+  stats: DashboardStats;
+}
 
 @Component({
   selector: 'app-broker-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule],
   templateUrl: './broker-dashboard.html',
-  styleUrls: ['./broker-dashboard.css']
+  styleUrls: ['./broker-dashboard.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush 
 })
 export class BrokerDashboard implements OnInit {
-  stats: any;
-  clients: any[] = [];
-  orders: any[] = [];
-  loading = true;
+  private refresh$ = new BehaviorSubject<void>(undefined);
 
-  // ⭐ Use the new service name
-  constructor(private router: Router, private dashboardService: BrokerDashboardService) {}
+  // ✅ FIX: Variable name matches the HTML (*ngIf="dashboardData$ | async")
+  dashboardData$!: Observable<DashboardViewData>;
 
-  ngOnInit(): void {
-    // ⭐ Changed to new service methods
-    this.dashboardService.getStats().subscribe(data => this.stats = data);
-    this.dashboardService.getClients().subscribe(data => this.clients = data);
-    this.dashboardService.getOrders().subscribe(data => {
-      this.orders = data;
-      this.loading = false;
+  constructor(private dashboardService: DashboardService) {}
+
+  ngOnInit() {
+    const orders$ = this.refresh$.pipe(
+      switchMap(() => this.dashboardService.getOrders()),
+      shareReplay(1)
+    );
+
+    const clients$ = this.refresh$.pipe(
+      switchMap(() => this.dashboardService.getClients()),
+      shareReplay(1)
+    );
+
+    const stats$ = this.refresh$.pipe(
+      switchMap(() => this.dashboardService.getStats()),
+      shareReplay(1)
+    );
+
+    // Combine streams into the single object expected by the template
+    this.dashboardData$ = combineLatest([orders$, clients$, stats$]).pipe(
+      map(([orders, clients, stats]) => ({ 
+        orders, 
+        clients, 
+        stats 
+      }))
+    );
+  }
+
+  approveOrder(orderId: string) {
+    this.dashboardService.approveOrder(orderId).subscribe({
+      next: () => this.refresh$.next(),
+      error: (err: any) => console.error('Approve failed', err)
     });
   }
 
-  // ⭐ Broker actions require updating the order status via the service
-  // You will need a method in BrokerDashboardService called updateOrderStatus(orderId, status)
-
-  // NOTE: For now, this is a local change. The API call needs to be implemented.
-  approveOrder(orderId: string): void {
-    // In a real app, call this.dashboardService.updateOrderStatus(orderId, 'EXECUTED').subscribe(...)
-    const order = this.orders.find(o => o.orderId === orderId);
-    if (order) order.status = 'EXECUTED'; 
+  rejectOrder(orderId: string) {
+    this.dashboardService.rejectOrder(orderId).subscribe({
+      next: () => this.refresh$.next(),
+      error: (err: any) => console.error('Reject failed', err)
+    });
   }
 
-  // NOTE: For now, this is a local change. The API call needs to be implemented.
-  rejectOrder(orderId: string): void {
-    // In a real app, call this.dashboardService.updateOrderStatus(orderId, 'REJECTED').subscribe(...)
-    const order = this.orders.find(o => o.orderId === orderId);
-    if (order) order.status = 'REJECTED'; 
-  }
-
-  goToOrderDetails(orderId: string): void {
-    this.router.navigate(['/broker/orders', orderId]);
-  }
-
-  // Helper to filter for pending orders to be displayed in a dedicated table (Optional)
-  get pendingOrders(): any[] {
-    return this.orders.filter(o => o.status === 'PENDING');
+  // ✅ FIX: Add the specific method name your HTML is calling
+  trackById(index: number, item: any) {
+    return item.id || item.orderId; 
   }
 }

@@ -1,10 +1,10 @@
-
 .dashboard-container {
   display: flex;
   min-height: 100vh;
   background: #f4f6f9;
 }
 
+/* Note: The Sidebar logic is usually in broker-layout, but kept here as per request */
 .sidebar {
   width: 220px;
   background: #0078d7;
@@ -131,38 +131,6 @@ button {
 button:hover {
   opacity: 0.9;
 }
-
-
-.add-section {
-  background: #fff;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.add-section form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.add-section input, .add-section select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  flex: 1;
-}
-
-.add-section button {
-  background: #0078d7;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
 
 /* Status Colors */
 .active { color: green; font-weight: bold; }

@@ -1,81 +1,118 @@
-
 <div class="profile-container" *ngIf="user$ | async as user">
-  <h2>User Profile</h2>
-
-  <!-- Profile Picture -->
-  <div class="profile-picture-section">
-    <img [src]="user.profilePicture" alt="Profile Picture" class="profile-picture" />
-    <input type="file" (change)="onFileSelected($event)" [disabled]="!isEditing" />
-  </div>
-
-  <!-- Personal Information -->
-  <section class="profile-section">
-    <h3>Personal Information</h3>
-    <div class="profile-grid">
-      <div class="profile-item">
-        <label>Full Name</label>
-        <input type="text" [(ngModel)]="user.fullName" [readonly]="!isEditing" />
-      </div>
-      <div class="profile-item">
-        <label>Email</label>
-        <input type="email" [(ngModel)]="user.email" [readonly]="!isEditing" />
-      </div>
-      <div class="profile-item">
-        <label>Phone</label>
-        <input type="text" [(ngModel)]="user.phone" [readonly]="!isEditing" />
-      </div>
-      <div class="profile-item">
-        <label>Username</label>
-        <input type="text" [(ngModel)]="user.username" [readonly]="!isEditing" />
-      </div>
-      <div class="profile-item">
-        <label>Role</label>
-        <input type="text" [(ngModel)]="user.role" readonly />
-      </div>
-      <div class="profile-item" *ngIf="user.role === 'investor'">
-        <label>Risk Profile</label>
-        <select [(ngModel)]="user.riskProfile" [disabled]="!isEditing">
-          <option value="null" disabled selected>Select risk profile</option>
-          <option value="aggressive">Aggressive</option>
-          <option value="moderate">Moderate</option>
-          <option value="conservative">Conservative</option>
-        </select>
+  
+  <div class="profile-card">
+    
+    <!-- HEADER -->
+    <div class="profile-header">
+      <div class="profile-picture-wrapper">
+        <img [src]="user.profilePicture || 'https://i.pravatar.cc/150?img=12'" alt="Profile" class="profile-picture" />
+        
+        <label class="file-upload-label" *ngIf="isEditing">
+          <span>📷 Upload</span>
+          <input type="file" (change)="onFileSelected($event)" style="display: none;">
+        </label>
       </div>
     </div>
-  </section>
 
-  <!-- Account Details -->
-  <section class="profile-section">
-    <h3>Account Details</h3>
-    <div class="profile-grid">
-      <div class="profile-item">
-        <label>Account Number</label>
-        <input type="text" [(ngModel)]="user.accountNumber" [readonly]="!isEditing" />
+    <!-- BODY -->
+    <div class="profile-body">
+      
+      <!-- TITLE -->
+      <div class="user-title">
+        <h2>{{ user.fullName || user.username }}</h2>
+        <p>{{ user.role | titlecase }} • ID: {{ user.id || 'N/A' }}</p>
       </div>
-      <div class="profile-item">
-        <label>IFSC Code</label>
-        <input type="text" [(ngModel)]="user.ifscCode" [readonly]="!isEditing" />
+
+      <!-- 2-COLUMN GRID (Balanced Layout) -->
+      <div class="info-grid">
+        
+        <!-- COLUMN 1: PERSONAL DETAILS -->
+        <div class="section-col">
+          <h3>Personal Details</h3>
+          
+          <div class="field-group">
+            <label>Full Name</label>
+            <input type="text" [(ngModel)]="user.fullName" [readonly]="!isEditing" class="modern-input" placeholder="Enter full name" />
+          </div>
+
+          <div class="field-group">
+            <label>Email Address</label>
+            <input type="email" [(ngModel)]="user.email" [readonly]="!isEditing" class="modern-input" />
+          </div>
+
+          <div class="field-group">
+            <label>Phone Number</label>
+            <input type="text" [(ngModel)]="user.phone" [readonly]="!isEditing" class="modern-input" placeholder="+91..." />
+          </div>
+
+          <div class="split-row">
+            <div class="field-group">
+              <label>Username</label>
+              <input type="text" [(ngModel)]="user.username" readonly class="modern-input" style="opacity: 0.7;" />
+            </div>
+            <div class="field-group">
+              <label>Role</label>
+              <input type="text" [value]="user.role | titlecase" readonly class="modern-input" style="opacity: 0.7; font-weight: bold;" />
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMN 2: RISK & SECURITY -->
+        <div class="section-col">
+          
+          <!-- RISK SECTION (Only for Investor) -->
+          <ng-container *ngIf="user.role === 'investor'">
+            <h3>Risk Profile</h3>
+            
+            <!-- VISUAL RISK METER -->
+            <div class="risk-card" [ngClass]="calculatedRiskClass">
+              <div class="risk-header">
+                <span class="risk-label">{{ calculatedRiskLabel }}</span>
+                <span class="risk-icon" *ngIf="calculatedRiskClass === 'risk-aggressive'">🔥</span>
+                <span class="risk-icon" *ngIf="calculatedRiskClass === 'risk-moderate'">⚖️</span>
+                <span class="risk-icon" *ngIf="calculatedRiskClass === 'risk-low'">🛡️</span>
+              </div>
+              <div class="meter-bar">
+                <div class="meter-fill"></div>
+              </div>
+              <p class="risk-desc">
+                Calculated based on your current portfolio exposure vs limit.
+              </p>
+            </div>
+          </ng-container>
+
+          <!-- SECURITY SECTION (Always Visible) -->
+          <h3 [style.margin-top]="user.role === 'investor' ? '30px' : '0'">Security</h3>
+          
+          <div class="security-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <span style="font-size: 14px; color: #555;">Password</span>
+              <button class="btn btn-outline" (click)="togglePasswordSection()">
+                {{ showPasswordSection ? 'Cancel' : 'Change' }}
+              </button>
+            </div>
+
+            <div *ngIf="showPasswordSection" class="password-animate">
+              <input type="password" [(ngModel)]="newPassword" placeholder="New Password" class="modern-input" style="margin-bottom: 10px;" />
+              <input type="password" [(ngModel)]="confirmPassword" placeholder="Confirm Password" class="modern-input" style="margin-bottom: 10px;" />
+              <button class="btn btn-primary" (click)="updatePassword()" style="width: 100%;">Update Password</button>
+            </div>
+          </div>
+
+        </div>
+
       </div>
-    </div>
-  </section>
 
-  <!-- Change Password -->
-  <section class="profile-section">
-    <h3>Password Management</h3>
-    <button class="btn password-btn" (click)="togglePasswordSection()">
-      {{ showPasswordSection ? 'Cancel' : 'Change Password' }}
-    </button>
-    <div *ngIf="showPasswordSection" class="password-section">
-      <input type="password" placeholder="New Password" [(ngModel)]="newPassword" />
-      <input type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword" />
-      <button class="btn save-btn" (click)="updatePassword()">Update Password</button>
-    </div>
-  </section>
+      <!-- FOOTER ACTIONS -->
+      <div class="action-footer">
+        <button *ngIf="!isEditing" class="btn btn-primary" (click)="enableEdit()">Edit Profile</button>
+        
+        <ng-container *ngIf="isEditing">
+          <button class="btn btn-outline" (click)="cancelEdit()">Cancel</button>
+          <button class="btn btn-primary" (click)="saveProfile()">Save Changes</button>
+        </ng-container>
+      </div>
 
-  <!-- Action Buttons -->
-  <div class="profile-actions">
-    <button class="btn edit-btn" *ngIf="!isEditing" (click)="enableEdit()">Edit Profile</button>
-    <button class="btn save-btn" *ngIf="isEditing" (click)="saveProfile()">Save Changes</button>
-    <button class="btn cancel-btn" *ngIf="isEditing" (click)="cancelEdit()">Cancel</button>
+    </div>
   </div>
 </div>
