@@ -3,17 +3,19 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './landing-page.html',
-  styleUrl: './landing-page.css',
+  styleUrls: ['./landing-page.css'],
 })
 export class LandingPage {
   constructor(private router: Router, private authService: AuthService) {}
   
+  isRegisterMode = false;
   showAuthModal = false;
 
   openAuthModal() {
@@ -24,7 +26,6 @@ export class LandingPage {
     this.showAuthModal = false;
   }
 
-  isRegisterMode = false;
 
 loginData = { username: '', password: '' };
 registerData = { username: '', email: '', password: '', role: '' };
@@ -34,32 +35,57 @@ toggleMode() {
 }
 
 onLogin() {
-  
-if (!this.loginData.username || !this.loginData.password) {
-    alert('Please enter both username and password.');
-    return;
+  const { username, password } = this.loginData;
+
+  if (!username || !password) {
+      alert('Please enter both username and password.');
+      return;
+    }
+
+  this.authService.login(username, password).subscribe({
+    next: (users) => {
+      if (!Array.isArray(users) || users.length === 0) {
+        alert('Invalid credentials');
+        return;
+        }
+
+      const user = users[0];
+      const role = user.role 
+
+      this.authService.setCurrentUser(user);
+      localStorage.setItem('userId', String(user.id));
+      localStorage.setItem('role', role);
+      localStorage.setItem('username', user.username);
+      
+      const targetUrl = `/${role}/dashboard`;
+
+      console.log('[Login] user:', user);
+      console.log('[Login] navigating to:', targetUrl);
+      console.log('[Login] router.config paths:', this.router.config.map(r => r.path));
+
+      this.router.navigateByUrl(targetUrl)
+        .then(() => {
+          alert('Login successful');
+          this.closeAuthModal();
+        })
+        .catch(err => {
+          console.error('Navigation failed:', err);
+          alert('Navigation failed. Check routes and casing.');
+        });
+
+  },
+  error: (err) => {
+        console.error('Login error:', err);
+        alert('Login failed. Please try again.');
+      },
+    });
   }
 
-  this.authService.login(this.loginData.username, this.loginData.password).subscribe((users) => {
-    if (users.length > 0){
-      alert('Login successfull');
-      const user = users[0];
-      const role = users[0].role;
-      if(role === 'INVESTOR'){
-        localStorage.setItem('userId', String(user.id));
-        this.router.navigate(['/investor/dashboard']);
-      } else if(role === 'BROKER'){
-        this.router.navigate(['broker/dashboard']);
-      } else if(role === 'ADMIN'){
-        this.router.navigate(['admin/dashboard']);
-      }
-    } else {
-      alert('Invalid credentials');
-    }
-  });
-}
-
-onRegister() {
+onRegister(form: NgForm) {
+  if (form.invalid) {
+    alert('Please fill all required fields correctly!');
+    return;
+  }
   
 const newUser = {
     ...this.registerData,
@@ -72,9 +98,16 @@ const newUser = {
     profilePicture: ''
   };
 
-  this.authService.register(newUser).subscribe(()=>{
-    alert('Registration successful! Please log in.');
-    this.toggleMode();
-  });
-}
+  
+this.authService.register(newUser).subscribe({
+      next: () => {
+        alert('Registration successful! Please log in.');
+        this.toggleMode(); // switch to login form
+      },
+      error: (err) => {
+               console.error('Registration error:', err);
+        alert('Registration failed. Please try again.');
+      },
+    });
+  }
 }

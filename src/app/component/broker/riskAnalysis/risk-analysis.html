@@ -1,99 +1,91 @@
-<div class="page-container">
+<div class="main-content">
+  
+  <header>
+    <h2>Risk Analysis & Compliance</h2>
+  </header>
 
-  <h2>Risk Analysis</h2>
-
-  <div class="summary-grid">
-
-    <div class="summary-card">
-      <p class="label">Portfolio Value</p>
-      <h3>₹1,250,000</h3>
+  <!-- 1. KPI CARDS -->
+  <div class="stats">
+    <div class="card">
+      <h3>Active Breaches</h3>
+      <p style="color: #dc3545;">{{ summaryStats.totalBreaches }}</p>
     </div>
-
-    <div class="summary-card">
-      <p class="label">Value at Risk (95% CI)</p>
-      <h3 class="red">₹62,500</h3>
-      <p class="sub">5% of Portfolio</p>
+    <div class="card">
+      <h3>Total Market Exposure</h3>
+      <p style="color: #0078d7;">{{ summaryStats.totalExposure | currency:'INR':'symbol':'1.0-0' }}</p>
     </div>
-
-    <div class="summary-card">
-      <p class="label">Sharpe Ratio</p>
-      <h3>1.45</h3>
+    <div class="card">
+      <h3>Avg. Portfolio Volatility</h3>
+      <p>{{ summaryStats.avgVolatility | percent:'1.1-2' }}</p>
     </div>
-
   </div>
 
-  <div class="summary-grid">
-
-    <div class="summary-card">
-      <p class="label">Portfolio Beta</p>
-      <h3>1.12</h3>
+  <!-- 2. ALERTS BANNER -->
+  <div *ngIf="alerts.length > 0" class="alert-banner">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-list">
+      <div *ngFor="let alert of alerts" class="alert-item">
+        {{ alert }}
+      </div>
     </div>
-
-    <div class="summary-card">
-      <p class="label">Portfolio Alpha</p>
-      <h3 class="green">2.3%</h3>
-    </div>
-
   </div>
 
-  <h3>Risk Contribution by Holding</h3>
-
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>Symbol</th>
-          <th>Portfolio Weight %</th>
-          <th>Beta</th>
-          <th>VaR (₹)</th>
-          <th>Risk Contribution %</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>RELIANCE</td><td>20.64%</td><td>1.15</td><td>₹12,900</td><td>20.6%</td>
-        </tr>
-        <tr>
-          <td>TCS</td><td>13.8%</td><td>0.95</td><td>₹8,625</td><td>13.8%</td>
-        </tr>
-        <tr>
-          <td>INFY</td><td>18.24%</td><td>1.05</td><td>₹11,400</td><td>18.2%</td>
-        </tr>
-        <tr>
-          <td>HDFC</td><td>17.41%</td><td>1.2</td><td>₹10,880</td><td>17.4%</td>
-        </tr>
-        <tr>
-          <td>ITC</td><td>7.12%</td><td>0.85</td><td>₹4,450</td><td>7.1%</td>
-        </tr>
-        <tr>
-          <td>BOND-001</td><td>22.79%</td><td>0.25</td><td>₹4,960</td><td>7.9%</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h3>VaR Calculation Settings</h3>
-
-  <div class="settings-grid">
-
-    <div class="settings-field">
-      <select>
-        <option>Historical Simulation</option>
-        <option>Monte Carlo</option>
-        <option>Parametric</option>
-      </select>
+  <!-- 3. CLIENT RISK TABLE (Scrollable Card) -->
+  <div class="table-card">
+    <div class="card-header">
+      <h3 class="card-title">Client Risk Monitor</h3>
+      <div class="live-indicator">
+        <div class="pulse"></div> Live Updates
+      </div>
     </div>
 
-    <div class="settings-field">
-      <select>
-        <option>1 Day</option>
-        <option>7 Days</option>
-        <option>30 Days</option>
-      </select>
+    <!-- Scroll Wrapper -->
+    <div class="table-scroll-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Portfolio Value</th>
+            <th>Volatility</th>
+            <th>VaR (Risk)</th>
+            <th>Exposure / Limit</th>
+            <th>Utilization</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of brokerGridData">
+            <td>
+              <span class="client-name">{{ row.clientName }}</span>
+              <span class="client-id">{{ row.userId }}</span>
+            </td>
+            <td class="money-text">{{ row.portfolioValue | currency:'INR':'symbol':'1.0-0' }}</td>
+            <td>{{ row.volatility | percent:'1.1-1' }}</td>
+            <td style="font-weight: bold;">{{ row.calculatedVaR | currency:'INR':'symbol':'1.0-0' }}</td>
+            <td>
+              <div>{{ row.currentExposure | currency:'INR':'symbol':'1.0-0' }}</div>
+              <div style="font-size: 11px; color: #999;">limit: {{ row.exposureLimit | currency:'INR':'symbol':'1.0-0' }}</div>
+            </td>
+            <td>
+              <div class="progress-container">
+                <div class="progress-bg">
+                  <div class="progress-fill" 
+                       [style.width.%]="row.utilization"
+                       [style.background-color]="row.utilization > 100 ? '#dc3545' : (row.utilization > 80 ? '#ffc107' : '#28a745')">
+                  </div>
+                </div>
+                <span class="util-text">{{ row.utilization | number:'1.1-1' }}% Used</span>
+              </div>
+            </td>
+            <td>
+              <span class="badge" [ngClass]="row.status === 'BREACH' ? 'breach' : 'safe'">
+                {{ row.status }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
   </div>
-
-  <button class="btn" (click)="recalculate()">Recalculate VaR</button>
 
 </div>

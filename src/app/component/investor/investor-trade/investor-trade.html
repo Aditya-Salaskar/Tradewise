@@ -1,0 +1,131 @@
+
+<div class="trade-page container">
+  <!-- Page Header -->
+  <header class="trade-header">
+    <h2>Trade Execution</h2>
+  </header>
+
+  <section class="grid">
+    <!-- LEFT: Place Order Card -->
+    <div class="card">
+      <h3 class="card-title">Place Order</h3>
+
+      <!-- BUY / SELL Toggle -->
+      <div class="segmented">
+        <button
+          class="segmented-btn"
+          [class.active]="side === 'BUY'"
+          (click)="side = 'BUY'"
+        >
+          BUY
+        </button>
+        <button
+          class="segmented-btn"
+          [class.active]="side === 'SELL'"
+          (click)="side = 'SELL'"
+        >
+          SELL
+        </button>
+      </div>
+
+      <!-- Form Inputs -->
+      <div class="form-block">
+        <label class="form-field">
+          <span class="label">Symbol</span>
+          <select [(ngModel)]="selectedInstrument" (ngModelChange)="onInstrumentChanged()">
+            <option value="">-- select --</option>
+            <option *ngFor="let i of instruments" [value]="i">{{ i }}</option>
+          </select>
+        </label>
+
+        <label class="form-field">
+          <span class="label">Quantity</span>
+          <input type="number" [(ngModel)]="quantity" min="1" />
+        </label>
+      </div>
+
+      <!-- Place Order CTA -->
+      <div class="actions">
+        <button class="btn primary" (click)="placeOrder()">Place Order</button>
+      </div>
+
+      <p class="message-status" [ngClass]="{'success': message.includes('successfully'), 'error': message.includes('failed')}">
+        {{ message }}
+      </p>
+    </div>
+
+    <!-- RIGHT: Information Column -->
+    <div class="right-col">
+      <!-- Market Information Card -->
+      <div class="card">
+        <h3 class="card-title">Market Information</h3>
+        <ng-container *ngIf="marketInfo$ | async as marketInfo; else loading">
+          <div class="info-grid">
+            <div class="info-row">
+              <span>Symbol</span>
+              <strong>{{ marketInfo?.symbol || selectedInstrument || '—' }}</strong>
+            </div>
+            <div class="info-row">
+              <span>Current Price</span>
+              <strong>{{ marketInfo?.currentPrice | currency:'INR' }}</strong>
+            </div>
+            <div class="info-row">
+              <span>Day High</span>
+              <strong>{{ marketInfo?.dayHigh | currency:'INR' }}</strong>
+            </div>
+            <div class="info-row">
+              <span>Day Low</span>
+              <strong>{{ marketInfo?.dayLow | currency:'INR' }}</strong>
+            </div>
+            <div class="info-row">
+              <span>Volume</span>
+              <strong>{{ marketInfo?.volume | number }}</strong>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #loading>
+          <div class="loading">Loading...</div>
+        </ng-template>
+      </div>
+
+      <!-- Order Summary Card -->
+      <div class="card">
+        <h3 class="card-title">Order Summary</h3>
+        <ng-container *ngIf="marketInfo$ | async as marketInfo">
+        <div class="summary">
+          <div class="summary-row">
+            <span>Transaction</span>
+            <strong [class.buy]="side==='BUY'" [class.sell]="side==='SELL'">
+              {{ side || '—' }}
+            </strong>
+          </div>
+          <div class="summary-row">
+            <span>Quantity</span>
+            <strong>{{ quantity || 0 }}</strong>
+          </div>
+          <div class="summary-row">
+            <span>Est. Price</span>
+            <strong>
+              {{
+                (orderType === 'MARKET' ? marketInfo?.currentPrice : price) 
+                  | currency:'INR'
+              }}
+            </strong>
+          </div>
+          <div class="summary-row">
+            <span>Est. Total</span>
+            <strong class="total">
+              {{
+                ((orderType === 'MARKET' ? marketInfo?.currentPrice : price) || 0) 
+                  * (quantity || 0)
+                  | currency:'INR'
+              }}
+            </strong>
+          </div>
+        </div>
+        </ng-container>
+      </div>
+    </div>
+  </section>
+</div>

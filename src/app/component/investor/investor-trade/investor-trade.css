@@ -1,0 +1,157 @@
+/* Grid Layout */
+.grid {
+  display: flex;
+  gap: 20px;
+}
+
+/* Left Column: Place Order */
+.grid .card {
+  flex: 1;
+}
+
+/* Right Column: Market Info + Order Summary */
+.right-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Card Styling */
+.card {
+  background-color: #ffffff; /* White background */
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* Segmented Buttons (Buy/Sell) */
+.segmented {
+  display: flex;
+  gap: 8px;
+}
+
+.segmented-btn {
+  flex: 1; /* Full width inside card */
+  padding: 10px;
+  border: 1px solid #0078d7;
+  background-color: #ffffff;
+  color: #0078d7;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.segmented-btn.active {
+  background-color: #0078d7;
+  color: #ffffff;
+}
+
+/* Form Fields */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+
+.form-field .label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #555;
+}
+
+.form-field select,
+.form-field input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Place Order Button */
+.btn.primary {
+  background-color: #0078d7;
+  color: #ffffff;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%; /* Full width */
+}
+
+.btn.primary:hover {
+  background-color: #0078d7; /* Slightly darker shade */
+}
+
+/* Info Grid (Market Data) */
+.info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1px; /* space between rows */
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between; /* label left, value right */
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0; /* subtle divider */
+}
+
+.info-row span {
+  color: #555;
+  font-weight: 500;
+}
+
+.info-row strong {
+  color: #0078d7;
+  font-weight: 600;
+  margin-left: 12px; /* spacing between label and value */
+}
+
+/* Order Summary */
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 1px; /* space between rows */
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.summary-row span {
+  color: #555;
+  font-weight: 500;
+}
+
+.summary-row strong {
+  margin-left: 12px; /* spacing between label and value */
+  font-weight: 600;
+}
+
+.summary-row strong.buy {
+  color: #28a745; /* green for BUY */
+}
+
+.summary-row strong.sell {
+  color: #d9534f; /* red for SELL */
+}
+
+.summary-row .total {
+  color: #0078d7;
+  font-weight: bold;
+}
+/* Responsive: Stack on small screens */
+@media (max-width: 768px) {
+  .grid {
+    flex-direction: column;
+  }
+}

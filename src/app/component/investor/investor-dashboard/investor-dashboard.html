@@ -1,4 +1,3 @@
-
 <header>
   <h2>Investor Dashboard</h2>
 </header>
@@ -8,54 +7,98 @@
   <ng-container *ngIf="portfolioSummary$ | async as summary; else loading">
     <div class="card"><h3>Total Value</h3><p>{{ summary.totalValue | number }}</p></div>
     <div class="card"><h3>Total Invested</h3><p>{{ summary.totalInvested | number }}</p></div>
-    <div class="card"><h3>Total Gain/Loss</h3><p class="gain">{{ summary.totalGainLoss | number }}</p></div>
-    <div class="card"><h3>Return</h3><p class="gain">+{{ summary.gainLossPercent }}%</p></div>
+    <div class="card"><h3>Total Gain/Loss</h3>
+      <p [ngClass]="summary.totalGainLoss >= 0 ? 'gain' : 'loss'">{{ summary.totalGainLoss | number }}</p>
+    </div>
+    <div class="card"><h3>Return</h3>
+      <p [ngClass]="summary.totalGainLoss >= 0 ? 'gain' : 'loss'">{{ summary.gainLossPercent }}%</p>
+    </div>
   </ng-container>
-  <ng-template #loading>
-    <p style="color: gray;">Loading portfolio summary...</p>
-  </ng-template>
+  <ng-template #loading><p style="color: gray;">Loading portfolio summary...</p></ng-template>
+</section>
+
+<!-- Allocation + Market overview row -->
+<section class="overview-row">
+  <!-- Asset Allocation Pie Chart -->
+  <div class="chart-section">
+    <h3>Asset allocation</h3>
+    <div class="chart-card">
+      <canvas id="assetPieChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Market Overview -->
+  <div class="market-section">
+    <h3>Market overview</h3>
+    <div *ngIf="marketOverview$ | async as market; else loadingMarket" class="market-card">
+      <div class="metrics">
+        <div class="metric">
+          <span class="label">Tracked instruments</span>
+          <span class="value">{{ market.totalInstruments }}</span>
+        </div>
+        <div class="metric">
+          <span class="label">Last update</span>
+          <span class="value">{{ market.lastUpdated | date:'short' }}</span>
+        </div>
+      </div>
+
+      <div class="toplist">
+        <h4>Top prices</h4>
+        <ul>
+          <li *ngFor="let t of market.topByPrice">
+            <span class="symbol">{{ t.instrument }}</span>
+            <span class="price">₹{{ t.currentPrice }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="actions">
+        <button routerLink="/market" class="view-btn">View market</button>
+      </div>
+    </div>
+    <ng-template #loadingMarket><p style="color: gray;">Loading market overview...</p></ng-template>
+  </div>
 </section>
 
 <!-- Top Holdings -->
 <section class="table-section">
-  <h3>Top Holdings</h3>
-  <div *ngIf="holdings$ | async as holdings; else loadingHoldings">
+  <h3>Top holdings</h3>
+  <div *ngIf="holdings$ | async as holdings; else loadingHoldings" class="table-container">
     <table>
       <thead><tr><th>Symbol</th><th>Quantity</th><th>Avg Price</th><th>Current Price</th><th>Value</th></tr></thead>
       <tbody>
         <tr *ngFor="let h of holdings">
-          <td>{{ h.symbol }}</td>
-          <td>{{ h.quantity }}</td>
-          <td>{{ h.avgPrice }}</td>
-          <td>{{ h.currentPrice }}</td>
-          <td>{{ h.value | number }}</td>
+          <td>{{ h.symbol }}</td><td>{{ h.quantity }}</td><td>{{ h.avgPrice }}</td>
+          <td>{{ h.currentPrice }}</td><td>{{ h.value | number }}</td>
         </tr>
       </tbody>
     </table>
+    <div class="actions">
+      <button routerLink="/investor-portfolio" class="view-btn">View all portfolio</button>
+    </div>
   </div>
-  <ng-template #loadingHoldings>
-    <p style="color: gray;">Loading holdings...</p>
-  </ng-template>
+  <ng-template #loadingHoldings><p style="color: gray;">Loading holdings...</p></ng-template>
 </section>
 
 <!-- Recent Orders -->
 <section class="table-section">
-  <h3>Recent Orders</h3>
-  <div *ngIf="recentOrders$ | async as orders; else loadingOrders">
+  <h3>Recent orders</h3>
+  <div *ngIf="recentOrders$ | async as orders; else loadingOrders" class="table-container">
     <table>
-      <thead><tr><th>Order ID</th><th>Symbol</th><th>Type</th><th>Quantity</th><th>Price</th><th>Status</th></tr></thead>
+      <thead><tr><th>Order ID</th><th>Symbol</th><th>Type</th><th>Quantity</th><th>Price</th><th>Status</th><th>Time</th></tr></thead>
       <tbody>
         <tr *ngFor="let o of orders">
-          <td>{{ o.orderId }}</td>
-          <td>{{ o.symbol }}</td>
-          <td>{{ o.type }}</td>
-          <td>{{ o.quantity }}</td>
-          <td>{{ o.price }}</td>
-          <td>{{ o.status }}</td>
-               </tr>
+          <td>{{ o.orderID }}</td><td>{{ o.instrument }}</td>
+          <td [ngClass]="o.type === 'BUY' ? 'buy' : 'sell'">{{ o.type }}</td>
+          <td>{{ o.quantity }}</td><td>{{ o.price }}</td>
+          <td [ngClass]="o.status.toLowerCase()">{{ o.status }}</td>
+          <td>{{ o.timestamp | date:'short' }}</td>
+        </tr>
       </tbody>
     </table>
+    <div class="actions">
+      <button routerLink="/orders" class="view-btn">View all orders</button>
+    </div>
   </div>
-  <ng-template #loadingOrders>
-    <p style="color: gray;">Loading orders...</p>
-  </ng-template>
+  <ng-template #loadingOrders><p style="color: gray;">Loading orders...</p></ng-template>
+</section>
