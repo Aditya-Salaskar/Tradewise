@@ -5,18 +5,20 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../models/user.model';
 import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
 
 @Component({
-  selector: 'app-investor-profile',
+  selector: 'app-user-profile',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './investor-profile.html',
-  styleUrls: ['./investor-profile.css']
+  templateUrl: './user-profile.html',
+  styleUrls: ['./user-profile.css']
 })
-export class InvestorProfile implements OnInit {
+export class UserProfile implements OnInit {
   isEditing = false;
   showPasswordSection = false;
-  user: User | any = {};
+  user$!: Observable<User>;
+  user!: User;
   newPassword = '';
   confirmPassword = '';
 
@@ -29,24 +31,20 @@ export class InvestorProfile implements OnInit {
       return;
     }
     
-this.auth.getUserById(userId).subscribe({
-      next: (data) => {
-        this.user = {
-          fullName: '',
-          phone: '',
-          accountNumber: '',
-          panNumber: '',
-          bankAccount: '',
-          ifscCode: '',
-          riskProfile: null,
-          profilePicture: 'assets/default-avatar.png', // safe default
-          ...data
-        };
-      },
-      error: () => {
-        alert('Could not load user profile. Is json-server running?');
-      }
-    });
+    this.user$ = this.auth.getUserById(userId).pipe(
+    map(data => ({
+      fullName: '',
+      phone: '',
+      accountNumber: '',
+      panNumber: '',
+      bankAccount: '',
+      ifscCode: '',
+      riskProfile: null,
+      profilePicture: 'assets/default-avatar.png',
+      ...data
+    }))
+  );
+  this.user$.subscribe(u => this.user = u);
 }
 
   enableEdit() {

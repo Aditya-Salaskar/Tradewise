@@ -1,0 +1,35 @@
+
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <!-- Logo: role-aware -->
+    <a [routerLink]="logoLink" class="logo-link">
+      <h1 class="logo">TradeWise</h1>
+    </a>
+
+    <!-- Scrollable Nav -->
+    <nav>
+      <ul>
+        <li *ngFor="let item of menu">
+          <a
+            [routerLink]="[base, item.segment]"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: !!item.exact }"
+          >
+            <span class="icon">{{ item.icon }}</span> {{ item.label }}
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Footer: Logout -->
+    <div class="sidebar-footer">
+      <button type="button" class="logout-link" (click)="onLogout()">
+        <span class="icon">🔓</span> Logout
+      </button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

@@ -5,7 +5,7 @@
 <!-- Portfolio Summary -->
 <section class="stats">
   <ng-container *ngIf="portfolioSummary$ | async as summary; else loading">
-    <div class="card highlight"><h3>Total Value</h3><p>{{ summary.totalValue | number }}</p></div>
+    <div class="card"><h3>Total Value</h3><p>{{ summary.totalValue | number }}</p></div>
     <div class="card"><h3>Total Invested</h3><p>{{ summary.totalInvested | number }}</p></div>
     <div class="card"><h3>Total Gain/Loss</h3>
       <p [ngClass]="summary.totalGainLoss >= 0 ? 'gain' : 'loss'">{{ summary.totalGainLoss | number }}</p>
