@@ -1,89 +1,79 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, throwError, of } from 'rxjs';
-import { map, switchMap, catchError } from 'rxjs/operators';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable, forkJoin, map, switchMap, of } from 'rxjs';
+import { AuthService } from './auth.service';
 
-export interface OrderDto {
-  id?: number;
-  orderId: string;
-  instrument: string;
-  type: 'BUY' | 'SELL';
-  quantity: number;
-  price: number | string;
-  status: 'PENDING' | 'EXECUTED' | 'CANCELLED';
-  timestamp: string;
+interface RawOrder {
+    id: string;
+    investorId: string;
+    instrumentId: number;
+    orderType: 'BUY' | 'SELL';
+    quantity: number;
+    price: number;
+    status: 'PENDING' | 'EXECUTED' | 'REJECTED' | 'CANCELLED';
+    timestamp: string;
 }
 
-export interface Order {
-  id?: number;
-  orderId: string;
-  instrument: string;
-  type: 'BUY' | 'SELL';
-  quantity: number;
-  price: number | string;
-  status: 'PENDING' | 'EXECUTED' | 'CANCELLED';
-  timestamp: Date;
+interface Instrument {
+    instrumentId: number;
+    tickerSymbol: string;
+    companyName: string;
+    id: string;
+}
+
+interface DisplayOrder extends RawOrder {
+    orderId: string; 
+    instrument: string; 
+    type: 'BUY' | 'SELL'; 
 }
 
 @Injectable({ providedIn: 'root' })
 export class OrderService {
-  private baseUrl = 'http://localhost:3000';
-  private collection = 'Investororders';
+    private baseUrl = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) {}
+    // ⭐ Fix the collection name to 'orders'
+    private ordersCollection = 'orders';
+    private instrumentsCollection = 'instruments';
 
-  private mapDto(dto: OrderDto): Order {
-    return {
-      ...dto,
-      timestamp: dto.timestamp ? new Date(dto.timestamp) : new Date()
-    };
-  }
+    constructor(private http: HttpClient, private authService: AuthService) {}
 
-  list(): Observable<Order[]> {
-    return this.http.get<OrderDto[]>(`${this.baseUrl}/${this.collection}`).pipe(
-      map(arr => (arr || []).map(d => this.mapDto(d))),
-      catchError(err => {
-        console.error('OrderService.list error', err);
-        return throwError(() => err);
-      })
-    );
-  }
-
-  getByOrderId(orderId: string): Observable<Order | undefined> {
-    const q = encodeURIComponent(orderId);
-    return this.http.get<OrderDto[]>(`${this.baseUrl}/${this.collection}?orderId=${q}`).pipe(
-      map(arr => (arr && arr.length ? this.mapDto(arr[0]) : undefined)),
-      catchError(err => {
-        console.error('OrderService.getByOrderId error', err);
-        return throwError(() => err);
-      })
-    );
-  }
-
-  cancelByOrderId(orderId: string): Observable<Order> {
-    const q = encodeURIComponent(orderId);
-    return this.http.get<OrderDto[]>(`${this.baseUrl}/${this.collection}?orderId=${q}`).pipe(
-      switchMap(list => {
-        if (!list || list.length === 0) {
-          return throwError(() => new Error('Order not found'));
+    listOrders(): Observable<DisplayOrder[]> {
+        const currentUser = this.authService.getCurrentUser();
+        
+        if (!currentUser || currentUser.role !== 'investor') {
+            return of([]); 
         }
-        const item = list[0];
-        return this.http.patch<OrderDto>(`${this.baseUrl}/${this.collection}/${item.id}`, { status: 'CANCELLED' }).pipe(
-          map(updated => this.mapDto(updated))
-        );
-      }),
-      catchError(err => {
-        console.error('OrderService.cancelByOrderId error', err);
-        return throwError(() => err);
-      })
-    );
-  }
 
-  // optional convenience: get distinct instruments for filter dropdown
-  instruments(): Observable<string[]> {
-    return this.list().pipe(
-      map(list => Array.from(new Set(list.map(i => i.instrument))).sort()),
-      catchError(() => of([]))
-    );
-  }
+        const investorId = currentUser.id!;
+
+        const params = new HttpParams().set('investorId', investorId);
+        const orders$ = this.http.get<RawOrder[]>(`${this.baseUrl}/${this.ordersCollection}`, { params });
+
+        const instruments$ = this.http.get<Instrument[]>(`${this.baseUrl}/${this.instrumentsCollection}`);
+
+        return forkJoin({
+            orders: orders$,
+            instruments: instruments$
+        }).pipe(
+            map(data => {
+                const instrumentMap = new Map<number, Instrument>();
+                data.instruments.forEach(i => instrumentMap.set(i.instrumentId, i));
+
+                return data.orders.map(order => {
+                    const instrument = instrumentMap.get(order.instrumentId);
+                    
+                    return {
+                        ...order,
+                        orderId: order.id, 
+                        instrument: instrument?.tickerSymbol || 'N/A',
+                        type: order.orderType,
+                    } as DisplayOrder;
+                });
+            })
+        );
+    }
+    
+    cancelByOrderId(orderId: string): Observable<RawOrder> {
+        return this.http.patch<RawOrder>(`${this.baseUrl}/${this.ordersCollection}/${orderId}`, { status: 'CANCELLED' });
+    }
 }

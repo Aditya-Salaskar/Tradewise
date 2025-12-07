@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
-import { DashboardService } from '../../../services/dashboard.service';
+import { BrokerDashboardService } from '../../../services/broker-dashboard.service'; // ⭐ Renamed service
 
 @Component({
   selector: 'app-broker-dashboard',
@@ -16,9 +16,11 @@ export class BrokerDashboard implements OnInit {
   orders: any[] = [];
   loading = true;
 
-  constructor(private router: Router, private dashboardService: DashboardService) {}
+  // ⭐ Use the new service name
+  constructor(private router: Router, private dashboardService: BrokerDashboardService) {}
 
   ngOnInit(): void {
+    // ⭐ Changed to new service methods
     this.dashboardService.getStats().subscribe(data => this.stats = data);
     this.dashboardService.getClients().subscribe(data => this.clients = data);
     this.dashboardService.getOrders().subscribe(data => {
@@ -27,18 +29,29 @@ export class BrokerDashboard implements OnInit {
     });
   }
 
+  // ⭐ Broker actions require updating the order status via the service
+  // You will need a method in BrokerDashboardService called updateOrderStatus(orderId, status)
+
+  // NOTE: For now, this is a local change. The API call needs to be implemented.
   approveOrder(orderId: string): void {
+    // In a real app, call this.dashboardService.updateOrderStatus(orderId, 'EXECUTED').subscribe(...)
     const order = this.orders.find(o => o.orderId === orderId);
-    if (order) order.status = 'EXECUTED';
+    if (order) order.status = 'EXECUTED'; 
   }
 
+  // NOTE: For now, this is a local change. The API call needs to be implemented.
   rejectOrder(orderId: string): void {
+    // In a real app, call this.dashboardService.updateOrderStatus(orderId, 'REJECTED').subscribe(...)
     const order = this.orders.find(o => o.orderId === orderId);
-    if (order) order.status = 'CANCELLED';
+    if (order) order.status = 'REJECTED'; 
   }
 
   goToOrderDetails(orderId: string): void {
     this.router.navigate(['/broker/orders', orderId]);
   }
-}
 
+  // Helper to filter for pending orders to be displayed in a dedicated table (Optional)
+  get pendingOrders(): any[] {
+    return this.orders.filter(o => o.status === 'PENDING');
+  }
+}

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../models/user.model';
 import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,7 +17,8 @@ import { HttpClient } from '@angular/common/http';
 export class UserProfile implements OnInit {
   isEditing = false;
   showPasswordSection = false;
-  user: User | any = {};
+  user$!: Observable<User>;
+  user!: User;
   newPassword = '';
   confirmPassword = '';
 
@@ -29,24 +31,20 @@ export class UserProfile implements OnInit {
       return;
     }
     
-this.auth.getUserById(userId).subscribe({
-      next: (data) => {
-        this.user = {
-          fullName: '',
-          phone: '',
-          accountNumber: '',
-          panNumber: '',
-          bankAccount: '',
-          ifscCode: '',
-          riskProfile: null,
-          profilePicture: 'assets/default-avatar.png', // safe default
-          ...data
-        };
-      },
-      error: () => {
-        alert('Could not load user profile. Is json-server running?');
-      }
-    });
+    this.user$ = this.auth.getUserById(userId).pipe(
+    map(data => ({
+      fullName: '',
+      phone: '',
+      accountNumber: '',
+      panNumber: '',
+      bankAccount: '',
+      ifscCode: '',
+      riskProfile: null,
+      profilePicture: 'assets/default-avatar.png',
+      ...data
+    }))
+  );
+  this.user$.subscribe(u => this.user = u);
 }
 
   enableEdit() {

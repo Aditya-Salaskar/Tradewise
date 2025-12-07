@@ -1,46 +1,53 @@
-/* Header */
+/* Global container + font */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: #f4f6f9;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
 header h2 {
-  margin: 0 0 16px 0;
+  margin-bottom: 20px;
   color: #333;
-  font-weight: 600;
 }
 
 /* Summary cards (stats) */
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* match portfolio */
+  gap: 15px;
+  margin-bottom: 30px;
 }
 .card {
   background: #fff;
-  padding: 18px 16px;          /* slightly smaller padding */
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  padding: 20px;  
+  border-radius: 8px; /* match portfolio */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* softer shadow */
   text-align: center;
-  min-height: 100px;           /* smaller height */
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 100px;           
+  transition: transform 0.2s ease;
 }
 .card h3 {
-  margin: 0 0 6px 0;
+  margin: 0 0 10px 0; /* more breathing room */
   color: #0078d7;
   font-size: 14px;
   font-weight: 600;
 }
 .card p {
   margin: 0;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 20px; /* match portfolio */
+  font-weight: bold;
   color: #111;
-}
-.card.highlight {
-  border: 2px solid #0078d7;
 }
 
 /* Hover effect for stats cards */
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+  transform: translateY(-6px); /* match portfolio */
 }
 
 /* Overview row: charts + market */
@@ -67,20 +74,19 @@ header h2 {
 .chart-card,
 .market-card {
   background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  border-radius: 8px; /* match portfolio */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* softer shadow */
   padding: 16px;
-  height: 280px;               /* equal fixed height */
+  height: 280px;               
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 /* Hover effect for overview cards */
 .chart-card:hover,
 .market-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+  transform: translateY(-6px);
 }
 
 /* Canvas for pie chart */
@@ -154,15 +160,14 @@ header h2 {
   background: #0078d7;
   color: #fff;
   border: none;
-  padding: 8px 14px;
-  border-radius: 8px;
+  padding: 8px 16px; /* match portfolio */
+  border-radius: 6px; /* match portfolio */
   cursor: pointer;
   font-size: 14px;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease;
 }
 .view-btn:hover {
   background: #005a9e;
-  transform: scale(1.05);
 }
 
 /* Tables */
@@ -177,20 +182,22 @@ header h2 {
 }
 .table-container {
   background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  border-radius: 8px; /* match portfolio */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* softer shadow */
   overflow-x: auto;
+  margin-bottom: 30px; /* match portfolio */
 }
 table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 800px; /* match portfolio */
 }
 thead {
   background: #0078d7;
   color: #fff;
 }
 th, td {
-  padding: 10px 12px;
+  padding: 12px 15px; /* match portfolio */
   text-align: left;
   white-space: nowrap;
 }
@@ -198,10 +205,10 @@ tbody tr:nth-child(even) { background: #f9f9f9; }
 tbody tr:hover { background: #eef6ff; }
 
 /* Status colors */
-.gain { color: #1a7f37; font-weight: 700; }
-.loss { color: #c62828; font-weight: 700; }
-.buy  { color: #1a7f37; font-weight: 700; }
-.sell { color: #c62828; font-weight: 700; }
+.gain { color: green; font-weight: bold; }
+.loss { color: red; font-weight: bold; }
+.buy  { color: green; font-weight: bold; }
+.sell { color: red; font-weight: bold; }
 
 /* Responsive tweaks */
 @media (max-width: 992px) {

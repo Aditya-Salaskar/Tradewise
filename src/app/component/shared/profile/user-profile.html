@@ -1,5 +1,5 @@
 
-<div class="profile-container">
+<div class="profile-container" *ngIf="user$ | async as user">
   <h2>User Profile</h2>
 
   <!-- Profile Picture -->
@@ -51,14 +51,6 @@
       <div class="profile-item">
         <label>Account Number</label>
         <input type="text" [(ngModel)]="user.accountNumber" [readonly]="!isEditing" />
-      </div>
-      <div class="profile-item">
-        <label>PAN Number</label>
-        <input type="text" [(ngModel)]="user.panNumber" [readonly]="!isEditing" />
-      </div>
-      <div class="profile-item">
-        <label>Bank Account</label>
-        <input type="text" [(ngModel)]="user.bankAccount" [readonly]="!isEditing" />
       </div>
       <div class="profile-item">
         <label>IFSC Code</label>

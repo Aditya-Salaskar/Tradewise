@@ -7,8 +7,6 @@ export interface User {
   fullName?: string;
   phone?: string;
   accountNumber?: string;
-  panNumber?: string;
-   bankAccount?: string;
   ifscCode?: string;
   riskProfile?: 'aggressive' | 'moderate' | 'conservative' | null;
   profilePicture?: string;

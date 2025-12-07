@@ -1,0 +1,98 @@
+
+<header>
+  <h2>Roles</h2>
+  <p class="subtle">Assign roles to users to enforce access control.</p>
+</header>
+
+<!-- Mini Role Distribution -->
+<section class="stats">
+  <div class="card">
+    <h3>Investors</h3>
+    <p>{{ roleCounts.investor }}</p>
+  </div>
+  <div class="card">
+    <h3>Brokers</h3>
+    <p>{{ roleCounts.broker }}</p>
+  </div>
+  <div class="card">
+    <h3>Admins</h3>
+    <p>{{ roleCounts.admin }}</p>
+  </div>
+</section>
+
+<!-- Assignment Panel -->
+<section class="add-section" *ngIf="selectedUser">
+  <h3>Assign Role</h3>
+  <form (ngSubmit)="assignRole()" #roleForm="ngForm">
+    <div class="form-row">
+      <div class="form-field">
+        <label>User</label>
+        <div class="user-pill">
+          <strong>{{ selectedUser.name }}</strong>
+          <span class="muted">({{ selectedUser.email }})</span>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="role">New Role</label>
+        <select id="role" name="role" [(ngModel)]="newRole" required>
+          <option [ngValue]="'investor'">Investor</option>
+          <option [ngValue]="'broker'">Broker</option>
+          <option [ngValue]="'admin'">Admin</option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button class="primary" type="submit" [disabled]="!newRole || assigning">
+          {{ assigning ? 'Assigning...' : 'Assign Role' }}
+        </button>
+        <button type="button" class="secondary" (click)="clearSelection()" [disabled]="assigning">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="hint">Assigning a role updates the user's permissions immediately.</div>
+</section>
+
+<!-- Users & Roles Table -->
+<section class="table-section">
+  <h3>Users & Roles</h3>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Current Role</th>
+          <th>Status</th>
+          <th>Last Login</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of users">
+          <td>{{ u.id }}</td>
+          <td>{{ u.name }}</td>
+          <td>{{ u.email }}</td>
+          <td class="role">{{ u.role | uppercase }}</td>
+          <td [class.active]="u.status === 'ACTIVE'"
+              [class.locked]="u.status === 'LOCKED'"
+              [class.revoked]="u.status === 'REVOKED'">
+            {{ u.status }}
+          </td>
+          <td>{{ u.lastLogin ? (u.lastLogin | date:'medium') : '—' }}</td>
+          <td>
+            <button class="primary" (click)="selectUser(u)" [disabled]="assigning">
+              Assign Role
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" *ngIf="loading">Loading users...</div>
+</section>
