@@ -25,6 +25,7 @@ import { InvestorOrder } from './component/investor/investor-order/investor-orde
 import { InvestorTrade } from './component/investor/investor-trade/investor-trade';
 
 import { RoleGuard } from './guards/role.guard';
+import { BrokerOrder } from './component/broker/broker-order/broker-order';
 
 export const routes: Routes = [
   { path: '', component: LandingPage },
@@ -46,6 +47,7 @@ export const routes: Routes = [
     canActivate: [RoleGuard],
     children: [
       { path: 'dashboard', component: BrokerDashboard },
+      { path: 'orders', component: BrokerOrder },
       { path: 'risk-analysis', component: RiskAnalysis },
       { path: 'profile', component: UserProfile },
     ]

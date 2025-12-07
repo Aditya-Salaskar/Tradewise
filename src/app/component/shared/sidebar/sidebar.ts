@@ -47,6 +47,7 @@ export class Sidebar {
     if (this.role === 'broker') {
       return [
         { icon: '📊', label: 'Dashboard', segment: 'dashboard', exact: true },
+        { icon: '🧾', label: 'Orders', segment: 'orders' },
         { icon: '⚠️', label: 'Risk Analysis', segment: 'risk-analysis' },
         { icon: '👤', label: 'Profile', segment: 'profile' }
       ];

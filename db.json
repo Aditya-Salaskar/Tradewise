@@ -1007,7 +1007,7 @@
       "orderType": "BUY",
       "quantity": 10,
       "price": 2430.5,
-      "status": "PENDING",
+      "status": "CANCELLED",
       "timestamp": "2025-12-07T09:30:00Z"
     },
     {
@@ -1017,7 +1017,7 @@
       "orderType": "BUY",
       "quantity": 10,
       "price": 1885,
-      "status": "PENDING",
+      "status": "EXECUTED",
       "timestamp": "2025-12-07T06:10:12.629Z"
     },
     {
@@ -1027,7 +1027,7 @@
       "orderType": "BUY",
       "quantity": 100,
       "price": 1885,
-      "status": "PENDING",
+      "status": "CANCELLED",
       "timestamp": "2025-12-07T07:32:00.815Z"
     },
     {
@@ -1037,7 +1037,7 @@
       "orderType": "SELL",
       "quantity": 50,
       "price": 1465,
-      "status": "PENDING",
+      "status": "CANCELLED",
       "timestamp": "2025-12-07T08:19:54.172Z"
     },
     {
@@ -1047,7 +1047,7 @@
       "orderType": "BUY",
       "quantity": 40,
       "price": 3845,
-      "status": "PENDING",
+      "status": "CANCELLED",
       "timestamp": "2025-12-07T08:20:21.128Z"
     },
     {
@@ -1057,7 +1057,7 @@
       "orderType": "BUY",
       "quantity": 100,
       "price": 765,
-      "status": "PENDING",
+      "status": "CANCELLED",
       "timestamp": "2025-12-07T10:32:19.482Z"
     }
   ],
