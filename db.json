@@ -15,17 +15,65 @@
   ],
   "portfolios": [
     {
-   
       "portfolioID": 101,
       "investorID": 1,
       "assetList": [
-        { "symbol": "TCS", "name": "Tata Consultancy Services", "type": "Equity", "quantity": 50, "avgPrice": 3450, "currentPrice": 3600 },
-        { "symbol": "INFY", "name": "Infosys", "type": "Equity", "quantity": 100, "avgPrice": 1520, "currentPrice": 1550 },
-        { "symbol": "Accenture", "name": "Accenture", "type": "Equity", "quantity": 10, "avgPrice": 100, "currentPrice": 2000 },
-        { "symbol": "Cognizant", "name": "Cognizant", "type": "Bond", "quantity": 100, "avgPrice": 1520, "currentPrice": 1550 },
-        { "symbol": "LTI", "name": "Larsen & Toubro Infotech", "type": "Equity", "quantity": 20, "avgPrice": 200, "currentPrice": 2403 },
-        { "symbol": "TATA", "name": "Tata Motors", "type": "Equity", "quantity": 50, "avgPrice": 3000, "currentPrice": 3434 },
-        { "symbol": "Tesla", "name": "Tesla Inc.", "type": "Equity", "quantity": 200, "avgPrice": 1000, "currentPrice": 2345 }
+        {
+          "symbol": "TCS",
+          "name": "Tata Consultancy Services",
+          "type": "Equity",
+          "quantity": 50,
+          "avgPrice": 3450,
+          "currentPrice": 3600
+        },
+        {
+          "symbol": "INFY",
+          "name": "Infosys",
+          "type": "Equity",
+          "quantity": 100,
+          "avgPrice": 1520,
+          "currentPrice": 1550
+        },
+        {
+          "symbol": "Accenture",
+          "name": "Accenture",
+          "type": "Equity",
+          "quantity": 10,
+          "avgPrice": 100,
+          "currentPrice": 2000
+        },
+        {
+          "symbol": "Cognizant",
+          "name": "Cognizant",
+          "type": "Bond",
+          "quantity": 100,
+          "avgPrice": 1520,
+          "currentPrice": 1550
+        },
+        {
+          "symbol": "LTI",
+          "name": "Larsen & Toubro Infotech",
+          "type": "Equity",
+          "quantity": 20,
+          "avgPrice": 200,
+          "currentPrice": 2403
+        },
+        {
+          "symbol": "TATA",
+          "name": "Tata Motors",
+          "type": "Equity",
+          "quantity": 50,
+          "avgPrice": 3000,
+          "currentPrice": 3434
+        },
+        {
+          "symbol": "Tesla",
+          "name": "Tesla Inc.",
+          "type": "Equity",
+          "quantity": 200,
+          "avgPrice": 1000,
+          "currentPrice": 2345
+        }
       ],
       "totalValue": 150000
     },
@@ -33,8 +81,18 @@
       "portfolioID": 102,
       "investorID": 2,
       "assetList": [
-        { "symbol": "RELIANCE", "quantity": 20, "avgPrice": 2580, "currentPrice": 2600 },
-        { "symbol": "HDFC", "quantity": 40, "avgPrice": 2720, "currentPrice": 2750 }
+        {
+          "symbol": "RELIANCE",
+          "quantity": 20,
+          "avgPrice": 2580,
+          "currentPrice": 2600
+        },
+        {
+          "symbol": "HDFC",
+          "quantity": 40,
+          "avgPrice": 2720,
+          "currentPrice": 2750
+        }
       ],
       "totalValue": 200000
     }
@@ -104,6 +162,13 @@
       "investorID": 1
     },
     {
+      "userID": 0,
+      "username": "Investor",
+      "password": "password",
+      "role": "INVESTOR",
+      "investorID": 0
+    },
+    {
       "userID": 2,
       "username": "bob_broker",
       "password": "password456",
@@ -114,6 +179,70 @@
       "username": "admin_user",
       "password": "admin789",
       "role": "ADMIN"
+    },
+    {
+      "id": "61c5",
+      "username": "investor",
+      "email": "Kolla.Mokshith@gmail.com",
+      "password": "password",
+      "role": "INVESTOR",
+      "fullName": "",
+      "phone": "",
+      "accountNumber": "",
+      "panNumber": "",
+      "bankAccount": "",
+      "ifscCode": "",
+      "profilePicture": ""
+    },
+    {
+      "id": "3c86",
+      "username": "abc",
+      "email": "abc@gmail.com",
+      "password": "password",
+      "role": "INVESTOR",
+      "fullName": "",
+      "phone": "",
+      "accountNumber": "",
+      "panNumber": "",
+      "bankAccount": "",
+      "ifscCode": "",
+      "profilePicture": ""
+    }
+  ],
+  "marketOffers": [
+    {
+      "id": 1,
+      "instrument": "ACME Corp",
+      "availableQuantity": 100,
+      "price": 120.5,
+      "type": "SELL",
+      "timestamp": "2025-12-02T09:00:00Z"
+    },
+    {
+      "id": 2,
+      "instrument": "Global Bank Bond",
+      "availableQuantity": 200,
+      "price": 99.75,
+      "type": "SELL",
+      "timestamp": "2025-12-01T08:30:00Z"
+    },
+    {
+      "id": 3,
+      "instrument": "Green Energy",
+      "availableQuantity": 150,
+      "price": 42.25,
+      "type": "SELL",
+      "timestamp": "2025-12-02T10:00:00Z"
+    }
+  ],
+  "boughtTrades": [
+    {
+      "id": "9c6c",
+      "instrument": "ACME Corp",
+      "quantity": 1,
+      "price": 120.5,
+      "status": "BOUGHT",
+      "timestamp": "2025-12-04T05:44:58.120Z"
     }
   ]
 }
