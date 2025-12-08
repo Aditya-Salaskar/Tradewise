@@ -1059,6 +1059,16 @@
       "price": 765,
       "status": "CANCELLED",
       "timestamp": "2025-12-07T10:32:19.482Z"
+    },
+    {
+      "id": "647a",
+      "investorId": "e88b",
+      "instrumentId": 11,
+      "orderType": "BUY",
+      "quantity": 1,
+      "price": 1125,
+      "status": "EXECUTED",
+      "timestamp": "2025-12-08T04:43:00.767Z"
     }
   ],
   "trades": [
