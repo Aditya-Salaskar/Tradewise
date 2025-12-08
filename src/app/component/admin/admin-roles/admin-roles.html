@@ -1,4 +1,3 @@
-
 <header>
   <h2>Roles</h2>
   <p class="subtle">Assign roles to users to enforce access control.</p>
@@ -8,19 +7,19 @@
 <section class="stats">
   <div class="card">
     <h3>Investors</h3>
-    <p>{{ roleCounts.investor }}</p>
+    <p>{{ (roleCounts$ | async)?.investor }}</p>
   </div>
   <div class="card">
     <h3>Brokers</h3>
-    <p>{{ roleCounts.broker }}</p>
+    <p>{{ (roleCounts$ | async)?.broker }}</p>
   </div>
   <div class="card">
     <h3>Admins</h3>
-    <p>{{ roleCounts.admin }}</p>
+    <p>{{ (roleCounts$ | async)?.admin }}</p>
   </div>
 </section>
 
-<!-- Assignment Panel -->
+
 <section class="add-section" *ngIf="selectedUser">
   <h3>Assign Role</h3>
   <form (ngSubmit)="assignRole()" #roleForm="ngForm">
@@ -55,6 +54,7 @@
   <div class="hint">Assigning a role updates the user's permissions immediately.</div>
 </section>
 
+
 <!-- Users & Roles Table -->
 <section class="table-section">
   <h3>Users & Roles</h3>
@@ -67,12 +67,11 @@
           <th>Email</th>
           <th>Current Role</th>
           <th>Status</th>
-          <th>Last Login</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let u of users">
+        <tr *ngFor="let u of (users$ | async)">
           <td>{{ u.id }}</td>
           <td>{{ u.name }}</td>
           <td>{{ u.email }}</td>
@@ -82,7 +81,6 @@
               [class.revoked]="u.status === 'REVOKED'">
             {{ u.status }}
           </td>
-          <td>{{ u.lastLogin ? (u.lastLogin | date:'medium') : '—' }}</td>
           <td>
             <button class="primary" (click)="selectUser(u)" [disabled]="assigning">
               Assign Role

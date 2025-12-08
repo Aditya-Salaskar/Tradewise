@@ -70,7 +70,7 @@ export class InvestorTrade implements OnInit {
       return;
     }
 
-    this.message = 'Placing order...';
+    this.message = 'Order Placed Successfully';
     
     this.marketInfo$.pipe(take(1)).subscribe(marketInfo => {
         if (!marketInfo) {

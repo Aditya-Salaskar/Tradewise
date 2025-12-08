@@ -1,37 +1,55 @@
-
-// services/admin-users.service.ts
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 type UserStatus = 'ACTIVE' | 'LOCKED' | 'REVOKED';
 type UserRole = 'investor' | 'broker' | 'admin';
 
-interface AdminUser {
-  id: string;
-  name: string;
-  email: string;
-  role: UserRole;
-  status: UserStatus;
-  lastLogin?: Date | string | null;
+export interface AdminUser {
+  id: string;
+  name: string;
+  username: string;
+  email: string;
+  role: UserRole;
+  status: UserStatus;
+  isLocked: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
 export class AdminUsersService {
-  getUsers(): Observable<AdminUser[]> {
-    // Mocked data; replace with HTTP call
-    const mock: AdminUser[] = [
-      { id: 'U1001', name: 'Alice Kumar',  email: 'alice@tradewise.com', role: 'investor', status: 'ACTIVE',  lastLogin: new Date() },
-      { id: 'U1002', name: 'Ravi Shah',    email: 'ravi@tradewise.com',  role: 'broker',   status: 'LOCKED',  lastLogin: new Date(Date.now() - 86400000) },
-      { id: 'U1003', name: 'Meera Gupta',  email: 'meera@tradewise.com', role: 'investor', status: 'ACTIVE',  lastLogin: null },
-      { id: 'U1004', name: 'John Smith',   email: 'john@tradewise.com',  role: 'admin',    status: 'ACTIVE',  lastLogin: new Date(Date.now() - 3600000) },
-      { id: 'U1005', name: 'Sana Iqbal',   email: 'sana@tradewise.com',  role: 'broker',   status: 'REVOKED', lastLogin: new Date(Date.now() - 7200000) }
-    ];
-    return of(mock).pipe(delay(300));
-  }
+  private apiUrl = 'http://localhost:3000';
 
-  revokeAccess(userId: string): Observable<void> {
-       // Simulate immediate server-side revoke; replace with HTTP call
-    return of(void 0).pipe(delay(200));
-  }
+  constructor(private http: HttpClient) {}
+
+  getUsers(): Observable<AdminUser[]> {
+    // Fetch all users from the JSON server
+    return this.http.get<any[]>(`${this.apiUrl}/users`).pipe(
+        map(users => users.map(u => ({
+            id: u.id,
+            name: u.name || u.username,
+            username: u.username,
+            email: u.email,
+            role: u.role as UserRole,
+            status: u.isRevoked ? 'REVOKED' : (u.isLocked ? 'LOCKED' : 'ACTIVE') as UserStatus,
+            isLocked: u.isLocked,
+        } as AdminUser))),
+        catchError(() => of([]))
+    );
+  }
+
+  revokeAccess(userId: string): Observable<void> {
+    const patchBody = {
+        status: 'REVOKED',
+        isRevoked: true, 
+    };
+    
+    return this.http.patch<any>(`${this.apiUrl}/users/${userId}`, patchBody).pipe(
+        map(() => { /* Return void on success */ }),
+        catchError(error => {
+            console.error('API Error revoking access:', error);
+            return throwError(() => error);
+        })
+    );
+  }
 }
