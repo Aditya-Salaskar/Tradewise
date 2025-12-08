@@ -1,35 +1,55 @@
-
-// services/admin-roles.service.ts
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http'; 
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
-type UserStatus = 'ACTIVE' | 'LOCKED' | 'REVOKED';
-type UserRole = 'investor' | 'broker' | 'admin';
+export type UserStatus = 'ACTIVE' | 'LOCKED' | 'REVOKED';
+export type UserRole = 'investor' | 'broker' | 'admin';
 
-interface AdminUser {
-  id: string;
-  name: string;
-  email: string;
-  role: UserRole;
-  status: UserStatus;
-  lastLogin?: Date | string | null;
+export interface AdminUser {
+  id: string;
+  name: string;
+  username: string; 
+  email: string;
+  role: UserRole;
+  status: UserStatus;
+  isLocked: boolean; 
+  lastLogin?: Date | string | null;
 }
 
 @Injectable({ providedIn: 'root' })
 export class AdminRolesService {
-  getUsers(): Observable<AdminUser[]> {
-    const mock: AdminUser[] = [
-      { id: 'U1001', name: 'Alice Kumar',  email: 'alice@tradewise.com', role: 'investor', status: 'ACTIVE',  lastLogin: new Date() },
-      { id: 'U1002', name: 'Ravi Shah',    email: 'ravi@tradewise.com',  role: 'broker',   status: 'LOCKED',  lastLogin: new Date(Date.now() - 86400000) },
-      { id: 'U1003', name: 'Meera Gupta',  email: 'meera@tradewise.com', role: 'investor', status: 'ACTIVE',  lastLogin: null },
-      { id: 'U1004', name: 'John Smith',   email: 'john@tradewise.com',  role: 'admin',    status: 'ACTIVE',  lastLogin: new Date(Date.now() - 3600000) }
-    ];
-    return of(mock).pipe(delay(300));
-  }
+  private apiUrl = 'http://localhost:3000';
 
-  assignRole(userId: string, role: UserRole): Observable<void> {
-    // Simulate server-side update; replace with HTTP call
-    return of(void 0).pipe(delay(250));
-  }
+  constructor(private http: HttpClient) {} 
+
+  getUsers(): Observable<AdminUser[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/users`).pipe(
+        map(users => users.map(u => ({
+            id: u.id,
+            name: u.name || u.username,
+            username: u.username,
+            email: u.email,
+            role: u.role as UserRole,
+            status: u.isRevoked ? 'REVOKED' : (u.isLocked ? 'LOCKED' : 'ACTIVE') as UserStatus,
+            isLocked: u.isLocked,
+            lastLogin: u.lastLogin,
+        } as AdminUser))),
+        catchError(() => of([]))
+    );
+  }
+
+  assignRole(userId: string, role: UserRole): Observable<void> {
+    const patchBody = {
+        role: role,
+    };
+    
+    return this.http.patch<any>(`${this.apiUrl}/users/${userId}`, patchBody).pipe(
+        map(() => { /* Return void on success */ }),
+        catchError(error => {
+            console.error(`API Error assigning role ${role} to user ${userId}:`, error);
+            return throwError(() => error); 
+        })
+    );
+  }
 }

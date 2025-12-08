@@ -1,26 +1,25 @@
-
 <header>
   <h2>Users</h2>
   <p class="subtle">View all users and revoke access immediately when needed.</p>
 </header>
 
-<!-- Optional mini stats (derived from users list) -->
+<!-- Mini stats -->
 <section class="stats">
   <div class="card">
     <h3>Total Users</h3>
-    <p>{{ (users.length || 0) }}</p>
+    <p>{{ (users$ | async)?.length || 0 }}</p>
   </div>
   <div class="card">
     <h3>Active</h3>
-    <p>{{ activeCount }}</p>
+    <p>{{ activeCount$ | async }}</p>
   </div>
   <div class="card">
     <h3>Revoked</h3>
-    <p>{{ revokedCount }}</p>
+    <p>{{ revokedCount$ | async }}</p>
   </div>
   <div class="card">
     <h3>Locked</h3>
-    <p>{{ lockedCount }}</p>
+    <p>{{ lockedCount$ | async }}</p>
   </div>
 </section>
 
@@ -35,13 +34,12 @@
           <th>Email</th>
           <th>Role</th>
           <th>Status</th>
-          <th>Last Login</th>
           <th>Actions</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr *ngFor="let u of users">
+        <tr *ngFor="let u of (users$ | async)">
           <td>{{ u.id }}</td>
           <td>{{ u.name }}</td>
           <td>{{ u.email }}</td>
@@ -51,7 +49,6 @@
               [class.locked]="u.status === 'LOCKED'">
             {{ u.status }}
           </td>
-          <td>{{ u.lastLogin ? (u.lastLogin | date:'medium') : '—' }}</td>
           <td>
             <div class="button-group">
               <button class="danger" (click)="revokeAccess(u)" [disabled]="u.status === 'REVOKED'">

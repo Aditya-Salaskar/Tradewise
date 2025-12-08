@@ -1,4 +1,3 @@
-
 <!-- Header -->
 <header>
   <h2>Admin Dashboard</h2>
@@ -9,22 +8,12 @@
 <section class="stats">
   <div class="card">
     <h3>Total Users</h3>
-    <p>{{ stats?.totalUsers ?? 0 }}</p>
+    <p>{{ (stats$ | async)?.totalUsers ?? 0 }}</p>
   </div>
 
   <div class="card">
     <h3>Locked Accounts</h3>
-    <p>{{ stats?.lockedAccounts ?? 0 }}</p>
-  </div>
-
-  <div class="card">
-    <h3>Failed Login Attempts (24h)</h3>
-    <p>{{ stats?.failedLoginAttempts24h ?? 0 }}</p>
-  </div>
-
-  <div class="card">
-    <h3>Pending Compliance Reports</h3>
-    <p>{{ stats?.pendingComplianceReports ?? 0 }}</p>
+    <p>{{ (stats$ | async)?.lockedAccounts ?? 0 }}</p>
   </div>
 </section>
 
@@ -42,7 +31,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of recentActivity">
+        <tr *ngFor="let item of (recentActivity$ | async)">
           <td>{{ item.at | date:'short' }}</td>
           <td>{{ item.type }}</td>
           <td>{{ item.description }}</td>
@@ -53,4 +42,4 @@
   </div>
 </section>
 
-<!-- Loading -->
+<section *ngIf="loading" class="loading">Loading activity...</section>
