@@ -1104,6 +1104,16 @@
       "price": 2950,
       "status": "PENDING",
       "timestamp": "2025-12-08T05:39:36.702Z"
+    },
+    {
+      "id": "5be2",
+      "investorId": "e88b",
+      "instrumentId": 11,
+      "orderType": "BUY",
+      "quantity": 4,
+      "price": 1125,
+      "status": "EXECUTED",
+      "timestamp": "2025-12-08T05:54:34.073Z"
     }
   ],
   "trades": [
@@ -1139,6 +1149,13 @@
       "instrumentId": 2,
       "quantityHeld": 40,
       "averageCostPrice": 3845
+    },
+    {
+      "id": "785c",
+      "investorId": "e88b",
+      "instrumentId": 11,
+      "quantityHeld": 4,
+      "averageCostPrice": 1125
     }
   ]
 }
