@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { OrderService } from '../../../services/order.service';
-import { Observable, map } from 'rxjs';
+import { Observable, map, BehaviorSubject, combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-investor-order',
@@ -22,11 +22,40 @@ export class InvestorOrder implements OnInit {
   executedCount$!: Observable<number>;
   cancelledCount$!: Observable<number>;
 
-  // Filters
-  statusFilter = '';
-  searchTerm = '';
-  dateFrom: string | null = null;
-  dateTo: string | null = null;
+  // Filters (backed by subjects so changes trigger reactive recompute)
+  private _statusFilter = '';
+  private _searchTerm = '';
+  private _dateFrom: string | null = null;
+  private _dateTo: string | null = null;
+
+  statusFilter$ = new BehaviorSubject<string>('');
+  searchTerm$ = new BehaviorSubject<string>('');
+  dateFrom$ = new BehaviorSubject<string | null>(null);
+  dateTo$ = new BehaviorSubject<string | null>(null);
+
+  // keep getters/setters so template two-way bindings continue to work
+  get statusFilter() { return this._statusFilter; }
+  set statusFilter(v: string) { this._statusFilter = v; this.statusFilter$.next(v); }
+
+  get searchTerm() { return this._searchTerm; }
+  set searchTerm(v: string) { this._searchTerm = v; this.searchTerm$.next(v); }
+
+  get dateFrom() { return this._dateFrom; }
+  set dateFrom(v: string | null) { this._dateFrom = v; this.dateFrom$.next(v); }
+
+  get dateTo() { return this._dateTo; }
+  set dateTo(v: string | null) { this._dateTo = v; this.dateTo$.next(v); }
+
+  // Template models and handlers (explicitly emit values) — keeps template simple
+  searchModel: string = '';
+  statusModel: string = '';
+  dateFromModel: string | null = null;
+  dateToModel: string | null = null;
+
+  onSearchChange(value: string) { this.searchTerm = value; }
+  onStatusChange(value: string) { this.statusFilter = value; }
+  onDateFromChange(value: string | null) { this.dateFrom = value; }
+  onDateToChange(value: string | null) { this.dateTo = value; }
 
   constructor(private router: Router, private orderService: OrderService) {}
 
@@ -38,8 +67,39 @@ export class InvestorOrder implements OnInit {
       })))
     );
 
-    this.filteredOrders$ = this.orders$.pipe(
-      map(orders => this.applyFilters(orders))
+    // Recompute filtered orders whenever orders or any filter changes
+    this.filteredOrders$ = combineLatest([
+      this.orders$,
+      this.statusFilter$,
+      this.searchTerm$,
+      this.dateFrom$,
+      this.dateTo$
+    ]).pipe(
+      map(([orders, status, search, from, to]) => {
+        // set local primitive values so template bindings stay in sync
+        this._statusFilter = status;
+        this._searchTerm = search;
+        this._dateFrom = from;
+        this._dateTo = to;
+        // apply filters
+        let list = [...orders];
+        if (status) list = list.filter(o => o.status === status);
+        if (search) {
+          const q = search.trim().toLowerCase();
+          list = list.filter(o => (o.orderId || '').toLowerCase().includes(q) || (o.instrument || '').toLowerCase().includes(q));
+        }
+        if (from) {
+          const fromDt = new Date(from);
+          list = list.filter(o => o.timestamp >= fromDt);
+        }
+        if (to) {
+          const toDt = new Date(to);
+          toDt.setHours(23,59,59,999);
+          list = list.filter(o => o.timestamp <= toDt);
+        }
+        list.sort((a,b) => +b.timestamp - +a.timestamp);
+        return list;
+      })
     );
 
     this.totalToday$ = this.orders$.pipe(map(orders => {

@@ -28,18 +28,18 @@
   
 <section class="filters">
   <div class="filter-row">
-    <input placeholder="Search by Order ID or Instrument" [(ngModel)]="searchTerm" />
-    <select [(ngModel)]="statusFilter">
+  <input placeholder="Search by Order ID or Instrument" [(ngModel)]="searchModel" (ngModelChange)="onSearchChange($event)" />
+  <select [(ngModel)]="statusModel" (ngModelChange)="onStatusChange($event)">
       <option value="">All Status</option>
       <option value="PENDING">PENDING</option>
       <option value="EXECUTED">EXECUTED</option>
       <option value="CANCELLED">CANCELLED</option>
     </select>
     <label class="date">
-      From <input type="date" [(ngModel)]="dateFrom" />
+      From <input type="date" [(ngModel)]="dateFromModel" (ngModelChange)="onDateFromChange($event)" />
     </label>
     <label class="date">
-      To <input type="date" [(ngModel)]="dateTo" />
+      To <input type="date" [(ngModel)]="dateToModel" (ngModelChange)="onDateToChange($event)" />
     </label>
   </div>
 </section>

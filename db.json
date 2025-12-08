@@ -1072,7 +1072,7 @@
       "orderType": "SELL",
       "quantity": 100,
       "price": 2595,
-      "status": "PENDING",
+      "status": "DECLINED",
       "timestamp": "2025-12-07T17:31:18.173Z"
     },
     {
@@ -1092,8 +1092,18 @@
       "orderType": "BUY",
       "quantity": 10,
       "price": 10450,
-      "status": "PENDING",
+      "status": "EXECUTED",
       "timestamp": "2025-12-07T19:33:15.531Z"
+    },
+    {
+      "id": "cf3c",
+      "investorId": "e88b",
+      "instrumentId": 15,
+      "orderType": "BUY",
+      "quantity": 1,
+      "price": 2950,
+      "status": "PENDING",
+      "timestamp": "2025-12-08T05:39:36.702Z"
     }
   ],
   "trades": [
