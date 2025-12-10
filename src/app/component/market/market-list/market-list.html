@@ -1,0 +1,58 @@
+
+<div class="dashboard-container">
+  <header>
+    <h2>Market Overview</h2>
+  </header>
+
+  <div class="main-content">
+    <!-- Search & Filter -->
+    <div class="search-filter">
+      <input type="text" class="search-input" placeholder="Search symbol..." [(ngModel)]="searchTerm" />
+      <select [(ngModel)]="sectorFilter">
+        <option>All Sectors</option>
+        <option>Banking</option>
+        <option>IT</option>
+        <option>Energy</option>
+        <option>FMCG</option>
+      </select>
+      <button (click)="onSearch(searchTerm)">Search</button>
+    </div>
+
+    <!-- Stock Table -->
+    <div class="table-section">
+      <h3>Live Stock Prices</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Volume</th>
+              <th>High</th>
+              <th>Low</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="clickable-row"
+            *ngFor="let stock of (filteredStocks$ | async); trackBy: trackByInstrument"
+            (click)="navigateToDetails(stock.symbol)" role="button" >
+            <td>{{ stock.symbol }}</td>
+            <td>{{ stock.name }}</td>
+            <td class="text-right">{{ stock.price | currency:'INR':'symbol':'1.2-2' }}</td>
+            <td class="text-right">{{ stock.volume | number }}</td>
+            <td class="text-right">{{ stock.high | currency:'INR':'symbol':'1.2-2' }}</td>
+            <td class="text-right">{{ stock.low | currency:'INR':'symbol':'1.2-2' }}</td>
+            <td><button class="btn buy-btn" (click)="buyInstrument(stock)">Trade</button></td>
+          </tr>
+
+          <tr *ngIf="(filteredStocks$ | async)?.length === 0">
+            <td colspan="7" class="text-center">No results found.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

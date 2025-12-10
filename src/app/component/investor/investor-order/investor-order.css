@@ -1,0 +1,138 @@
+
+.orders-page {
+  padding: 16px;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: #f4f6f8;
+}
+
+.orders-header h2 {
+  margin-bottom: 16px;
+  font-size: 24px;
+  color: #333;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.summary-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+}
+
+.summary-card .label {
+  font-size: 14px;
+  color: #666;
+}
+
+.summary-card .value {
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.pending { color: #ff9800; }
+.executed { color: #4caf50; }
+.cancelled { color: #f44336; }
+
+.filters {
+  margin: 20px 0;
+}
+
+.filter-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-row input,
+.filter-row select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  min-width: 180px;
+}
+
+.actions button {
+    
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #0078d7;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-right: 2%;
+}
+
+.actions button:hover {
+  background: #005fa3;
+}
+
+
+.actions-row {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.actions-row button {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #0078d7;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.actions-row button:hover {
+  background: #005fa3;
+}
+
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  background: #2b7ab9;
+  font-weight: 600;
+  color: white;
+  text-align: left;
+}
+
+tr:hover {
+  background: #f9fafb;
+}
+
+@media (max-width: 768px) {
+  .filter-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  table {
+    font-size: 12px;
+  }
+}

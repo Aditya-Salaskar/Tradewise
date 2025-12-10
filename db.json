@@ -1,0 +1,1134 @@
+{
+  "users": [
+    {
+      "fullName": "Broker Full Name",
+      "phone": "9876543210",
+      "riskProfile": null,
+      "profilePicture": "",
+      "id": "1ad0",
+      "username": "broker",
+      "email": "broker@gmail.com",
+      "password": "password",
+      "role": "broker"
+    },
+    {
+      "fullName": "Investor Name",
+      "phone": "1234567890",
+      "accountNumber": "",
+      "panNumber": "",
+      "bankAccount": "",
+      "ifscCode": "",
+      "riskProfile": "Conservative (Low Risk)",
+      "profilePicture": "",
+      "id": "e88b",
+      "username": "investor",
+      "email": "investor@gmail.com",
+      "password": "password",
+      "role": "investor"
+    },
+    {
+      "fullName": "Admin Name",
+      "phone": "",
+      "profilePicture": "",
+      "id": "e34q",
+      "username": "admin",
+      "email": "admin@gmail.com",
+      "password": "password",
+      "role": "admin",
+      "riskProfile": null
+    },
+    {
+      "id": "d2f8",
+      "username": "username",
+      "email": "sadfsdgf",
+      "password": "1234567890",
+      "role": "broker",
+      "fullName": "",
+      "phone": "",
+      "profilePicture": "",
+      "status": "REVOKED",
+      "isRevoked": true
+    },
+    {
+      "fullName": "",
+      "phone": "",
+      "accountNumber": "",
+      "panNumber": "",
+      "bankAccount": "",
+      "ifscCode": "",
+      "riskProfile": "Conservative (Low Risk)",
+      "profilePicture": "",
+      "id": "9874",
+      "username": "bro",
+      "email": "bro@gmail.com",
+      "password": "password",
+      "role": "investor"
+    }
+  ],
+  "instruments": [
+    {
+      "instrumentId": 1,
+      "tickerSymbol": "RELIANCE",
+      "companyName": "Reliance Industries Ltd.",
+      "assetType": "Stock",
+      "sector": "Energy",
+      "id": "7291"
+    },
+    {
+      "instrumentId": 2,
+      "tickerSymbol": "TCS",
+      "companyName": "Tata Consultancy Services",
+      "assetType": "Stock",
+      "sector": "IT",
+      "id": "ddc9"
+    },
+    {
+      "instrumentId": 3,
+      "tickerSymbol": "HDFCBANK",
+      "companyName": "HDFC Bank Ltd.",
+      "assetType": "Stock",
+      "sector": "Banking",
+      "id": "d539"
+    },
+    {
+      "instrumentId": 4,
+      "tickerSymbol": "INFY",
+      "companyName": "Infosys Ltd.",
+      "assetType": "Stock",
+      "sector": "IT",
+      "id": "774a"
+    },
+    {
+      "instrumentId": 5,
+      "tickerSymbol": "ICICIBANK",
+      "companyName": "ICICI Bank Ltd.",
+      "assetType": "Stock",
+      "sector": "Banking",
+      "id": "e367"
+    },
+    {
+      "instrumentId": 6,
+      "tickerSymbol": "LT",
+      "companyName": "Larsen & Toubro Ltd.",
+      "assetType": "Stock",
+      "sector": "Infrastructure",
+      "id": "a4c3"
+    },
+    {
+      "instrumentId": 7,
+      "tickerSymbol": "KOTAKBANK",
+      "companyName": "Kotak Mahindra Bank Ltd.",
+      "assetType": "Stock",
+      "sector": "Banking",
+      "id": "12f2"
+    },
+    {
+      "instrumentId": 8,
+      "tickerSymbol": "HINDUNILVR",
+      "companyName": "Hindustan Unilever Ltd.",
+      "assetType": "Stock",
+      "sector": "FMCG",
+      "id": "b9a2"
+    },
+    {
+      "instrumentId": 9,
+      "tickerSymbol": "BHARTIARTL",
+      "companyName": "Bharti Airtel Ltd.",
+      "assetType": "Stock",
+      "sector": "Telecom",
+      "id": "f65b"
+    },
+    {
+      "instrumentId": 10,
+      "tickerSymbol": "SBIN",
+      "companyName": "State Bank of India",
+      "assetType": "Stock",
+      "sector": "Banking",
+      "id": "dbdb"
+    },
+    {
+      "instrumentId": 11,
+      "tickerSymbol": "AXISBANK",
+      "companyName": "Axis Bank Ltd.",
+      "assetType": "Stock",
+      "sector": "Banking",
+      "id": "c018"
+    },
+    {
+      "instrumentId": 12,
+      "tickerSymbol": "MARUTI",
+      "companyName": "Maruti Suzuki India Ltd.",
+      "assetType": "Stock",
+      "sector": "Auto",
+      "id": "5ab3"
+    },
+    {
+      "instrumentId": 13,
+      "tickerSymbol": "TITAN",
+      "companyName": "Titan Company Ltd.",
+      "assetType": "Stock",
+      "sector": "Jewellery/Consumer Discretionary",
+      "id": "2df2"
+    },
+    {
+      "instrumentId": 14,
+      "tickerSymbol": "BAJFINANCE",
+      "companyName": "Bajaj Finance Ltd.",
+      "assetType": "Stock",
+      "sector": "Financial Services",
+      "id": "285b"
+    },
+    {
+      "instrumentId": 15,
+      "tickerSymbol": "ASIANPAINT",
+      "companyName": "Asian Paints Ltd.",
+      "assetType": "Stock",
+      "sector": "FMCG",
+      "id": "7b02"
+    },
+    {
+      "instrumentId": 16,
+      "tickerSymbol": "NESTLEIND",
+      "companyName": "Nestle India Ltd.",
+      "assetType": "Stock",
+      "sector": "FMCG",
+      "id": "e852"
+    }
+  ],
+  "priceHistories": [
+    {
+      "priceId": 101,
+      "instrumentId": 1,
+      "timestamp": "2025-12-01T10:00:00Z",
+      "price": 2400,
+      "volume": 100000,
+      "dailyHigh": 2405,
+      "dailyLow": 2390,
+      "id": "c01a"
+    },
+    {
+      "priceId": 102,
+      "instrumentId": 1,
+      "timestamp": "2025-12-02T10:00:00Z",
+      "price": 2415.5,
+      "volume": 120000,
+      "dailyHigh": 2420,
+      "dailyLow": 2400,
+      "id": "6324"
+    },
+    {
+      "priceId": 103,
+      "instrumentId": 1,
+      "timestamp": "2025-12-03T10:00:00Z",
+      "price": 2408.25,
+      "volume": 95000,
+      "dailyHigh": 2418,
+      "dailyLow": 2405,
+      "id": "ece7"
+    },
+    {
+      "priceId": 104,
+      "instrumentId": 1,
+      "timestamp": "2025-12-04T10:00:00Z",
+      "price": 2425.75,
+      "volume": 150000,
+      "dailyHigh": 2430,
+      "dailyLow": 2407,
+      "id": "36f9"
+    },
+    {
+      "priceId": 105,
+      "instrumentId": 1,
+      "timestamp": "2025-12-05T10:00:00Z",
+      "price": 2430,
+      "volume": 110000,
+      "dailyHigh": 2435,
+      "dailyLow": 2420,
+      "id": "0305"
+    },
+    {
+      "priceId": 201,
+      "instrumentId": 2,
+      "timestamp": "2025-12-01T10:00:00Z",
+      "price": 3800,
+      "volume": 80000,
+      "dailyHigh": 3810,
+      "dailyLow": 3795,
+      "id": "9c31"
+    },
+    {
+      "priceId": 202,
+      "instrumentId": 2,
+      "timestamp": "2025-12-02T10:00:00Z",
+      "price": 3820.5,
+      "volume": 90000,
+      "dailyHigh": 3825,
+      "dailyLow": 3800,
+      "id": "17e6"
+    },
+    {
+      "priceId": 203,
+      "instrumentId": 2,
+      "timestamp": "2025-12-03T10:00:00Z",
+      "price": 3810,
+      "volume": 75000,
+      "dailyHigh": 3822,
+      "dailyLow": 3805,
+      "id": "7024"
+    },
+    {
+      "priceId": 204,
+      "instrumentId": 2,
+      "timestamp": "2025-12-04T10:00:00Z",
+      "price": 3835.25,
+      "volume": 100000,
+      "dailyHigh": 3840,
+      "dailyLow": 3810,
+      "id": "7ed5"
+    },
+    {
+      "priceId": 205,
+      "instrumentId": 2,
+      "timestamp": "2025-12-05T10:00:00Z",
+      "price": 3845,
+      "volume": 85000,
+      "dailyHigh": 3850,
+      "dailyLow": 3830,
+      "id": "dd8b"
+    },
+    {
+      "priceId": 301,
+      "instrumentId": 3,
+      "timestamp": "2025-12-01T10:00:00Z",
+      "price": 1600,
+      "volume": 150000,
+      "dailyHigh": 1605,
+      "dailyLow": 1595,
+      "id": "79e2"
+    },
+    {
+      "priceId": 302,
+      "instrumentId": 3,
+      "timestamp": "2025-12-02T10:00:00Z",
+      "price": 1595.5,
+      "volume": 140000,
+      "dailyHigh": 1600,
+      "dailyLow": 1590,
+      "id": "6437"
+    },
+    {
+      "priceId": 303,
+      "instrumentId": 3,
+      "timestamp": "2025-12-03T10:00:00Z",
+      "price": 1610.75,
+      "volume": 160000,
+      "dailyHigh": 1615,
+      "dailyLow": 1595,
+      "id": "5e4c"
+    },
+    {
+      "priceId": 304,
+      "instrumentId": 3,
+      "timestamp": "2025-12-04T10:00:00Z",
+      "price": 1605,
+      "volume": 130000,
+      "dailyHigh": 1610,
+      "dailyLow": 1600,
+      "id": "c4cc"
+    },
+    {
+      "priceId": 305,
+      "instrumentId": 3,
+      "timestamp": "2025-12-05T10:00:00Z",
+      "price": 1620.25,
+      "volume": 170000,
+      "dailyHigh": 1625,
+      "dailyLow": 1605,
+      "id": "1fab"
+    },
+    {
+      "priceId": 401,
+      "instrumentId": 4,
+      "timestamp": "2025-12-01T10:00:00Z",
+      "price": 1450,
+      "volume": 110000,
+      "dailyHigh": 1455,
+      "dailyLow": 1445,
+      "id": "0207"
+    },
+    {
+      "priceId": 402,
+      "instrumentId": 4,
+      "timestamp": "2025-12-02T10:00:00Z",
+      "price": 1440,
+      "volume": 105000,
+      "dailyHigh": 1450,
+      "dailyLow": 1435,
+      "id": "e37f"
+    },
+    {
+      "priceId": 403,
+      "instrumentId": 4,
+      "timestamp": "2025-12-03T10:00:00Z",
+      "price": 1460.5,
+      "volume": 120000,
+      "dailyHigh": 1465,
+      "dailyLow": 1440,
+      "id": "af30"
+    },
+    {
+      "priceId": 404,
+      "instrumentId": 4,
+      "timestamp": "2025-12-04T10:00:00Z",
+      "price": 1475.75,
+      "volume": 98000,
+      "dailyHigh": 1480,
+      "dailyLow": 1460,
+      "id": "c902"
+    },
+    {
+      "priceId": 405,
+      "instrumentId": 4,
+      "timestamp": "2025-12-05T10:00:00Z",
+      "price": 1465,
+      "volume": 130000,
+      "dailyHigh": 1478,
+      "dailyLow": 1460,
+      "id": "e1cc"
+    },
+    {
+      "priceId": 501,
+      "instrumentId": 5,
+      "timestamp": "2025-12-01T10:00:00Z",
+      "price": 950,
+      "volume": 200000,
+      "dailyHigh": 955,
+      "dailyLow": 945,
+      "id": "c72d"
+    },
+    {
+      "priceId": 502,
+      "instrumentId": 5,
+      "timestamp": "2025-12-02T10:00:00Z",
+      "price": 958.5,
+      "volume": 210000,
+      "dailyHigh": 960,
+      "dailyLow": 950,
+      "id": "1b02"
+    },
+    {
+      "priceId": 503,
+      "instrumentId": 5,
+      "timestamp": "2025-12-03T10:00:00Z",
+      "price": 965.25,
+      "volume": 180000,
+      "dailyHigh": 968,
+      "dailyLow": 955,
+      "id": "b961"
+    },
+    {
+      "priceId": 504,
+      "instrumentId": 5,
+      "timestamp": "2025-12-04T10:00:00Z",
+      "price": 960,
+      "volume": 190000,
+      "dailyHigh": 967,
+      "dailyLow": 959,
+      "id": "bec4"
+    },
+    {
+      "priceId": 505,
+      "instrumentId": 5,
+      "timestamp": "2025-12-05T10:00:00Z",
+      "price": 970.5,
+      "volume": 220000,
+      "dailyHigh": 972,
+      "dailyLow": 960,
+      "id": "46d1"
+    },
+    {
+      "priceId": 601,
+      "instrumentId": 6,
+      "timestamp": "2025-12-01T10:00:00Z",
+      "price": 3200,
+      "volume": 70000,
+      "dailyHigh": 3210,
+      "dailyLow": 3190,
+      "id": "3ee2"
+    },
+    {
+      "priceId": 602,
+      "instrumentId": 6,
+      "timestamp": "2025-12-02T10:00:00Z",
+      "price": 3225.5,
+      "volume": 75000,
+      "dailyHigh": 3230,
+      "dailyLow": 3200,
+      "id": "1df9"
+    },
+    {
+      "priceId": 603,
+      "instrumentId": 6,
+      "timestamp": "2025-12-03T10:00:00Z",
+      "price": 3210,
+      "volume": 65000,
+      "dailyHigh": 3228,
+      "dailyLow": 3205,
+      "id": "4aa9"
+    },
+    {
+      "priceId": 604,
+      "instrumentId": 6,
+      "timestamp": "2025-12-04T10:00:00Z",
+      "price": 3235.75,
+      "volume": 80000,
+      "dailyHigh": 3240,
+      "dailyLow": 3215,
+      "id": "fe1d"
+    },
+    {
+      "priceId": 605,
+      "instrumentId": 6,
+      "timestamp": "2025-12-05T10:00:00Z",
+      "price": 3245,
+      "volume": 78000,
+      "dailyHigh": 3250,
+      "dailyLow": 3230,
+      "id": "b736"
+    },
+    {
+      "priceId": 701,
+      "instrumentId": 7,
+      "timestamp": "2025-12-01T10:00:00Z",
+      "price": 1850,
+      "volume": 120000,
+      "dailyHigh": 1855,
+      "dailyLow": 1845,
+      "id": "b805"
+    },
+    {
+      "priceId": 702,
+      "instrumentId": 7,
+      "timestamp": "2025-12-02T10:00:00Z",
+      "price": 1865.5,
+      "volume": 130000,
+      "dailyHigh": 1870,
+      "dailyLow": 1850,
+      "id": "ddd7"
+    },
+    {
+      "priceId": 703,
+      "instrumentId": 7,
+      "timestamp": "2025-12-03T10:00:00Z",
+      "price": 1858.25,
+      "volume": 115000,
+      "dailyHigh": 1868,
+      "dailyLow": 1855,
+      "id": "3f02"
+    },
+    {
+      "priceId": 704,
+      "instrumentId": 7,
+      "timestamp": "2025-12-04T10:00:00Z",
+      "price": 1875.75,
+      "volume": 140000,
+      "dailyHigh": 1880,
+      "dailyLow": 1860,
+      "id": "fdb7"
+    },
+    {
+      "priceId": 705,
+      "instrumentId": 7,
+      "timestamp": "2025-12-05T10:00:00Z",
+      "price": 1885,
+      "volume": 125000,
+      "dailyHigh": 1890,
+      "dailyLow": 1870,
+      "id": "9aea"
+    },
+    {
+      "priceId": 801,
+      "instrumentId": 8,
+      "timestamp": "2025-12-01T10:00:00Z",
+      "price": 2550,
+      "volume": 90000,
+      "dailyHigh": 2555,
+      "dailyLow": 2545,
+      "id": "356a"
+    },
+    {
+      "priceId": 802,
+      "instrumentId": 8,
+      "timestamp": "2025-12-02T10:00:00Z",
+      "price": 2565.5,
+      "volume": 95000,
+      "dailyHigh": 2570,
+      "dailyLow": 2550,
+      "id": "c6da"
+    },
+    {
+      "priceId": 803,
+      "instrumentId": 8,
+      "timestamp": "2025-12-03T10:00:00Z",
+      "price": 2570,
+      "volume": 85000,
+      "dailyHigh": 2575,
+      "dailyLow": 2560,
+      "id": "0281"
+    },
+    {
+      "priceId": 804,
+      "instrumentId": 8,
+      "timestamp": "2025-12-04T10:00:00Z",
+      "price": 2585.75,
+      "volume": 100000,
+      "dailyHigh": 2590,
+      "dailyLow": 2570,
+      "id": "b289"
+    },
+    {
+      "priceId": 805,
+      "instrumentId": 8,
+      "timestamp": "2025-12-05T10:00:00Z",
+      "price": 2595,
+      "volume": 92000,
+      "dailyHigh": 2600,
+      "dailyLow": 2580,
+      "id": "46f0"
+    },
+    {
+      "priceId": 901,
+      "instrumentId": 9,
+      "timestamp": "2025-12-01T10:00:00Z",
+      "price": 1050,
+      "volume": 180000,
+      "dailyHigh": 1055,
+      "dailyLow": 1045,
+      "id": "3d96"
+    },
+    {
+      "priceId": 902,
+      "instrumentId": 9,
+      "timestamp": "2025-12-02T10:00:00Z",
+      "price": 1045.5,
+      "volume": 190000,
+      "dailyHigh": 1050,
+      "dailyLow": 1040,
+      "id": "c55f"
+    },
+    {
+      "priceId": 903,
+      "instrumentId": 9,
+      "timestamp": "2025-12-03T10:00:00Z",
+      "price": 1060.25,
+      "volume": 170000,
+      "dailyHigh": 1065,
+      "dailyLow": 1045,
+      "id": "f866"
+    },
+    {
+      "priceId": 904,
+      "instrumentId": 9,
+      "timestamp": "2025-12-04T10:00:00Z",
+      "price": 1070,
+      "volume": 200000,
+      "dailyHigh": 1075,
+      "dailyLow": 1060,
+      "id": "9ff5"
+    },
+    {
+      "priceId": 905,
+      "instrumentId": 9,
+      "timestamp": "2025-12-05T10:00:00Z",
+      "price": 1065.5,
+      "volume": 185000,
+      "dailyHigh": 1072,
+      "dailyLow": 1065,
+      "id": "0eab"
+    },
+    {
+      "priceId": 1001,
+      "instrumentId": 10,
+      "timestamp": "2025-12-01T10:00:00Z",
+      "price": 750,
+      "volume": 250000,
+      "dailyHigh": 752,
+      "dailyLow": 745,
+      "id": "348c"
+    },
+    {
+      "priceId": 1002,
+      "instrumentId": 10,
+      "timestamp": "2025-12-02T10:00:00Z",
+      "price": 755.5,
+      "volume": 260000,
+      "dailyHigh": 758,
+      "dailyLow": 750,
+      "id": "5694"
+    },
+    {
+      "priceId": 1003,
+      "instrumentId": 10,
+      "timestamp": "2025-12-03T10:00:00Z",
+      "price": 748.25,
+      "volume": 240000,
+      "dailyHigh": 756,
+      "dailyLow": 745,
+      "id": "cedc"
+    },
+    {
+      "priceId": 1004,
+      "instrumentId": 10,
+      "timestamp": "2025-12-04T10:00:00Z",
+      "price": 760.75,
+      "volume": 270000,
+      "dailyHigh": 763,
+      "dailyLow": 748,
+      "id": "76ee"
+    },
+    {
+      "priceId": 1005,
+      "instrumentId": 10,
+      "timestamp": "2025-12-05T10:00:00Z",
+      "price": 765,
+      "volume": 255000,
+      "dailyHigh": 768,
+      "dailyLow": 760,
+      "id": "7682"
+    },
+    {
+      "priceId": 1101,
+      "instrumentId": 11,
+      "timestamp": "2025-12-01T10:00:00Z",
+      "price": 1100,
+      "volume": 160000,
+      "dailyHigh": 1105,
+      "dailyLow": 1095,
+      "id": "17fd"
+    },
+    {
+      "priceId": 1102,
+      "instrumentId": 11,
+      "timestamp": "2025-12-02T10:00:00Z",
+      "price": 1105.5,
+      "volume": 170000,
+      "dailyHigh": 1110,
+      "dailyLow": 1100,
+      "id": "53f8"
+    },
+    {
+      "priceId": 1103,
+      "instrumentId": 11,
+      "timestamp": "2025-12-03T10:00:00Z",
+      "price": 1095.25,
+      "volume": 150000,
+      "dailyHigh": 1106,
+      "dailyLow": 1090,
+      "id": "66b2"
+    },
+    {
+      "priceId": 1104,
+      "instrumentId": 11,
+      "timestamp": "2025-12-04T10:00:00Z",
+      "price": 1115.75,
+      "volume": 180000,
+      "dailyHigh": 1120,
+      "dailyLow": 1095,
+      "id": "cb2e"
+    },
+    {
+      "priceId": 1105,
+      "instrumentId": 11,
+      "timestamp": "2025-12-05T10:00:00Z",
+      "price": 1125,
+      "volume": 165000,
+      "dailyHigh": 1130,
+      "dailyLow": 1115,
+      "id": "b457"
+    },
+    {
+      "priceId": 1201,
+      "instrumentId": 12,
+      "timestamp": "2025-12-01T10:00:00Z",
+      "price": 10200,
+      "volume": 40000,
+      "dailyHigh": 10250,
+      "dailyLow": 10150,
+      "id": "a832"
+    },
+    {
+      "priceId": 1202,
+      "instrumentId": 12,
+      "timestamp": "2025-12-02T10:00:00Z",
+      "price": 10300.5,
+      "volume": 45000,
+      "dailyHigh": 10350,
+      "dailyLow": 10200,
+      "id": "3dcd"
+    },
+    {
+      "priceId": 1203,
+      "instrumentId": 12,
+      "timestamp": "2025-12-03T10:00:00Z",
+      "price": 10250,
+      "volume": 38000,
+      "dailyHigh": 10310,
+      "dailyLow": 10240,
+      "id": "44c3"
+    },
+    {
+      "priceId": 1204,
+      "instrumentId": 12,
+      "timestamp": "2025-12-04T10:00:00Z",
+      "price": 10400.75,
+      "volume": 48000,
+      "dailyHigh": 10450,
+      "dailyLow": 10250,
+      "id": "d3ac"
+    },
+    {
+      "priceId": 1205,
+      "instrumentId": 12,
+      "timestamp": "2025-12-05T10:00:00Z",
+      "price": 10450,
+      "volume": 42000,
+      "dailyHigh": 10500,
+      "dailyLow": 10400,
+      "id": "b373"
+    },
+    {
+      "priceId": 1301,
+      "instrumentId": 13,
+      "timestamp": "2025-12-01T10:00:00Z",
+      "price": 3500,
+      "volume": 60000,
+      "dailyHigh": 3510,
+      "dailyLow": 3490,
+      "id": "6d5f"
+    },
+    {
+      "priceId": 1302,
+      "instrumentId": 13,
+      "timestamp": "2025-12-02T10:00:00Z",
+      "price": 3520.5,
+      "volume": 65000,
+      "dailyHigh": 3530,
+      "dailyLow": 3500,
+      "id": "b1e4"
+    },
+    {
+      "priceId": 1303,
+      "instrumentId": 13,
+      "timestamp": "2025-12-03T10:00:00Z",
+      "price": 3510,
+      "volume": 58000,
+      "dailyHigh": 3525,
+      "dailyLow": 3505,
+      "id": "c906"
+    },
+    {
+      "priceId": 1304,
+      "instrumentId": 13,
+      "timestamp": "2025-12-04T10:00:00Z",
+      "price": 3535.75,
+      "volume": 70000,
+      "dailyHigh": 3540,
+      "dailyLow": 3515,
+      "id": "8f8a"
+    },
+    {
+      "priceId": 1305,
+      "instrumentId": 13,
+      "timestamp": "2025-12-05T10:00:00Z",
+      "price": 3550,
+      "volume": 62000,
+      "dailyHigh": 3555,
+      "dailyLow": 3530,
+      "id": "fd4b"
+    },
+    {
+      "priceId": 1401,
+      "instrumentId": 14,
+      "timestamp": "2025-12-01T10:00:00Z",
+      "price": 7000,
+      "volume": 55000,
+      "dailyHigh": 7020,
+      "dailyLow": 6980,
+      "id": "09f7"
+    },
+    {
+      "priceId": 1402,
+      "instrumentId": 14,
+      "timestamp": "2025-12-02T10:00:00Z",
+      "price": 7050.5,
+      "volume": 58000,
+      "dailyHigh": 7070,
+      "dailyLow": 7000,
+      "id": "dafd"
+    },
+    {
+      "priceId": 1403,
+      "instrumentId": 14,
+      "timestamp": "2025-12-03T10:00:00Z",
+      "price": 7025,
+      "volume": 50000,
+      "dailyHigh": 7060,
+      "dailyLow": 7010,
+      "id": "0243"
+    },
+    {
+      "priceId": 1404,
+      "instrumentId": 14,
+      "timestamp": "2025-12-04T10:00:00Z",
+      "price": 7080.75,
+      "volume": 60000,
+      "dailyHigh": 7100,
+      "dailyLow": 7025,
+      "id": "f16c"
+    },
+    {
+      "priceId": 1405,
+      "instrumentId": 14,
+      "timestamp": "2025-12-05T10:00:00Z",
+      "price": 7100,
+      "volume": 53000,
+      "dailyHigh": 7120,
+      "dailyLow": 7075,
+      "id": "ef54"
+    },
+    {
+      "priceId": 1501,
+      "instrumentId": 15,
+      "timestamp": "2025-12-01T10:00:00Z",
+      "price": 2900,
+      "volume": 85000,
+      "dailyHigh": 2910,
+      "dailyLow": 2890,
+      "id": "dd5d"
+    },
+    {
+      "priceId": 1502,
+      "instrumentId": 15,
+      "timestamp": "2025-12-02T10:00:00Z",
+      "price": 2920.5,
+      "volume": 90000,
+      "dailyHigh": 2930,
+      "dailyLow": 2900,
+      "id": "db47"
+    },
+    {
+      "priceId": 1503,
+      "instrumentId": 15,
+      "timestamp": "2025-12-03T10:00:00Z",
+      "price": 2910,
+      "volume": 80000,
+      "dailyHigh": 2925,
+      "dailyLow": 2905,
+      "id": "0788"
+    },
+    {
+      "priceId": 1504,
+      "instrumentId": 15,
+      "timestamp": "2025-12-04T10:00:00Z",
+      "price": 2935.75,
+      "volume": 95000,
+      "dailyHigh": 2940,
+      "dailyLow": 2915,
+      "id": "458c"
+    },
+    {
+      "priceId": 1505,
+      "instrumentId": 15,
+      "timestamp": "2025-12-05T10:00:00Z",
+      "price": 2950,
+      "volume": 88000,
+      "dailyHigh": 2955,
+      "dailyLow": 2930,
+      "id": "f7ee"
+    },
+    {
+      "priceId": 1601,
+      "instrumentId": 16,
+      "timestamp": "2025-12-01T10:00:00Z",
+      "price": 24000,
+      "volume": 15000,
+      "dailyHigh": 24050,
+      "dailyLow": 23950,
+      "id": "c7f3"
+    },
+    {
+      "priceId": 1602,
+      "instrumentId": 16,
+      "timestamp": "2025-12-02T10:00:00Z",
+      "price": 24100.5,
+      "volume": 16000,
+      "dailyHigh": 24150,
+      "dailyLow": 24000,
+      "id": "30db"
+    },
+    {
+      "priceId": 1603,
+      "instrumentId": 16,
+      "timestamp": "2025-12-03T10:00:00Z",
+      "price": 24050,
+      "volume": 14000,
+      "dailyHigh": 24120,
+      "dailyLow": 24040,
+      "id": "b570"
+    },
+    {
+      "priceId": 1604,
+      "instrumentId": 16,
+      "timestamp": "2025-12-04T10:00:00Z",
+      "price": 24200.75,
+      "volume": 17000,
+      "dailyHigh": 24250,
+      "dailyLow": 24050,
+      "id": "ad8c"
+    },
+    {
+      "priceId": 1605,
+      "instrumentId": 16,
+      "timestamp": "2025-12-05T10:00:00Z",
+      "price": 24300,
+      "volume": 15500,
+      "dailyHigh": 24350,
+      "dailyLow": 24200,
+      "id": "f845"
+    }
+  ],
+  "investorBrokerMappings": [
+    {
+      "id": "m1",
+      "investorId": "e88b",
+      "brokerId": "1ad0"
+    }
+  ],
+  "orders": [
+    {
+      "id": "o1001",
+      "investorId": "e88b",
+      "instrumentId": 1,
+      "orderType": "BUY",
+      "quantity": 10,
+      "price": 2430.5,
+      "status": "CANCELLED",
+      "timestamp": "2025-12-07T09:30:00Z"
+    },
+    {
+      "id": "330b",
+      "investorId": "e88b",
+      "instrumentId": 7,
+      "orderType": "BUY",
+      "quantity": 10,
+      "price": 1885,
+      "status": "CANCELLED",
+      "timestamp": "2025-12-07T06:10:12.629Z"
+    },
+    {
+      "id": "5f21",
+      "investorId": "e88b",
+      "instrumentId": 7,
+      "orderType": "BUY",
+      "quantity": 100,
+      "price": 1885,
+      "status": "CANCELLED",
+      "timestamp": "2025-12-07T07:32:00.815Z"
+    },
+    {
+      "id": "ab6b",
+      "investorId": "e88b",
+      "instrumentId": 4,
+      "orderType": "SELL",
+      "quantity": 50,
+      "price": 1465,
+      "status": "EXECUTED",
+      "timestamp": "2025-12-07T08:19:54.172Z"
+    },
+    {
+      "id": "3c3f",
+      "investorId": "e88b",
+      "instrumentId": 2,
+      "orderType": "BUY",
+      "quantity": 40,
+      "price": 3845,
+      "status": "EXECUTED",
+      "timestamp": "2025-12-07T08:20:21.128Z"
+    },
+    {
+      "id": "b4a2",
+      "investorId": "e88b",
+      "instrumentId": 10,
+      "orderType": "BUY",
+      "quantity": 100,
+      "price": 765,
+      "status": "EXECUTED",
+      "timestamp": "2025-12-07T10:32:19.482Z"
+    },
+    {
+      "id": "176a",
+      "investorId": "e88b",
+      "instrumentId": 8,
+      "orderType": "SELL",
+      "quantity": 100,
+      "price": 2595,
+      "status": "PENDING",
+      "timestamp": "2025-12-07T17:31:18.173Z"
+    },
+    {
+      "id": "3378",
+      "investorId": "e88b",
+      "instrumentId": 11,
+      "orderType": "SELL",
+      "quantity": 100,
+      "price": 1125,
+      "status": "EXECUTED",
+      "timestamp": "2025-12-07T17:33:10.249Z"
+    },
+    {
+      "id": "0871",
+      "investorId": "9874",
+      "instrumentId": 12,
+      "orderType": "BUY",
+      "quantity": 10,
+      "price": 10450,
+      "status": "PENDING",
+      "timestamp": "2025-12-07T19:33:15.531Z"
+    }
+  ],
+  "trades": [
+    {
+      "id": "t2001",
+      "orderId": "o1001",
+      "investorId": "e88b",
+      "instrumentId": 1,
+      "tradeType": "BUY",
+      "quantity": 10,
+      "executionPrice": 2430.5,
+      "timestamp": "2025-12-07T10:00:00Z"
+    }
+  ],
+  "portfolios": [
+    {
+      "id": "p3001",
+      "investorId": "e88b",
+      "instrumentId": 1,
+      "quantityHeld": 10,
+      "averageCostPrice": 2430.5
+    },
+    {
+      "id": "3464",
+      "investorId": "e88b",
+      "instrumentId": 10,
+      "quantityHeld": 100,
+      "averageCostPrice": 765
+    },
+    {
+      "id": "9929",
+      "investorId": "e88b",
+      "instrumentId": 2,
+      "quantityHeld": 40,
+      "averageCostPrice": 3845
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+/* CONTAINER & LAYOUT */
+.main-content {
+  padding: 30px;
+  background: linear-gradient(135deg, #f6f8fb 0%, #f1f4f8 100%);
+  min-height: 100vh;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  box-sizing: border-box;
+}
+
+header h2 {
+  margin-bottom: 25px;
+  margin-top: 0;
+  font-weight: 800;
+  font-size: 24px;
+  /* TradeWise Gradient Text */
+  background: linear-gradient(90deg, #005a9e, #0078d7);
+  
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* KPI CARDS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Card Hover Lift */
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Colors */
+.card:nth-child(1) { border-bottom: 4px solid #dc3545; background: linear-gradient(135deg, #fff, #fff5f5); }
+.card:nth-child(2) { border-bottom: 4px solid #0078d7; background: linear-gradient(135deg, #fff, #eef7ff); }
+.card:nth-child(3) { border-bottom: 4px solid #6c757d; background: linear-gradient(135deg, #fff, #f8f9fa); }
+
+.card h3 {
+  color: #8898aa;
+  margin-bottom: 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.card p {
+  font-size: 28px;
+  font-weight: 800;
+  color: #2c3e50;
+  margin: 0;
+}
+
+/* ALERTS */
+.alert-banner {
+  background: #fffdf5;
+  border-left: 5px solid #ffc107;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  padding: 15px 20px;
+  margin-bottom: 30px;
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.alert-icon { font-size: 24px; color: #ffc107; }
+.alert-list { display: flex; flex-direction: column; gap: 5px; width: 100%; max-height: 100px; overflow-y: auto; }
+.alert-item { color: #856404; font-weight: 600; font-size: 14px; border-bottom: 1px dashed rgba(0,0,0,0.05); padding-bottom: 4px; }
+
+/* TABLE CARD & SCROLLING */
+.table-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 20px 25px;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-title { font-size: 18px; font-weight: 700; color: #2c3e50; margin: 0; }
+
+.live-indicator {
+  display: flex; gap: 6px; align-items: center; font-size: 12px;
+  color: #28a745; font-weight: 700;
+  background: rgba(40, 167, 69, 0.1);
+  padding: 5px 12px; border-radius: 20px;
+}
+.pulse { width: 8px; height: 8px; background: #28a745; border-radius: 50%; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+/* SCROLL WRAPPER (Shows ~5 rows) */
+.table-scroll-wrapper {
+  max-height: 380px; 
+  overflow-y: auto;
+}
+.table-scroll-wrapper::-webkit-scrollbar { width: 6px; }
+.table-scroll-wrapper::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+
+/* TABLE STYLING */
+table { width: 100%; border-collapse: collapse; }
+
+thead th {
+  position: sticky; top: 0;
+  background: linear-gradient(90deg, #0f4c81 0%, #0078d7 100%);
+  color: #fff; z-index: 10;
+  padding: 16px 20px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; text-align: left;
+}
+
+tbody td {
+  padding: 16px 20px; border-bottom: 1px solid #f4f6f9; color: #525f7f; vertical-align: middle; font-size: 14px;
+}
+
+tbody tr:hover { background-color: #f8fbff; }
+
+/* COLUMN STYLES */
+.client-name { font-weight: 700; color: #32325d; display: block; }
+.client-id { font-size: 12px; color: #8898aa; font-family: monospace; }
+.money-text { font-family: 'Roboto', sans-serif; font-weight: 600; color: #32325d; }
+
+/* BADGES */
+.badge { padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 800; text-transform: uppercase; display: inline-block; }
+.badge.safe { background: #e0fbf4; color: #2dce89; }
+.badge.breach { background: #fee6e6; color: #f5365c; }
+
+/* PROGRESS BAR */
+.progress-container { width: 120px; }
+.progress-bg { background: #e9ecef; height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 4px; }
+.progress-fill { height: 100%; border-radius: 3px; }
+.util-text { font-size: 11px; color: #8898aa; font-weight: 600; }

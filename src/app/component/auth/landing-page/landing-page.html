@@ -1,0 +1,94 @@
+<main class="auth-fullpage">
+  
+  <!-- Left Brand Panel -->
+  <section class="auth-left">
+    <div class="left-content">
+      <h1>{{ isRegisterMode ? 'Join TradeWise' : 'Welcome Back!' }}</h1>
+      <p>
+        {{ isRegisterMode
+           ? 'Create your account today and unlock AI-driven trading insights.'
+           : 'Log in to access your dashboard, monitor risks, and manage your portfolio.' }}
+      </p>
+      <div class="brand-badges">
+        <span class="badge">🔒 Secure</span>
+        <span class="badge">⚡ Realtime</span>
+        <span class="badge">🤖 AI-Insights</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Right Form Panel -->
+  <section class="auth-right">
+    <div class="form-wrapper">
+      
+      <!-- Login Form -->
+      <form *ngIf="!isRegisterMode" (ngSubmit)="onLogin()" class="elevated-card">
+        <h2>Login</h2>
+
+        <div class="field">
+          <label for="loginUsername">Username</label>
+          <input id="loginUsername" type="text" placeholder="Enter username"
+                 [(ngModel)]="loginData.username" name="loginUsername" required />
+        </div>
+
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <input id="loginPassword" type="password" placeholder="Enter password"
+                 [(ngModel)]="loginData.password" name="loginPassword" required />
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn btn-primary">Sign In</button>
+        </div>
+
+        <p class="switch-link">
+          Don’t have an account?
+          <a (click)="toggleMode()">Register Now</a>
+        </p>
+      </form>
+
+      <!-- Register Form -->
+      <form *ngIf="isRegisterMode" #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)" 
+      class="elevated-card" [class.compact-card]="isRegisterMode">
+        <h2>Create Account</h2>
+
+        <div class="field">
+          <label for="registerUsername">Username</label>
+          <input id="registerUsername" type="text" placeholder="Choose a username"
+                 [(ngModel)]="registerData.username" name="registerUsername" required />
+        </div>
+
+        <div class="field">
+          <label for="registerEmail">Email</label>
+          <input id="registerEmail" type="email" placeholder="you@example.com"
+                 [(ngModel)]="registerData.email" name="registerEmail" required />
+        </div>
+
+        <div class="field">
+          <label for="registerPassword">Password</label>
+          <input id="registerPassword" type="password" placeholder="Create a password"
+                 [(ngModel)]="registerData.password" name="registerPassword" required />
+        </div>
+
+        <div class="field">
+          <label for="registerRole">I am a</label>
+          <select id="registerRole" [(ngModel)]="registerData.role" name="registerRole" required>
+            <option value="" disabled selected>Select Role</option>
+            <option value="investor">Investor</option>
+            <option value="broker">Broker</option>
+          </select>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+
+        <p class="switch-link">
+          Already have an account?
+          <a (click)="toggleMode()">Login</a>
+        </p>
+      </form>
+
+    </div>
+  </section>
+</main>

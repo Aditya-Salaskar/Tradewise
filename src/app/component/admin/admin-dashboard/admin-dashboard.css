@@ -1,0 +1,135 @@
+
+/* Container & header */
+header h2 {
+  margin-bottom: 6px;
+  color: #333;
+}
+.subtle {
+  color: #666;
+  margin-bottom: 16px;
+}
+
+/* Cards & stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  margin-bottom: 24px;
+}
+.card {
+  background: #fff;
+  padding: 18px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  text-align: center;
+}
+.card h3 {
+  color: #0078d7;
+  margin-bottom: 8px;
+}
+.card p {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Quick links grid */
+.quick-links h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.ql-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  color: #333;
+  padding: 14px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  cursor: pointer;
+  border: none;
+  text-align: left;
+}
+.ql-card .icon {
+  font-size: 20px;
+}
+.ql-card:hover {
+  background: #eef6ff;
+}
+
+/* Tables */
+.table-section h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+.table-container {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.10);
+  margin-bottom: 24px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+}
+thead {
+  background: #0078d7;
+  color: #fff;
+}
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+}
+tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+tbody tr:hover {
+  background: #eef6ff;
+}
+
+/* Validation chips */
+.validation-section h3 {
+  margin-bottom: 8px;
+}
+.chips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.chip {
+  padding: 6px 10px;
+  border-radius: 16px;
+  font-size: 14px;
+  background: #f1f1f1;
+  color: #333;
+}
+.enabled {
+  background: #e6f4ea;
+  color: #155724;
+  border: 1px solid #15572422;
+}
+.disabled {
+  background: #fdecea;
+  color: #842029;
+  border: 1px solid #84202922;
+}
+
+/* Health status colors */
+.ok { color: #155724; font-weight: bold; }
+.degraded { color: #856404; font-weight: bold; }
+
+/* Loading */
+.loading {
+  text-align: center;
+  color: #666;
+  margin-top: 10px;
+}

@@ -1,0 +1,135 @@
+<div class="dashboard-container">
+  <main class="main-content">
+    
+    <header>
+      <h2>Investor Dashboard</h2>
+    </header>
+
+    <!-- 1. SUMMARY ROW (Total Value Only) -->
+    <section class="summary-section">
+      <ng-container *ngIf="portfolioSummary$ | async as summary">
+        
+        <!-- Single, Prominent Total Value Card -->
+        <div class="dashboard-card total-value-card">
+          <div class="card-icon">
+            <i class="fas fa-wallet"></i>
+          </div>
+          <div class="card-content">
+            <span class="card-label">Total Portfolio Value</span>
+            <h1 class="card-big-value">₹{{ summary.totalValue | number:'1.0-0' }}</h1>
+          </div>
+        </div>
+
+      </ng-container>
+    </section>
+
+    <!-- 2. MAIN GRID (Chart + Market Pulse) -->
+    <section class="grid-row">
+      
+      <!-- Chart Card: Wraps Chart + Legend inside the white box -->
+      <div class="dashboard-card chart-card">
+        <div class="card-header">
+          <h3>Top Holdings Allocation</h3>
+        </div>
+        <div class="chart-container">
+          <canvas #assetPieChart></canvas>
+        </div>
+      </div>
+
+      <!-- Market Pulse Card -->
+      <div class="dashboard-card market-card">
+        <div class="card-header">
+          <h3>Market Pulse</h3>
+        </div>
+        
+        <ng-container *ngIf="marketOverview$ | async as market">
+          <!-- Mini Stats Row -->
+          <div class="market-stats-row">
+            <div class="stat-pill">
+              <span class="sp-label">Instruments</span>
+              <span class="sp-val">{{ market.totalInstruments }}</span>
+            </div>
+            <div class="stat-pill">
+              <span class="sp-label">Updated</span>
+              <span class="sp-val">{{ market.lastUpdated | date:'shortTime' }}</span>
+            </div>
+          </div>
+
+          <!-- Market List -->
+          <div class="market-list-container">
+            <div class="market-list-item" *ngFor="let t of market.topByPrice">
+              <span class="ticker-name">{{ t.instrument }}</span>
+              <span class="ticker-price">₹{{ t.currentPrice }}</span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+    </section>
+
+    <!-- 3. TOP HOLDINGS TABLE CARD -->
+    <section class="dashboard-card table-card">
+      <div class="card-header">
+        <h3>Top Holdings</h3>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Quantity</th>
+              <th>Avg Price</th>
+              <th>Current Price</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let h of holdingsData">
+              <td class="symbol-text">{{ h.symbol }}</td>
+              <td>{{ h.quantity }}</td>
+              <td>₹{{ h.avgPrice | number:'1.2-2' }}</td>
+              <td>₹{{ h.currentPrice | number:'1.2-2' }}</td>
+              <td class="value-text">₹{{ h.value | number:'1.0-0' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. RECENT ORDERS TABLE CARD -->
+    <section class="dashboard-card table-card">
+      <div class="card-header">
+        <h3>Recent Orders</h3>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Symbol</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let o of recentOrders$ | async">
+              <td>
+                <span class="badge" [ngClass]="o.type === 'BUY' ? 'badge-buy' : 'badge-sell'">{{ o.type }}</span>
+              </td>
+              <td class="symbol-text">{{ o.instrument }}</td>
+              <td>{{ o.quantity }}</td>
+              <td>₹{{ o.price }}</td>
+              <td>
+                <span class="status-indicator" [ngClass]="o.status.toLowerCase()"></span> {{ o.status }}
+              </td>
+              <td class="time-text">{{ o.timestamp | date:'short' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>

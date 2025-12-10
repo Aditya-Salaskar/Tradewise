@@ -1,0 +1,69 @@
+<header>
+  <h2>Users</h2>
+  <p class="subtle">View all users and revoke access immediately when needed.</p>
+</header>
+
+<!-- Mini stats -->
+<section class="stats">
+  <div class="card">
+    <h3>Total Users</h3>
+    <p>{{ (users$ | async)?.length || 0 }}</p>
+  </div>
+  <div class="card">
+    <h3>Active</h3>
+    <p>{{ activeCount$ | async }}</p>
+  </div>
+  <div class="card">
+    <h3>Revoked</h3>
+    <p>{{ revokedCount$ | async }}</p>
+  </div>
+  <div class="card">
+    <h3>Locked</h3>
+    <p>{{ lockedCount$ | async }}</p>
+  </div>
+</section>
+
+<section class="table-section">
+  <h3>User Registry</h3>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let u of (users$ | async)">
+          <td>{{ u.id }}</td>
+          <td>{{ u.name }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.role | uppercase }}</td>
+          <td [class.active]="u.status === 'ACTIVE'"
+              [class.revoked]="u.status === 'REVOKED'"
+              [class.locked]="u.status === 'LOCKED'">
+            {{ u.status }}
+          </td>
+          <td>
+            <div class="button-group">
+              <button class="danger" (click)="revokeAccess(u)" [disabled]="u.status === 'REVOKED'">
+                Revoke Access
+              </button>
+              <button class="primary" (click)="assignRole(u)">
+                Assign Role
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" *ngIf="loading">Loading users...</div>
+</section>

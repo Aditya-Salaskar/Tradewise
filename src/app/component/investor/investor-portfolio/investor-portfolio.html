@@ -1,0 +1,72 @@
+<div class="dashboard-container">
+  <main class="main-content">
+    
+    <header>
+      <h2>My Portfolio</h2>
+    </header>
+
+    <!-- 1. SUMMARY CARDS (Only 2 Cards remaining) -->
+    <section class="stats" *ngIf="portfolioSummary$ | async as summary">
+      
+      <!-- Total Value Card -->
+      <div class="card value-card">
+        <div class="card-content">
+          <p class="card-label">Total Portfolio Value</p>
+          <h3 class="card-value">₹{{ summary.totalValue | number:'1.0-0' }}</h3>
+        </div>
+        <div class="card-icon">
+          <i class="fas fa-chart-pie"></i>
+        </div>
+        <div class="card-shine"></div>
+      </div>
+
+      <!-- Total Holdings Card -->
+      <div class="card holdings-card">
+        <div class="card-content">
+          <p class="card-label">Total Holdings</p>
+          <h3 class="card-value">{{ (allHoldings$ | async)?.length }}</h3>
+        </div>
+        <div class="card-icon">
+          <i class="fas fa-layer-group"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. HOLDINGS TABLE (Removed Type Column, Modern Dark Header) -->
+    <section class="table-section">
+      <div class="section-header">
+        <h3>Current Holdings</h3>
+      </div>
+      
+      <div class="table-container">
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Company Name</th>
+              <th>Qty</th>
+              <th>Avg Price</th>
+              <th>Current Price</th>
+              <th>Current Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let holding of allHoldings$ | async">
+              <td class="symbol-cell">
+                <div class="symbol-wrapper">
+                  <span class="symbol-text">{{ holding.symbol }}</span>
+                </div>
+              </td>
+              <td class="company-cell">{{ holding.name }}</td>
+              <td class="qty-cell">{{ holding.quantity }}</td>
+              <td>₹{{ holding.avgPrice | number:'1.2-2' }}</td>
+              <td>₹{{ holding.currentPrice | number:'1.2-2' }}</td>
+              <td class="value-cell">₹{{ holding.value | number:'1.0-0' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>

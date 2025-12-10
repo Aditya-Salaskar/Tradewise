@@ -1,0 +1,192 @@
+/* --- Variables & Theme --- */
+:root {
+  /* Matching the Dark Blue from your Sidebar */
+  --brand-dark: #0f2e53; 
+  --brand-blue: #0078d7;
+  --brand-light: #eef6ff;
+  
+  --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+  --card-bg: #ffffff;
+  
+  --text-main: #102a43;
+  --text-muted: #627d98;
+  
+  --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.dashboard-container {
+  min-height: 100vh;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg-gradient); /* No more plain white background */
+  color: var(--text-main);
+  padding-bottom: 50px;
+}
+
+.main-content {
+  padding: 30px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+header h2 {
+  color: var(--brand-dark);
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  position: relative;
+  display: inline-block;
+}
+
+/* --- Summary Cards --- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 25px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 5px solid transparent;
+}
+
+/* Card 1: Value - Dark Blue Accent */
+.value-card {
+  border-left-color: var(--brand-blue);
+  background: linear-gradient(to right, #ffffff, #f8fbff);
+}
+
+/* Card 2: Holdings - Dark Accent */
+.holdings-card {
+  border-left-color: var(--brand-dark);
+  background: linear-gradient(to right, #ffffff, #f8fbff);
+}
+
+/* Hover Effects for Cards */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card-label {
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.card-value {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--brand-dark);
+  margin: 0;
+}
+
+.card-icon {
+  font-size: 30px;
+  color: #dceefb; /* Very subtle icon color */
+  transition: color 0.3s ease;
+}
+
+.card:hover .card-icon {
+  color: var(--brand-blue); /* Icon lights up on hover */
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* --- Table Section --- */
+.table-section {
+  background: transparent;
+}
+
+.section-header h3 {
+  color: var(--brand-dark);
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.table-container {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+/* Dark Header to match Sidebar */
+.modern-table thead {
+  background: var(--brand-dark);
+  color: black;
+}
+
+.modern-table th {
+  padding: 18px 24px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-bottom: 3px solid var(--brand-blue); /* Accent line under header */
+}
+
+.modern-table tbody tr {
+  border-bottom: 1px solid #f1f5f9;
+  transition: all 0.2s ease-in-out;
+}
+
+.modern-table td {
+  padding: 20px 24px;
+  font-size: 15px;
+  vertical-align: middle;
+  color: var(--text-main);
+}
+
+/* Row Hover Effect */
+.modern-table tbody tr:hover {
+  background-color: var(--brand-light); /* Light blue highlight */
+  transform: scale(1.002);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* Column Specific Styles */
+.symbol-cell .symbol-text {
+  font-weight: 700;
+  color: var(--brand-blue);
+  background: rgba(0, 120, 215, 0.1);
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.company-cell {
+  font-weight: 500;
+  color: #334e68;
+}
+
+.qty-cell {
+  font-family: 'Consolas', monospace;
+  color: var(--text-muted);
+}
+
+.value-cell {
+  font-weight: 700;
+  color: var(--brand-dark);
+  font-size: 16px;
+}

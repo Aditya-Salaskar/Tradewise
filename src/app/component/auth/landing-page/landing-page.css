@@ -1,0 +1,259 @@
+:host { 
+    display: contents; 
+}
+
+* { 
+    box-sizing: border-box; 
+}
+
+html, body { 
+    height: 100vh; 
+    margin: 0;
+    /* This is the main line preventing the page scroll */
+    overflow: hidden; 
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    color: #1d1d2f;
+}
+
+.auth-fullpage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh; 
+    width: 100%;
+    /* Keep the outer container locked */
+    overflow: hidden; 
+}
+
+.auth-left {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Deep Purple/Blue */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative Background Circle */
+.auth-left::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    top: -100px;
+    left: -100px;
+    z-index: 0;
+}
+
+.left-content {
+    position: relative;
+    z-index: 1;
+    max-width: 500px;
+    color: #fff;
+}
+
+.left-content h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.left-content p {
+    font-size: 1.25rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+/* Brand Badges */
+.brand-badges {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.auth-right {
+    background: #f8f9fe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    min-height: 0;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 480px;
+}
+
+.elevated-card {
+    background: #ffffff;
+    padding: 50px;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    animation: slideUp 0.6s ease-out;
+}
+
+.elevated-card.compact-card {
+    padding: 30px; 
+    padding-bottom: 20px;
+}
+
+.compact-card h2 {
+    margin-bottom: 20px; 
+}
+
+.compact-card .field {
+    margin-bottom: 15px; 
+}
+
+.compact-card .switch-link {
+    margin-top: 15px; 
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    font-size: 2rem;
+    color: #2d3748;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.field {
+    margin-bottom: 20px;
+}
+
+.field label {
+    display: block;
+    font-size: 0.9rem;
+    color: #718096;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.field input, .field select {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 2px solid #edf2f7;
+    background: #fcfcfc;
+    font-size: 1rem;
+    color: #2d3748;
+    transition: all 0.2s ease;
+}
+
+.field input:focus, .field select:focus {
+    border-color: #667eea;
+    background: #fff;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+}
+
+.btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Primary Button (Gradient) */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(118, 75, 162, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(118, 75, 162, 0.4);
+}
+
+/* Secondary Button (Outline for Roles) */
+.btn-outline {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    color: #4a5568;
+}
+
+.btn-outline:hover {
+    border-color: #667eea;
+    color: #667eea;
+    background: #f8f9fe;
+}
+
+.switch-link {
+    text-align: center;
+    margin-top: 30px;
+    color: #718096;
+    font-size: 0.95rem;
+}
+
+.switch-link a {
+    color: #667eea;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.switch-link a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+    .auth-fullpage { 
+        grid-template-columns: 1fr; 
+    }
+
+    .auth-right {
+        max-height: none; 
+        overflow-y: visible;
+        align-items: flex-start; 
+    }
+
+    .auth-left { 
+        padding: 40px 20px; 
+        text-align: center; 
+    }
+    .auth-left::before { 
+        display: none; 
+    }
+    .brand-badges { 
+        justify-content: center; 
+    }
+    .auth-right { 
+        padding: 30px 20px; 
+    }
+    .elevated-card { 
+        padding: 30px; 
+    }
+}

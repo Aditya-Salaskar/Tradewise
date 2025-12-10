@@ -1,0 +1,91 @@
+<div class="main-content">
+  
+  <header>
+    <h2>Risk Analysis & Compliance</h2>
+  </header>
+
+  <!-- 1. KPI CARDS -->
+  <div class="stats">
+    <div class="card">
+      <h3>Active Breaches</h3>
+      <p style="color: #dc3545;">{{ summaryStats.totalBreaches }}</p>
+    </div>
+    <div class="card">
+      <h3>Total Market Exposure</h3>
+      <p style="color: #0078d7;">{{ summaryStats.totalExposure | currency:'INR':'symbol':'1.0-0' }}</p>
+    </div>
+    <div class="card">
+      <h3>Avg. Portfolio Volatility</h3>
+      <p>{{ summaryStats.avgVolatility | percent:'1.1-2' }}</p>
+    </div>
+  </div>
+
+  <!-- 2. ALERTS BANNER -->
+  <div *ngIf="alerts.length > 0" class="alert-banner">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-list">
+      <div *ngFor="let alert of alerts" class="alert-item">
+        {{ alert }}
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. CLIENT RISK TABLE (Scrollable Card) -->
+  <div class="table-card">
+    <div class="card-header">
+      <h3 class="card-title">Client Risk Monitor</h3>
+      <div class="live-indicator">
+        <div class="pulse"></div> Live Updates
+      </div>
+    </div>
+
+    <!-- Scroll Wrapper -->
+    <div class="table-scroll-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Portfolio Value</th>
+            <th>Volatility</th>
+            <th>VaR (Risk)</th>
+            <th>Exposure / Limit</th>
+            <th>Utilization</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of brokerGridData">
+            <td>
+              <span class="client-name">{{ row.clientName }}</span>
+              <span class="client-id">{{ row.userId }}</span>
+            </td>
+            <td class="money-text">{{ row.portfolioValue | currency:'INR':'symbol':'1.0-0' }}</td>
+            <td>{{ row.volatility | percent:'1.1-1' }}</td>
+            <td style="font-weight: bold;">{{ row.calculatedVaR | currency:'INR':'symbol':'1.0-0' }}</td>
+            <td>
+              <div>{{ row.currentExposure | currency:'INR':'symbol':'1.0-0' }}</div>
+              <div style="font-size: 11px; color: #999;">limit: {{ row.exposureLimit | currency:'INR':'symbol':'1.0-0' }}</div>
+            </td>
+            <td>
+              <div class="progress-container">
+                <div class="progress-bg">
+                  <div class="progress-fill" 
+                       [style.width.%]="row.utilization"
+                       [style.background-color]="row.utilization > 100 ? '#dc3545' : (row.utilization > 80 ? '#ffc107' : '#28a745')">
+                  </div>
+                </div>
+                <span class="util-text">{{ row.utilization | number:'1.1-1' }}% Used</span>
+              </div>
+            </td>
+            <td>
+              <span class="badge" [ngClass]="row.status === 'BREACH' ? 'breach' : 'safe'">
+                {{ row.status }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
