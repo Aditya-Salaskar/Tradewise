@@ -58,6 +58,34 @@
       "bankAccount": "",
       "ifscCode": "",
       "profilePicture": ""
+    },
+    {
+      "id": "f6e0",
+      "username": "investor123",
+      "email": "investor123@gmail.com",
+      "password": "Investor123@",
+      "role": "investor",
+      "fullName": "investor123",
+      "profilePicture": "https://i.pravatar.cc/150?img=12",
+      "phone": "",
+      "accountNumber": "",
+      "panNumber": "",
+      "bankAccount": "",
+      "ifscCode": ""
+    },
+    {
+      "id": "b0be",
+      "username": "ankit",
+      "email": "ankit@gmail.com",
+      "password": "Ankit123@",
+      "role": "investor",
+      "fullName": "ankit",
+      "profilePicture": "https://i.pravatar.cc/150?img=12",
+      "phone": "",
+      "accountNumber": "",
+      "panNumber": "",
+      "bankAccount": "",
+      "ifscCode": ""
     }
   ],
   "instruments": [
@@ -1037,7 +1065,7 @@
       "orderType": "SELL",
       "quantity": 50,
       "price": 1465,
-      "status": "PENDING",
+      "status": "EXECUTED",
       "timestamp": "2025-12-07T08:19:54.172Z"
     },
     {
@@ -1079,6 +1107,36 @@
       "price": 1125,
       "status": "EXECUTED",
       "timestamp": "2025-12-07T17:33:10.249Z"
+    },
+    {
+      "id": "51f0",
+      "investorId": "e88b",
+      "instrumentId": 3,
+      "orderType": "BUY",
+      "quantity": 30,
+      "price": 1620.25,
+      "status": "PENDING",
+      "timestamp": "2025-12-07T17:56:14.780Z"
+    },
+    {
+      "id": "2e3f",
+      "investorId": "f6e0",
+      "instrumentId": 12,
+      "orderType": "SELL",
+      "quantity": 10000000000000,
+      "price": 10450,
+      "status": "EXECUTED",
+      "timestamp": "2025-12-10T03:50:10.578Z"
+    },
+    {
+      "id": "1322",
+      "investorId": "b0be",
+      "instrumentId": 12,
+      "orderType": "BUY",
+      "quantity": 100000000000,
+      "price": 10450,
+      "status": "EXECUTED",
+      "timestamp": "2025-12-11T16:41:01.686Z"
     }
   ],
   "trades": [
@@ -1107,6 +1165,13 @@
       "instrumentId": 10,
       "quantityHeld": 100,
       "averageCostPrice": 765
+    },
+    {
+      "id": "e28f",
+      "investorId": "b0be",
+      "instrumentId": 12,
+      "quantityHeld": 100000000000,
+      "averageCostPrice": 10450
     }
   ]
 }

@@ -28,6 +28,90 @@
   </div>
 </section>
 
+<!-- Quick Access / Navigation
+<section class="quick-links">
+  <h3>Quick Access</h3>
+  <div class="grid">
+    <button class="ql-card" (click)="navigateTo('users')">
+      <span class="icon">👥</span><span>Users</span>
+    </button>
+
+    <button class="ql-card" (click)="navigateTo('roles')">
+      <span class="icon">🔐</span><span>Roles</span>
+    </button>
+
+    <button class="ql-card" (click)="navigateTo('security/logins')">
+      <span class="icon">👁️</span><span>Login Monitoring</span>
+    </button>
+
+    <button class="ql-card" (click)="navigateTo('validation/profile')">
+      <span class="icon">✅</span><span>Profile Validation</span>
+    </button>
+
+    <button class="ql-card" (click)="navigateTo('validation/orders')">
+      <span class="icon">📏</span><span>Order Validation</span>
+    </button>
+
+    <button class="ql-card" (click)="navigateTo('market/settings')">
+      <span class="icon">⏱️</span><span>Market Settings</span>
+    </button>
+
+    <button class="ql-card" (click)="navigateTo('reports/compliance')">
+      <span class="icon">🧾</span><span>Compliance Reports</span>
+    </button>
+
+    <button class="ql-card" (click)="navigateTo('reports/compliance/export')">
+      <span class="icon">📤</span><span>Export Reports (PDF)</span>
+    </button>
+
+    <button class="ql-card" (click)="navigateTo('reports/compliance/schedule')">
+      <span class="icon">🗓️</span><span>Schedule Reports</span>
+    </button>
+  </div>
+</section> -->
+
+<!-- System Health Snapshot -->
+<section class="table-section">
+  <h3>System Health</h3>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Market Data Last Update</th>
+          <th>Price Update Interval</th>
+          <th>API Failures (24h)</th>
+          <th>Last Failure</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ systemHealth?.marketDataLastUpdated | date:'medium' }}</td>
+          <td>{{ systemHealth?.priceUpdateInterval }} mins</td>
+          <td>{{ systemHealth?.apiFailures24h ?? 0 }}</td>
+          <td>{{ systemHealth?.lastApiFailureAt ? (systemHealth?.lastApiFailureAt| date:'short') : '—' }}</td>
+          <td [class.ok]="systemHealth?.status === 'OK'" [class.degraded]="systemHealth?.status === 'DEGRADED'">
+            {{ systemHealth?.status || 'UNKNOWN' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Validation Status -->
+<section class="validation-section">
+  <h3>Validation Status</h3>
+  <div class="chips">
+    <span class="chip" [class.enabled]="validation?.profileValidationEnabled" [class.disabled]="!validation?.profileValidationEnabled">
+      Profile Validation: {{ validation?.profileValidationEnabled ? 'Enabled' : 'Disabled' }}
+    </span>
+    <span class="chip" [class.enabled]="validation?.orderValidationEnabled" [class.disabled]="!validation?.orderValidationEnabled">
+      Order Validation: {{ validation?.orderValidationEnabled ? 'Enabled' : 'Disabled' }}
+    </span>
+  </div>
+</section>
+
 <!-- Recent Activity Log -->
 <section class="table-section">
   <h3>Recent Activity</h3>

@@ -1,12 +1,10 @@
 <div class="profile-container" *ngIf="user$ | async as user">
-  
+
   <div class="profile-card">
-    
-    <!-- HEADER -->
+    <!-- Header -->
     <div class="profile-header">
       <div class="profile-picture-wrapper">
         <img [src]="user.profilePicture || 'https://i.pravatar.cc/150?img=12'" alt="Profile" class="profile-picture" />
-        
         <label class="file-upload-label" *ngIf="isEditing">
           <span>📷 Upload</span>
           <input type="file" (change)="onFileSelected($event)" style="display: none;">
@@ -14,57 +12,34 @@
       </div>
     </div>
 
-    <!-- BODY -->
+    <!-- Body -->
     <div class="profile-body">
-      
-      <!-- TITLE -->
+
       <div class="user-title">
         <h2>{{ user.fullName || user.username }}</h2>
         <p>{{ user.role | titlecase }} • ID: {{ user.id || 'N/A' }}</p>
       </div>
 
-      <!-- 2-COLUMN GRID (Balanced Layout) -->
+      <!-- 2-COLUMN GRID -->
       <div class="info-grid">
-        
-        <!-- COLUMN 1: PERSONAL DETAILS -->
+
+        <!-- COL 1: PERSONAL DETAILS -->
         <div class="section-col">
           <h3>Personal Details</h3>
-          
-          <div class="field-group">
-            <label>Full Name</label>
-            <input type="text" [(ngModel)]="user.fullName" [readonly]="!isEditing" class="modern-input" placeholder="Enter full name" />
-          </div>
-
-          <div class="field-group">
-            <label>Email Address</label>
-            <input type="email" [(ngModel)]="user.email" [readonly]="!isEditing" class="modern-input" />
-          </div>
-
-          <div class="field-group">
-            <label>Phone Number</label>
-            <input type="text" [(ngModel)]="user.phone" [readonly]="!isEditing" class="modern-input" placeholder="+91..." />
-          </div>
-
+          <div class="field-group"><label>Full Name</label><input type="text" [(ngModel)]="user.fullName" [readonly]="!isEditing" class="modern-input" /></div>
+          <div class="field-group"><label>Email</label><input type="email" [(ngModel)]="user.email" [readonly]="!isEditing" class="modern-input" /></div>
+          <div class="field-group"><label>Phone</label><input type="text" [(ngModel)]="user.phone" [readonly]="!isEditing" class="modern-input" /></div>
           <div class="split-row">
-            <div class="field-group">
-              <label>Username</label>
-              <input type="text" [(ngModel)]="user.username" readonly class="modern-input" style="opacity: 0.7;" />
-            </div>
-            <div class="field-group">
-              <label>Role</label>
-              <input type="text" [value]="user.role | titlecase" readonly class="modern-input" style="opacity: 0.7; font-weight: bold;" />
-            </div>
+            <div class="field-group"><label>Username</label><input type="text" [(ngModel)]="user.username" readonly class="modern-input" style="opacity: 0.7;" /></div>
+            <div class="field-group"><label>Role</label><input type="text" [value]="user.role | titlecase" readonly class="modern-input" style="opacity: 0.7; font-weight: bold;" /></div>
           </div>
         </div>
 
-        <!-- COLUMN 2: RISK & SECURITY -->
+        <!-- COL 2: RISK & SECURITY -->
         <div class="section-col">
-          
-          <!-- RISK SECTION (Only for Investor) -->
+
           <ng-container *ngIf="user.role === 'investor'">
             <h3>Risk Profile</h3>
-            
-            <!-- VISUAL RISK METER -->
             <div class="risk-card" [ngClass]="calculatedRiskClass">
               <div class="risk-header">
                 <span class="risk-label">{{ calculatedRiskLabel }}</span>
@@ -72,41 +47,32 @@
                 <span class="risk-icon" *ngIf="calculatedRiskClass === 'risk-moderate'">⚖️</span>
                 <span class="risk-icon" *ngIf="calculatedRiskClass === 'risk-low'">🛡️</span>
               </div>
-              <div class="meter-bar">
-                <div class="meter-fill"></div>
-              </div>
-              <p class="risk-desc">
-                Calculated based on your current portfolio exposure vs limit.
-              </p>
+              <div class="meter-bar"><div class="meter-fill"></div></div>
+              <p class="risk-desc">Calculated based on portfolio exposure.</p>
             </div>
           </ng-container>
 
-          <!-- SECURITY SECTION (Always Visible) -->
           <h3 [style.margin-top]="user.role === 'investor' ? '30px' : '0'">Security</h3>
-          
           <div class="security-box">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-              <span style="font-size: 14px; color: #555;">Password</span>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 14px; color: #555;">Password Management</span>
               <button class="btn btn-outline" (click)="togglePasswordSection()">
                 {{ showPasswordSection ? 'Cancel' : 'Change' }}
               </button>
             </div>
-
             <div *ngIf="showPasswordSection" class="password-animate">
-              <input type="password" [(ngModel)]="newPassword" placeholder="New Password" class="modern-input" style="margin-bottom: 10px;" />
-              <input type="password" [(ngModel)]="confirmPassword" placeholder="Confirm Password" class="modern-input" style="margin-bottom: 10px;" />
-              <button class="btn btn-primary" (click)="updatePassword()" style="width: 100%;">Update Password</button>
+              <input type="password" [(ngModel)]="newPassword" placeholder="New Password" class="modern-input" />
+              <input type="password" [(ngModel)]="confirmPassword" placeholder="Confirm Password" class="modern-input" />
+              <button class="btn btn-primary" (click)="updatePassword()">Update Password</button>
             </div>
           </div>
 
         </div>
-
       </div>
 
       <!-- FOOTER ACTIONS -->
       <div class="action-footer">
         <button *ngIf="!isEditing" class="btn btn-primary" (click)="enableEdit()">Edit Profile</button>
-        
         <ng-container *ngIf="isEditing">
           <button class="btn btn-outline" (click)="cancelEdit()">Cancel</button>
           <button class="btn btn-primary" (click)="saveProfile()">Save Changes</button>

@@ -4,7 +4,6 @@ import { DashboardService, OrderDisplay, ClientDisplay, DashboardStats } from '.
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { map, switchMap, shareReplay } from 'rxjs/operators';
 
-// ✅ Interface defines structure for the HTML to prevent 'unknown' errors
 interface DashboardViewData {
   orders: OrderDisplay[];
   clients: ClientDisplay[];
@@ -22,12 +21,12 @@ interface DashboardViewData {
 export class BrokerDashboard implements OnInit {
   private refresh$ = new BehaviorSubject<void>(undefined);
 
-  // ✅ FIX: Variable name matches the HTML (*ngIf="dashboardData$ | async")
   dashboardData$!: Observable<DashboardViewData>;
 
   constructor(private dashboardService: DashboardService) {}
 
   ngOnInit() {
+    // When refresh$ emits, re-fetch all data
     const orders$ = this.refresh$.pipe(
       switchMap(() => this.dashboardService.getOrders()),
       shareReplay(1)
@@ -43,32 +42,31 @@ export class BrokerDashboard implements OnInit {
       shareReplay(1)
     );
 
-    // Combine streams into the single object expected by the template
     this.dashboardData$ = combineLatest([orders$, clients$, stats$]).pipe(
-      map(([orders, clients, stats]) => ({
-        orders,
-        clients,
-        stats
-      }))
+      map(([orders, clients, stats]) => ({ orders, clients, stats }))
     );
   }
 
-  approveOrder(orderId: string) {
-    this.dashboardService.approveOrder(orderId).subscribe({
-      next: () => this.refresh$.next(),
-      error: (err: any) => console.error('Approve failed', err)
+  approveOrder(order: OrderDisplay) {
+    // Calling approveOrder updates the DB, then we trigger refresh$.next()
+    this.dashboardService.approveOrder(order.orderId).subscribe({
+      next: () => {
+        this.refresh$.next();
+      },
+      error: (err) => console.error('Approve failed', err)
     });
   }
 
-  rejectOrder(orderId: string) {
-    this.dashboardService.rejectOrder(orderId).subscribe({
-      next: () => this.refresh$.next(),
-      error: (err: any) => console.error('Reject failed', err)
+  rejectOrder(order: OrderDisplay) {
+    this.dashboardService.rejectOrder(order.orderId).subscribe({
+      next: () => {
+        this.refresh$.next();
+      },
+      error: (err) => console.error('Reject failed', err)
     });
   }
 
-  // ✅ FIX: Add the specific method name your HTML is calling
   trackById(index: number, item: any) {
-    return item.id || item.orderId;
+    return item.orderId || item.id;
   }
 }

@@ -36,21 +36,51 @@ export interface DashboardStats {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-// ✅ Class name is DashboardService (matches file name)
 export class DashboardService {
   private apiUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
 
-  // --- Helper ---
-  private parseMoney(value: any): number {
+  // --- Helper: Clean currency strings ---
+  public parseMoney(value: any): number {
     if (typeof value === 'number') return value;
-    return Number(String(value).replace(/[^\d.-]/g, '')) || 0;
+    if (!value) return 0;
+    return Number(String(value).replace(/[^\d.-]/g, ''));
   }
 
-  // --- INTERNAL FETCHERS ---
+  // ==========================================
+  // 1. SHARED RISK CALCULATION LOGIC
+  // ==========================================
+  calculateRiskStatus(portfolioValue: number, exposureLimit: number = 2500000) {
+    const utilization = (portfolioValue / exposureLimit) * 100;
+
+    let label = 'Conservative (Low Risk)';
+    let cssClass = 'risk-low';
+    let status = 'SAFE';
+
+    if (utilization > 100) {
+      label = 'CRITICAL (Breach)';
+      cssClass = 'risk-aggressive'; // Red
+      status = 'BREACH';
+    } else if (utilization > 80) {
+      label = 'Aggressive (High Risk)';
+      cssClass = 'risk-aggressive';
+      status = 'SAFE'; // Still safe, but high
+    } else if (utilization > 40) {
+      label = 'Moderate (Medium Risk)';
+      cssClass = 'risk-moderate'; // Yellow/Orange
+      status = 'SAFE';
+    }
+
+    return { label, cssClass, utilization, status };
+  }
+
+  // ==========================================
+  // 2. DATA FETCHING
+  // ==========================================
+
   private getInvestors(): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/users?role=investor`).pipe(catchError(() => of([])));
   }
@@ -103,13 +133,9 @@ export class DashboardService {
         });
 
         const orderCountMap = new Map<string, number>();
-        const today = new Date().toDateString();
-
         data.orders.forEach(o => {
-          if (new Date(o.timestamp).toDateString() === today) {
-            const count = orderCountMap.get(o.investorId) || 0;
-            orderCountMap.set(o.investorId, count + 1);
-          }
+          const count = orderCountMap.get(o.investorId) || 0;
+          orderCountMap.set(o.investorId, count + 1);
         });
 
         return data.investors.map(inv => ({
@@ -117,7 +143,7 @@ export class DashboardService {
           name: inv.fullName || inv.username,
           portfolioValue: parseFloat((portValueMap.get(inv.id) || 0).toFixed(2)),
           todaysOrders: orderCountMap.get(inv.id) || 0,
-          status: (orderCountMap.get(inv.id) || 0) > 0 ? 'ACTIVE' : 'INACTIVE'
+          status: 'ACTIVE'
         }));
       })
     );
@@ -140,7 +166,7 @@ export class DashboardService {
         return sorted.slice(0, limit).map(o => ({
           orderId: o.id,
           client: userMap.get(o.investorId) || 'Unknown',
-          symbol: instrumentMap.get(o.instrumentId) || 'Unknown',
+          symbol: instrumentMap.get(o.instrumentId) || 'N/A',
           type: o.orderType,
           quantity: o.quantity,
           price: o.price,
@@ -193,18 +219,29 @@ export class DashboardService {
     return this.http.patch(`${this.apiUrl}/orders/${orderId}`, { status: 'CANCELLED' });
   }
 
-  // --- INVESTOR DASHBOARD METHODS (Stubbed for now to prevent errors) ---
-
+  // --- INVESTOR METHODS ---
   getPortfolioSummary(userId: string): Observable<any> {
-    // Mock return to satisfy investor dashboard until fully implemented
-    return of({ portfolioValue: 0, totalOrders: 0, profitLoss: 0, availableBalance: 0 });
+    // In a real app, calculate this dynamically from portfolios.
+    // For now, fetching the static/mock stats or re-calculating here is fine.
+    // Ideally, reuse the getClients logic filtered by ID.
+    return this.getClients().pipe(
+        map(clients => {
+            const client = clients.find(c => c.id === userId);
+            return client ? { portfolioValue: client.portfolioValue } : { portfolioValue: 0 };
+        })
+    );
   }
 
   getTopHoldings(userId: string, limit: number): Observable<any[]> {
-    return of([]);
+    return this.http.get<any[]>(`${this.apiUrl}/portfolios?investorId=${userId}`).pipe(
+      map(holdings => holdings.slice(0, limit)),
+      catchError(() => of([]))
+    );
   }
 
   getRecentOrders(userId: string, limit: number): Observable<any[]> {
-    return of([]);
+    return this.http.get<any[]>(`${this.apiUrl}/orders`).pipe(
+      map(orders => orders.filter((o:any) => o.investorId === userId).slice(0, limit))
+    );
   }
 }

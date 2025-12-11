@@ -1,16 +1,16 @@
-:host { 
-    display: contents; 
+:host {
+    display: contents;
 }
 
-* { 
-    box-sizing: border-box; 
+* {
+    box-sizing: border-box;
 }
 
-html, body { 
-    height: 100vh; 
+html, body {
+    height: 100vh;
     margin: 0;
     /* This is the main line preventing the page scroll */
-    overflow: hidden; 
+    overflow: hidden;
     font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     color: #1d1d2f;
 }
@@ -18,10 +18,10 @@ html, body {
 .auth-fullpage {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 100vh; 
+    height: 100vh;
     width: 100%;
     /* Keep the outer container locked */
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 .auth-left {
@@ -114,20 +114,20 @@ html, body {
 }
 
 .elevated-card.compact-card {
-    padding: 30px; 
+    padding: 30px;
     padding-bottom: 20px;
 }
 
 .compact-card h2 {
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
 .compact-card .field {
-    margin-bottom: 15px; 
+    margin-bottom: 15px;
 }
 
 .compact-card .switch-link {
-    margin-top: 15px; 
+    margin-top: 15px;
 }
 
 @keyframes slideUp {
@@ -230,30 +230,79 @@ h2 {
 }
 
 @media (max-width: 900px) {
-    .auth-fullpage { 
-        grid-template-columns: 1fr; 
+    .auth-fullpage {
+        grid-template-columns: 1fr;
     }
 
     .auth-right {
-        max-height: none; 
+        max-height: none;
         overflow-y: visible;
-        align-items: flex-start; 
+        align-items: flex-start;
     }
 
-    .auth-left { 
-        padding: 40px 20px; 
-        text-align: center; 
+    .auth-left {
+        padding: 40px 20px;
+        text-align: center;
     }
-    .auth-left::before { 
-        display: none; 
+    .auth-left::before {
+        display: none;
     }
-    .brand-badges { 
-        justify-content: center; 
+    .brand-badges {
+        justify-content: center;
     }
-    .auth-right { 
-        padding: 30px 20px; 
+    .auth-right {
+        padding: 30px 20px;
     }
-    .elevated-card { 
-        padding: 30px; 
+    .elevated-card {
+        padding: 30px;
     }
+}
+
+/* ... existing code ... */
+
+/* ===== FORM VALIDATION STYLES ===== */
+
+/* 1. Invalid Input State (Red Border) - Only shows after user touches field */
+.field input.ng-invalid.ng-touched,
+.field select.ng-invalid.ng-touched {
+  border-color: #dc3545;
+  background-color: #fff8f8;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+/* 2. Error Message Text */
+.error-msg {
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 3. Disabled Button State */
+.btn:disabled {
+  background: #bdc3c7; /* Grey */
+  color: #fff;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.btn:disabled:hover {
+  background: #bdc3c7;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Valid Input State (Optional: Green Border) */
+.field input.ng-valid.ng-touched {
+  border-color: #28a745;
 }

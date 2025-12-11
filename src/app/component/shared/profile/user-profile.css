@@ -1,28 +1,29 @@
-/* CONTAINER: Fixed Screen */
+/* CONTAINER: Use min-height and auto overflow to allow scrolling */
 .profile-container {
-  height: 100vh;
+  min-height: 100vh; /* Minimum full height */
   width: 100%;
   background: linear-gradient(135deg, #f0f4f8 0%, #e6e9f0 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 20px;
+  padding: 40px 20px; /* Add padding for scrolling space */
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-y: auto; /* ✅ Allow scrolling if content overflows */
   font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
 /* CARD */
 .profile-card {
   width: 100%;
-  max-width: 900px; /* Perfect width for 2 columns */
-  height: 85vh;
+  max-width: 900px;
+  /* Removed fixed height to allow content to grow naturally */
+  min-height: 600px;
   background: #fff;
   border-radius: 20px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: visible; /* Allow shadow to show */
   position: relative;
   animation: zoomIn 0.4s ease-out;
 }
@@ -37,6 +38,7 @@
   height: 120px;
   background: linear-gradient(90deg, #0078d7, #005a9e);
   position: relative;
+  border-radius: 20px 20px 0 0; /* Match card radius */
   flex-shrink: 0;
 }
 
@@ -70,14 +72,13 @@
   padding: 50px 50px 30px 50px;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  overflow-y: auto;
+  flex: 1;
 }
 
 /* TITLE */
 .user-title {
   margin-bottom: 30px;
-  padding-left: 130px; /* Offset for image */
+  padding-left: 130px;
   margin-top: -40px;
 }
 .user-title h2 { margin: 0; font-size: 28px; color: #2c3e50; letter-spacing: -0.5px; }
@@ -86,9 +87,9 @@
 /* 2-COLUMN GRID */
 .info-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 50/50 Split */
+  grid-template-columns: 1fr 1fr;
   gap: 40px;
-  height: 100%;
+  margin-bottom: 20px;
 }
 
 .section-col {
@@ -123,55 +124,37 @@ h3 {
 
 /* RISK CARD */
 .risk-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-  text-align: center;
+  background: #fff; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03); text-align: center;
 }
-
-.risk-header {
-  display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;
-}
-
-.risk-label {
-  font-size: 14px; font-weight: 800; padding: 6px 16px;
-  border-radius: 30px; display: inline-block;
-}
-
-.meter-bar {
-  height: 10px; width: 100%; background: #f1f5f9; border-radius: 10px;
-  overflow: hidden; position: relative; margin-bottom: 10px;
-}
-.meter-fill {
-  height: 100%; border-radius: 10px; width: 0%;
-  transition: width 1s ease-out;
-}
+.risk-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.risk-label { font-size: 14px; font-weight: 800; padding: 6px 16px; border-radius: 30px; display: inline-block; }
+.meter-bar { height: 10px; width: 100%; background: #f1f5f9; border-radius: 10px; overflow: hidden; position: relative; margin-bottom: 10px; }
+.meter-fill { height: 100%; border-radius: 10px; width: 0%; transition: width 1s ease-out; }
 .risk-desc { font-size: 12px; color: #94a3b8; line-height: 1.4; margin: 0; }
 
-/* RISK COLORS */
-.risk-low .risk-label { background: #d1fae5; color: #059669; }
-.risk-low .meter-fill { width: 33%; background: #10b981; }
+.risk-low .risk-label { background: #d1fae5; color: #059669; } .risk-low .meter-fill { width: 33%; background: #10b981; }
+.risk-moderate .risk-label { background: #fef3c7; color: #d97706; } .risk-moderate .meter-fill { width: 66%; background: #f59e0b; }
+.risk-aggressive .risk-label { background: #fee2e2; color: #dc2626; } .risk-aggressive .meter-fill { width: 100%; background: #ef4444; }
 
-.risk-moderate .risk-label { background: #fef3c7; color: #d97706; }
-.risk-moderate .meter-fill { width: 66%; background: #f59e0b; }
-
-.risk-aggressive .risk-label { background: #fee2e2; color: #dc2626; }
-.risk-aggressive .meter-fill { width: 100%; background: #ef4444; }
-
-/* SECURITY SECTION */
+/* SECURITY SECTION - Fix Overlap */
 .security-box {
   background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0;
+  /* Ensure it has space */
+  margin-top: 15px;
 }
 .password-animate {
-  margin-top: 10px; animation: slideDown 0.3s ease;
+  margin-top: 15px; /* Add gap between button and inputs */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: slideDown 0.3s ease;
 }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
 /* FOOTER */
 .action-footer {
-  margin-top: auto; padding-top: 20px; display: flex; justify-content: flex-end; gap: 12px;
+  margin-top: 20px; padding-top: 20px; display: flex; justify-content: flex-end; gap: 12px;
   border-top: 1px solid #f0f2f5;
 }
 .btn {
@@ -182,3 +165,12 @@ h3 {
 .btn-primary:hover { background: #005a9e; transform: translateY(-2px); }
 .btn-outline { background: #fff; border: 1px solid #e2e8f0; color: #475569; }
 .btn-outline:hover { border-color: #0078d7; color: #0078d7; background: #f0f9ff; }
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+  .info-grid { grid-template-columns: 1fr; }
+  .profile-card { height: auto; min-height: auto; }
+  .profile-body { padding: 30px; }
+  .user-title { padding-left: 0; text-align: center; margin-top: 60px; }
+  .profile-picture-wrapper { left: 50%; transform: translateX(-50%); }
+}

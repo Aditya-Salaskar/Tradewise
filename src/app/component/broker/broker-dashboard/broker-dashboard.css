@@ -4,35 +4,6 @@
   background: #f4f6f9;
 }
 
-/* Note: The Sidebar logic is usually in broker-layout, but kept here as per request */
-.sidebar {
-  width: 220px;
-  background: #0078d7;
-  color: #fff;
-  padding: 20px;
-}
-
-.sidebar .logo {
-  font-size: 22px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.sidebar nav ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar nav ul li {
-  margin: 15px 0;
-  cursor: pointer;
-}
-
-.pending {
-  color: #856404;
-  font-weight: bold;
-}
-
 .main-content {
   flex: 1;
   padding: 20px;
@@ -43,6 +14,7 @@ header h2 {
   color: #333;
 }
 
+/* Stats will now auto-adjust to 3 columns because of auto-fit */
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -132,19 +104,7 @@ button:hover {
   opacity: 0.9;
 }
 
-/* Status Colors */
 .active { color: green; font-weight: bold; }
 .inactive { color: red; font-weight: bold; }
 .executed { color: #155724; font-weight: bold; }
 .pending { color: #856404; font-weight: bold; }
-.accepted { color: green; font-weight: bold; }
-.declined { color: red; font-weight: bold; }
-
-@media (max-width: 768px) {
-  .sidebar {
-    display: none;
-  }
-  .main-content {
-    padding: 10px;
-  }
-}

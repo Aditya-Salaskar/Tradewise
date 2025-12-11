@@ -1,157 +1,233 @@
-/* Grid Layout */
+/* =========================================
+   1. LAYOUT & CONTAINER
+   ========================================= */
+:host {
+  display: block;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #333;
+  background-color: #f4f7fe; /* Light modern background */
+  min-height: 100vh;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+/* Main Grid Layout */
 .grid {
-  display: flex;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr; /* Left is slightly wider */
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto; /* Center on screen */
+  align-items: start;
 }
 
-/* Left Column: Place Order */
-.grid .card {
-  flex: 1;
-}
-
-/* Right Column: Market Info + Order Summary */
+/* Right Column Wrapper */
 .right-col {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 25px;
 }
 
-/* Card Styling */
+/* =========================================
+   2. AMAZING CARD STYLING
+   ========================================= */
 .card {
-  background-color: #ffffff; /* White background */
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 16px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+
+  /* Modern Soft Shadow */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+
+  /* Smooth Animation */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-/* Segmented Buttons (Buy/Sell) */
+/* Hover Effect: Lift & Glow */
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 120, 215, 0.15); /* Blue glow */
+}
+
+/* Card Titles */
+.card h2, .card h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* =========================================
+   3. BUY / SELL TOGGLE (Segmented)
+   ========================================= */
 .segmented {
   display: flex;
-  gap: 8px;
+  background: #f1f3f6;
+  padding: 5px;
+  border-radius: 12px;
+  margin-bottom: 25px;
 }
 
 .segmented-btn {
-  flex: 1; /* Full width inside card */
-  padding: 10px;
-  border: 1px solid #0078d7;
-  background-color: #ffffff;
-  color: #0078d7;
-  font-weight: 600;
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: transparent;
+  color: #6c757d;
+  font-weight: 700;
   cursor: pointer;
-  border-radius: 4px;
-  text-align: center;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
+.segmented-btn:hover {
+  color: #333;
+  background: rgba(0,0,0,0.03);
+}
+
+/* Active State - Dynamic based on context logic */
 .segmented-btn.active {
-  background-color: #0078d7;
-  color: #ffffff;
+  background-color: #fff;
+  color: #0078d7;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transform: scale(1.02);
 }
 
-/* Form Fields */
+/* Optional: If you want Green for Buy / Red for Sell logic later */
+.segmented-btn.active.buy-mode { color: #28a745; }
+.segmented-btn.active.sell-mode { color: #dc3545; }
+
+/* =========================================
+   4. FORM ELEMENTS
+   ========================================= */
 .form-field {
   display: flex;
   flex-direction: column;
-  margin-bottom: 12px;
-  margin-top: 12px;
+  margin-bottom: 20px;
 }
 
 .form-field .label {
-  margin-bottom: 6px;
-  font-weight: 500;
-  color: #555;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #8898aa;
+  text-transform: uppercase;
 }
 
-.form-field select,
-.form-field input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.form-field input,
+.form-field select {
+  padding: 14px 16px;
+  border: 2px solid #eef2f6;
+  border-radius: 12px;
+  font-size: 15px;
+  color: #2c3e50;
+  background: #f8fafc;
+  transition: all 0.2s ease;
+  outline: none;
 }
 
-/* Place Order Button */
+.form-field input:focus,
+.form-field select:focus {
+  border-color: #0078d7;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(0, 120, 215, 0.1);
+}
+
+/* =========================================
+   5. ACTION BUTTON
+   ========================================= */
 .btn.primary {
-  background-color: #0078d7;
+  background: linear-gradient(135deg, #0078d7 0%, #005a9e 100%);
   color: #ffffff;
   border: none;
-  padding: 12px 16px;
-  border-radius: 4px;
-  font-weight: 600;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
   cursor: pointer;
-  width: 100%; /* Full width */
+  width: 100%;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 120, 215, 0.3);
 }
 
 .btn.primary:hover {
-  background-color: #0078d7; /* Slightly darker shade */
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 120, 215, 0.4);
 }
 
-/* Info Grid (Market Data) */
-.info-grid {
+.btn.primary:active {
+  transform: scale(0.98);
+}
+
+/* =========================================
+   6. INFO & SUMMARY LISTS
+   ========================================= */
+.info-grid, .summary {
   display: flex;
   flex-direction: column;
-  gap: 1px; /* space between rows */
+  gap: 0;
 }
 
-.info-row {
-  display: flex;
-  justify-content: space-between; /* label left, value right */
-  align-items: center;
-  padding: 6px 0;
-  border-bottom: 1px solid #f0f0f0; /* subtle divider */
-}
-
-.info-row span {
-  color: #555;
-  font-weight: 500;
-}
-
-.info-row strong {
-  color: #0078d7;
-  font-weight: 600;
-  margin-left: 12px; /* spacing between label and value */
-}
-
-/* Order Summary */
-.summary {
-  display: flex;
-  flex-direction: column;
-  gap: 1px; /* space between rows */
-}
-
-.summary-row {
+.info-row, .summary-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 0;
+  padding: 12px 0;
   border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+  transition: background 0.2s;
 }
 
-.summary-row span {
-  color: #555;
+/* Subtle row hover */
+.info-row:hover, .summary-row:hover {
+  background: linear-gradient(90deg, transparent, #f9fbfd, transparent);
+}
+
+.info-row:last-child, .summary-row:last-child {
+  border-bottom: none;
+}
+
+.info-row span, .summary-row span {
+  color: #6c757d;
   font-weight: 500;
 }
 
-.summary-row strong {
-  margin-left: 12px; /* spacing between label and value */
-  font-weight: 600;
+.info-row strong, .summary-row strong {
+  color: #2c3e50;
+  font-weight: 700;
+  font-family: 'Roboto', sans-serif; /* For numbers */
 }
 
-.summary-row strong.buy {
-  color: #28a745; /* green for BUY */
-}
-
-.summary-row strong.sell {
-  color: #d9534f; /* red for SELL */
-}
-
+/* Value Colors */
+.summary-row strong.buy { color: #28a745; }
+.summary-row strong.sell { color: #dc3545; }
 .summary-row .total {
+  font-size: 18px;
   color: #0078d7;
-  font-weight: bold;
+  font-weight: 800;
 }
-/* Responsive: Stack on small screens */
-@media (max-width: 768px) {
+
+/* =========================================
+   7. RESPONSIVE
+   ========================================= */
+@media (max-width: 850px) {
   .grid {
-    flex-direction: column;
+    grid-template-columns: 1fr; /* Stack vertically */
+    max-width: 100%;
+  }
+
+  :host {
+    padding: 15px;
+  }
+
+  .card {
+    padding: 20px;
   }
 }

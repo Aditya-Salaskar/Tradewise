@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { forkJoin, Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { DashboardService } from '../../../services/dashboard.service';
-import { RiskService, RiskMetric } from '../../../services/risk.services';
+import { DashboardService } from '../../services/dashboard.service'
+import { RiskService, RiskMetric } from '../../services/risk.services'
 
 @Component({
   selector: 'app-risk-analysis',

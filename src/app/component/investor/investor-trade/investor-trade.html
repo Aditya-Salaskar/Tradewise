@@ -108,7 +108,7 @@
             <span>Est. Price</span>
             <strong>
               {{
-                (orderType === 'MARKET' ? marketInfo?.currentPrice : price) 
+                (orderType === 'MARKET' ? marketInfo?.currentPrice : price)
                   | currency:'INR'
               }}
             </strong>
@@ -117,7 +117,7 @@
             <span>Est. Total</span>
             <strong class="total">
               {{
-                ((orderType === 'MARKET' ? marketInfo?.currentPrice : price) || 0) 
+                ((orderType === 'MARKET' ? marketInfo?.currentPrice : price) || 0)
                   * (quantity || 0)
                   | currency:'INR'
               }}

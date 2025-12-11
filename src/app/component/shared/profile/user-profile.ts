@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
-import { DashboardService } from '../../../services/dashboard.service'; // ✅ Added
+import { DashboardService } from '../../../services/dashboard.service';
 import { User } from '../../../models/user.model';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, switchMap, of } from 'rxjs';
+import { Observable, map, switchMap, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,43 +19,41 @@ export class UserProfile implements OnInit {
   showPasswordSection = false;
   user$!: Observable<User>;
   user!: User;
-  
-  // ✅ Calculated Fields for Investor
+
+  // Fields for visual display
   calculatedRiskLabel: string = 'Calculating...';
   calculatedRiskClass: string = 'risk-low';
-  
+
   newPassword = '';
   confirmPassword = '';
 
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
     private auth: AuthService,
-    private dashboardService: DashboardService // ✅ Inject Service
+    private dashboardService: DashboardService
   ) {}
 
   ngOnInit() {
+    this.loadUserData();
+  }
+
+  loadUserData() {
     const userId = localStorage.getItem('userId');
     if (!userId) return;
-    
+
     this.user$ = this.auth.getUserById(userId).pipe(
       switchMap(user => {
-        // Basic User Data
         const userData = {
-          fullName: '',
-          phone: '',
-          accountNumber: '',
-          panNumber: '',
-          bankAccount: '',
-          ifscCode: '',
-          riskProfile: null, // We will override this for investors
-          profilePicture: null,
+          fullName: '', phone: '', accountNumber: '', panNumber: '',
+          bankAccount: '', ifscCode: '', riskProfile: null, profilePicture: null,
           ...user
         };
 
-        // ✅ LOGIC: If Investor, Calculate Risk based on Portfolio Value
         if (user.role === 'investor') {
           return this.dashboardService.getPortfolioSummary(userId).pipe(
             map(summary => {
+              // ✅ CALL SHARED LOGIC
+              // This fetches the actual portfolio value calculated in DashboardService
               this.calculateInvestorRisk(summary.portfolioValue);
               return userData;
             })
@@ -63,74 +61,67 @@ export class UserProfile implements OnInit {
         } else {
           return of(userData);
         }
-      })
+      }),
+      tap(u => this.user = u)
     );
-
-    this.user$.subscribe(u => this.user = u);
   }
 
-  // ✅ New Logic: Matches Risk Analysis Calculation
   calculateInvestorRisk(portfolioValueStr: string | number) {
-    // 1. Clean value
-    const value = Number(String(portfolioValueStr).replace(/[^\d.-]/g, '')) || 0;
-    
-    // 2. Define Limit (Same as Risk Page default)
-    const exposureLimit = 2500000; 
+    const value = this.dashboardService.parseMoney(portfolioValueStr);
 
-    // 3. Calculate Utilization
-    const utilization = (value / exposureLimit) * 100;
+    // ✅ USE SHARED LOGIC
+    // We assume the default limit (2.5M) for now, or you could fetch limits if available
+    const riskStatus = this.dashboardService.calculateRiskStatus(value);
 
-    // 4. Determine Profile
-    if (utilization < 40) {
-      this.calculatedRiskLabel = 'Conservative (Low Risk)';
-      this.calculatedRiskClass = 'risk-low';
-    } else if (utilization < 80) {
-      this.calculatedRiskLabel = 'Moderate (Medium Risk)';
-      this.calculatedRiskClass = 'risk-moderate';
-    } else {
-      this.calculatedRiskLabel = 'Aggressive (High Risk)';
-      this.calculatedRiskClass = 'risk-aggressive';
-    }
-    
-    // Update user object for display if needed
+    this.calculatedRiskLabel = riskStatus.label;
+    this.calculatedRiskClass = riskStatus.cssClass;
+
     if (this.user) {
       this.user.riskProfile = this.calculatedRiskLabel;
     }
   }
 
+  // --- Standard Profile Methods ---
   enableEdit() { this.isEditing = true; }
-  cancelEdit() { this.isEditing = false; } 
+
+  cancelEdit() {
+    this.isEditing = false;
+    this.loadUserData();
+  }
 
   saveProfile() {
     const userId = localStorage.getItem('userId');
     if (!userId) return;
+
     this.auth.updateUser(userId, this.user).subscribe({
       next: () => {
-        alert('Profile updated');
+        alert('Profile updated successfully!');
         this.isEditing = false;
+        this.loadUserData();
       },
-      error: () => alert('Update failed')
+      error: () => alert('Update failed.')
     });
   }
 
   togglePasswordSection() { this.showPasswordSection = !this.showPasswordSection; }
 
   updatePassword() {
-    if (this.newPassword !== this.confirmPassword) {
-      alert('Passwords do not match!');
+    if (!this.newPassword || this.newPassword !== this.confirmPassword) {
+      alert('Passwords do not match or are empty!');
       return;
     }
     const userId = localStorage.getItem('userId');
     if (!userId) return;
+
     const updated = { ...this.user, password: this.newPassword };
     this.auth.updateUser(userId, updated).subscribe({
       next: () => {
-        alert('Password updated');
+        alert('Password updated successfully');
         this.showPasswordSection = false;
         this.newPassword = '';
         this.confirmPassword = '';
       },
-      error: () => alert('Update failed')
+      error: () => alert('Password update failed')
     });
   }
 

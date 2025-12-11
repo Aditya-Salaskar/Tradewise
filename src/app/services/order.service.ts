@@ -22,9 +22,9 @@ interface Instrument {
 }
 
 interface DisplayOrder extends RawOrder {
-    orderId: string; 
-    instrument: string; 
-    type: 'BUY' | 'SELL'; 
+    orderId: string;
+    instrument: string;
+    type: 'BUY' | 'SELL';
 }
 
 @Injectable({ providedIn: 'root' })
@@ -39,9 +39,9 @@ export class OrderService {
 
     listOrders(): Observable<DisplayOrder[]> {
         const currentUser = this.authService.getCurrentUser();
-        
+
         if (!currentUser || currentUser.role !== 'investor') {
-            return of([]); 
+            return of([]);
         }
 
         const investorId = currentUser.id!;
@@ -61,10 +61,10 @@ export class OrderService {
 
                 return data.orders.map(order => {
                     const instrument = instrumentMap.get(order.instrumentId);
-                    
+
                     return {
                         ...order,
-                        orderId: order.id, 
+                        orderId: order.id,
                         instrument: instrument?.tickerSymbol || 'N/A',
                         type: order.orderType,
                     } as DisplayOrder;
@@ -72,7 +72,7 @@ export class OrderService {
             })
         );
     }
-    
+
     cancelByOrderId(orderId: string): Observable<RawOrder> {
         return this.http.patch<RawOrder>(`${this.baseUrl}/${this.ordersCollection}/${orderId}`, { status: 'CANCELLED' });
     }

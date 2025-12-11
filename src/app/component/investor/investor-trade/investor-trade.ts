@@ -70,8 +70,8 @@ export class InvestorTrade implements OnInit {
       return;
     }
 
-    this.message = 'Order Placed Successfully';
-    
+    this.message = 'Placing order...';
+
     this.marketInfo$.pipe(take(1)).subscribe(marketInfo => {
         if (!marketInfo) {
             this.message = 'Could not retrieve market data. Order failed.';
@@ -79,7 +79,7 @@ export class InvestorTrade implements OnInit {
         }
 
         const executionPrice = marketInfo.currentPrice;
-        
+
         this.tradeService.getInstrumentId(this.selectedInstrument).pipe(take(1)).subscribe(instrumentId => {
             if (!instrumentId) {
                 this.message = 'Instrument not found. Order failed.';
@@ -91,7 +91,7 @@ export class InvestorTrade implements OnInit {
                 instrumentId: instrumentId,
                 orderType: this.side,
                 quantity: this.quantity,
-                price: executionPrice, 
+                price: executionPrice,
                 status: 'PENDING',
                 timestamp: new Date().toISOString()
             };
@@ -110,7 +110,7 @@ export class InvestorTrade implements OnInit {
 
     });
   }
-  
+
 get estimatedPrice(): number {
     return this.orderType === 'MARKET' ? 0 : (this.price ?? 0);
   }

@@ -1,237 +1,243 @@
-/* Global container + font */
+/* --- Professional Theme Variables --- */
+:root {
+  /* Colors */
+  --sidebar-blue: #1e3a8a; /* Deep Blue to match Sidebar */
+  --accent-blue: #3b82f6;  /* Brighter Blue for UI elements */
+  --bg-page: #f1f5f9;      /* Light Slate Background */
+  --bg-card: #ffffff;      /* Pure White Card */
+
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+
+  /* Borders & Shadows */
+  --border-subtle: #e2e8f0;
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Layout Structure --- */
 .dashboard-container {
-  display: flex;
   min-height: 100vh;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  background: #f4f6f9;
+  background-color: var(--bg-page);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: var(--text-primary);
+  padding-bottom: 60px;
 }
 
 .main-content {
-  flex: 1;
-  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px;
 }
 
 header h2 {
-  margin-bottom: 20px;
-  color: #333;
+  color: var(--sidebar-blue);
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 30px;
+  letter-spacing: -0.5px;
 }
 
-/* Summary cards (stats) */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* match portfolio */
-  gap: 15px;
+/* --- The "Professional Card" (White Box) --- */
+.dashboard-card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-subtle);
+  padding: 24px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative; /* Ensures content stays inside */
+  overflow: hidden;   /* Clips anything spilling out */
+}
+
+.dashboard-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card-header {
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--sidebar-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* --- 1. Total Value Section --- */
+.summary-section {
   margin-bottom: 30px;
 }
-.card {
-  background: #fff;
-  padding: 20px;  
-  border-radius: 8px; /* match portfolio */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* softer shadow */
-  text-align: center;
-  min-height: 100px;           
-  transition: transform 0.2s ease;
-}
-.card h3 {
-  margin: 0 0 10px 0; /* more breathing room */
-  color: #0078d7;
-  font-size: 14px;
-  font-weight: 600;
-}
-.card p {
-  margin: 0;
-  font-size: 20px; /* match portfolio */
-  font-weight: bold;
-  color: #111;
-}
 
-/* Hover effect for stats cards */
-.card:hover {
-  transform: translateY(-6px); /* match portfolio */
-}
-
-/* Overview row: charts + market */
-.overview-row {
+.total-value-card {
   display: flex;
-  gap: 20px;
-  align-items: stretch;
-  margin-bottom: 28px;
-}
-.chart-section,
-.market-section {
-  flex: 1;
-  min-width: 0;
-}
-.chart-section h3,
-.market-section h3 {
-  margin: 0 0 12px 0;
-  color: #333;
-  font-size: 16px;
-  font-weight: 600;
+  align-items: center;
+  gap: 25px;
+  background: linear-gradient(to right, #ffffff, #f8fafc);
+  border-left: 5px solid var(--sidebar-blue); /* Visual anchor */
 }
 
-/* Cards inside sections: same size */
-.chart-card,
-.market-card {
-  background: #fff;
-  border-radius: 8px; /* match portfolio */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* softer shadow */
-  padding: 16px;
-  height: 280px;               
+.card-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(30, 58, 138, 0.1); /* Light version of sidebar blue */
+  color: var(--sidebar-blue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.card-content {
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease;
 }
 
-/* Hover effect for overview cards */
-.chart-card:hover,
-.market-card:hover {
-  transform: translateY(-6px);
-}
-
-/* Canvas for pie chart */
-.chart-card canvas {
-  width: 100%;
-  max-width: 100%;
-  height: 220px;
-}
-
-/* Market overview internal layout */
-.market-card .metrics {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-.market-card .metric {
-  background: #f7fbff;
-  border: 1px solid #e3f0ff;
-  border-radius: 8px;
-  padding: 8px;
-}
-.market-card .label {
-  display: block;
-  color: #555;
-  font-size: 12px;
-}
-.market-card .value {
-  display: block;
-  color: #111;
-  font-weight: 700;
-  margin-top: 4px;
-}
-
-.market-card .toplist {
-  flex: 1;
-  overflow: auto;
-  margin-bottom: 12px;
-}
-.market-card .toplist h4 {
-  margin: 0 0 8px 0;
+.card-label {
   font-size: 14px;
-  color: #333;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: 5px;
 }
-.market-card .toplist ul {
-  list-style: none;
-  padding: 0;
+
+.card-big-value {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--text-primary);
   margin: 0;
+  line-height: 1;
 }
-.market-card .toplist li {
+
+/* --- 2. Grid Row (Chart + Market) --- */
+.grid-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Chart takes 2/3 space */
+  gap: 30px;
+  margin-bottom: 30px;
+  align-items: stretch;
+}
+
+/* Chart Card */
+.chart-container {
+  height: 320px; /* Fixed height to contain the chart */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Market Pulse Card */
+.market-stats-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.stat-pill {
+  flex: 1;
+  background: #f1f5f9;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.sp-label { display: block; font-size: 11px; color: var(--text-secondary); text-transform: uppercase; }
+.sp-val { display: block; font-size: 15px; font-weight: 700; color: var(--sidebar-blue); margin-top: 4px; }
+
+.market-list-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.market-list-item {
   display: flex;
   justify-content: space-between;
-  padding: 6px 8px;
-  border-bottom: 1px dashed #eee;
-}
-.market-card .toplist .symbol {
-  font-weight: 600;
-  color: #222;
-}
-.market-card .toplist .price {
-  color: #0078d7;
-  font-weight: 700;
-}
-
-/* Actions (buttons) */
-.actions {
-  margin-top: auto;
-  text-align: right;
-}
-.view-btn {
-  background: #0078d7;
-  color: #fff;
-  border: none;
-  padding: 8px 16px; /* match portfolio */
-  border-radius: 6px; /* match portfolio */
-  cursor: pointer;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--border-subtle);
   font-size: 14px;
-  transition: background 0.2s ease;
-}
-.view-btn:hover {
-  background: #005a9e;
 }
 
-/* Tables */
-.table-section {
-  margin-bottom: 28px;
+.market-list-item:last-child { border-bottom: none; }
+
+.ticker-name { font-weight: 600; color: var(--text-primary); }
+.ticker-price { font-weight: 700; color: var(--accent-blue); font-family: 'Consolas', monospace; }
+
+/* --- 3. Tables --- */
+.table-card {
+  padding: 0; /* Flush edges */
+  margin-bottom: 30px;
 }
-.table-section h3 {
-  margin: 0 0 10px 0;
-  color: #333;
-  font-size: 16px;
-  font-weight: 600;
+
+.table-card .card-header {
+  margin: 24px 24px 0 24px; /* Restore header margin */
 }
-.table-container {
-  background: #fff;
-  border-radius: 8px; /* match portfolio */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* softer shadow */
+
+.table-wrapper {
   overflow-x: auto;
-  margin-bottom: 30px; /* match portfolio */
+  padding-bottom: 5px;
 }
+
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 800px; /* match portfolio */
+  margin-top: 15px;
 }
-thead {
-  background: #0078d7;
-  color: #fff;
-}
-th, td {
-  padding: 12px 15px; /* match portfolio */
+
+th {
+  background: #f8fafc;
+  padding: 16px 24px;
   text-align: left;
-  white-space: nowrap;
-}
-tbody tr:nth-child(even) { background: #f9f9f9; }
-tbody tr:hover { background: #eef6ff; }
-
-/* Status colors */
-.gain { color: green; font-weight: bold; }
-.loss { color: red; font-weight: bold; }
-.buy  { color: green; font-weight: bold; }
-.sell { color: red; font-weight: bold; }
-
-/* Responsive tweaks */
-@media (max-width: 992px) {
-  .overview-row {
-    flex-direction: column;
-  }
-  .chart-card,
-  .market-card {
-    height: auto;
-  }
-  .chart-card canvas {
-    height: 200px;
-  }
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--border-subtle);
 }
 
-@media (max-width: 600px) {
-  .stats {
-    grid-template-columns: 1fr 1fr;
-  }
-  .market-card .metrics {
-    grid-template-columns: 1fr;
-  }
-  th, td {
-    padding: 8px 10px;
-  }
+td {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.symbol-text { font-weight: 600; color: var(--sidebar-blue); }
+.value-text { font-weight: 700; }
+.time-text { color: var(--text-secondary); font-size: 13px; }
+
+/* Status Badges */
+.badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.badge-buy { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+.badge-sell { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+
+/* Status Indicators (Dots) */
+.status-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+.completed { background: #10b981; }
+.pending { background: #f59e0b; }
+.rejected { background: #ef4444; }
+
+/* Mobile */
+@media (max-width: 900px) {
+  .grid-row { grid-template-columns: 1fr; }
 }
