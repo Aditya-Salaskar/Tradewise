@@ -1,99 +1,131 @@
-<div class="trade-page">
+
+<div class="trade-page container">
+  <!-- Page Header -->
   <header class="trade-header">
-    <h2>Trade</h2>
-    <div class="message" *ngIf="message">{{ message }}</div>
+    <h2>Trade Execution</h2>
   </header>
 
-  <section class="trade-form">
-    <div class="form-row">
-      <label>Instrument
-        <select [(ngModel)]="selectedInstrument">
-          <option value="">-- select --</option>
-          <option *ngFor="let i of instruments" [value]="i">{{ i }}</option>
-        </select>
-      </label>
+  <section class="grid">
+    <!-- LEFT: Place Order Card -->
+    <div class="card">
+      <h3 class="card-title">Place Order</h3>
 
-      <label>Side
-        <select [(ngModel)]="side">
-          <option value="BUY">Buy</option>
-          <option value="SELL">Sell</option>
-        </select>
-      </label>
-
-      <label>Order Type
-        <select [(ngModel)]="orderType">
-          <option value="MARKET">Market</option>
-          <option value="LIMIT">Limit</option>
-        </select>
-      </label>
-
-      <label>Quantity
-        <input type="number" [(ngModel)]="quantity" min="1" />
-      </label>
-
-      <label>Price
-        <input type="number" [(ngModel)]="price" [disabled]="orderType === 'MARKET'" step="0.01" />
-      </label>
-
-      <div class="form-actions">
-        <button (click)="placeOrder()">Place Order</button>
+      <!-- BUY / SELL Toggle -->
+      <div class="segmented">
+        <button
+          class="segmented-btn"
+          [class.active]="side === 'BUY'"
+          (click)="side = 'BUY'"
+        >
+          BUY
+        </button>
+        <button
+          class="segmented-btn"
+          [class.active]="side === 'SELL'"
+          (click)="side = 'SELL'"
+        >
+          SELL
+        </button>
       </div>
-    </div>
-  </section>
 
-  <section class="tables">
-    <div class="table-col">
-      <h3>Assets</h3>
-      <div *ngIf="loadingBought" class="loading">Loading...</div>
-      <table *ngIf="!loadingBought">
-        <thead>
-          <tr>
-            <th>Instrument</th>
-            <th>Qty</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Timestamp</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let b of boughtTrades">
-            <td>{{ b.instrument }}</td>
-            <td>{{ b.quantity }}</td>
-            <td>{{ b.price }}</td>
-            <td>{{ b.status }}</td>
-            <td>{{ b.timestamp | date:'short' }}</td>
-            <td><button (click)="sellBought(b)" [disabled]="b.status !== 'BOUGHT'">Sell</button></td>
-          </tr>
-          <tr *ngIf="boughtTrades.length === 0"><td colspan="6">No bought trades</td></tr>
-        </tbody>
-      </table>
+      <!-- Form Inputs -->
+      <div class="form-block">
+        <label class="form-field">
+          <span class="label">Symbol</span>
+          <select [(ngModel)]="selectedInstrument" (ngModelChange)="onInstrumentChanged()">
+            <option value="">-- select --</option>
+            <option *ngFor="let i of instruments" [value]="i">{{ i }}</option>
+          </select>
+        </label>
+
+        <label class="form-field">
+          <span class="label">Quantity</span>
+          <input type="number" [(ngModel)]="quantity" min="1" />
+        </label>
+      </div>
+
+      <!-- Place Order CTA -->
+      <div class="actions">
+        <button class="btn primary" (click)="placeOrder()">Place Order</button>
+      </div>
+
+      <p class="message-status" [ngClass]="{'success': message.includes('successfully'), 'error': message.includes('failed')}">
+        {{ message }}
+      </p>
     </div>
 
-    <div class="table-col">
-      <h3>Market Offers</h3>
-      <div *ngIf="loadingMarket" class="loading">Loading...</div>
-      <table *ngIf="!loadingMarket">
-        <thead>
-          <tr>
-            <th>Instrument</th>
-            <th>Available</th>
-            <th>Price</th>
-            <th>Type</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let m of marketOffers">
-            <td>{{ m.instrument }}</td>
-            <td>{{ m.availableQuantity }}</td>
-            <td>{{ m.price }}</td>
-            <td>{{ m.type }}</td>
-            <td><button (click)="buyFromMarket(m)" [disabled]="m.availableQuantity <= 0">Buy</button></td>
-          </tr>
-          <tr *ngIf="marketOffers.length === 0"><td colspan="5">No market offers</td></tr>
-        </tbody>
-      </table>
+    <!-- RIGHT: Information Column -->
+    <div class="right-col">
+      <!-- Market Information Card -->
+      <div class="card">
+        <h3 class="card-title">Market Information</h3>
+        <ng-container *ngIf="marketInfo$ | async as marketInfo; else loading">
+          <div class="info-grid">
+            <div class="info-row">
+              <span>Symbol</span>
+              <strong>{{ marketInfo?.symbol || selectedInstrument || '—' }}</strong>
+            </div>
+            <div class="info-row">
+              <span>Current Price</span>
+              <strong>{{ marketInfo?.currentPrice | currency:'INR' }}</strong>
+            </div>
+            <div class="info-row">
+              <span>Day High</span>
+              <strong>{{ marketInfo?.dayHigh | currency:'INR' }}</strong>
+            </div>
+            <div class="info-row">
+              <span>Day Low</span>
+              <strong>{{ marketInfo?.dayLow | currency:'INR' }}</strong>
+            </div>
+            <div class="info-row">
+              <span>Volume</span>
+              <strong>{{ marketInfo?.volume | number }}</strong>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #loading>
+          <div class="loading">Loading...</div>
+        </ng-template>
+      </div>
+
+      <!-- Order Summary Card -->
+      <div class="card">
+        <h3 class="card-title">Order Summary</h3>
+        <ng-container *ngIf="marketInfo$ | async as marketInfo">
+        <div class="summary">
+          <div class="summary-row">
+            <span>Transaction</span>
+            <strong [class.buy]="side==='BUY'" [class.sell]="side==='SELL'">
+              {{ side || '—' }}
+            </strong>
+          </div>
+          <div class="summary-row">
+            <span>Quantity</span>
+            <strong>{{ quantity || 0 }}</strong>
+          </div>
+          <div class="summary-row">
+            <span>Est. Price</span>
+            <strong>
+              {{
+                (orderType === 'MARKET' ? marketInfo?.currentPrice : price)
+                  | currency:'INR'
+              }}
+            </strong>
+          </div>
+          <div class="summary-row">
+            <span>Est. Total</span>
+            <strong class="total">
+              {{
+                ((orderType === 'MARKET' ? marketInfo?.currentPrice : price) || 0)
+                  * (quantity || 0)
+                  | currency:'INR'
+              }}
+            </strong>
+          </div>
+        </div>
+        </ng-container>
+      </div>
     </div>
   </section>
 </div>

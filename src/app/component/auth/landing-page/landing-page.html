@@ -1,107 +1,151 @@
+<main class="auth-fullpage">
 
-<div class="landing-container">
-  <!-- Hero Section -->
-  <header class="hero">
-    <div class="hero-content">
-      <h1>Welcome to <span class="brand">Tradewise</span></h1>
-      <p>Your smart trading companion</p>
-      <div class="hero-buttons">
-        <button class="primary-btn" (click)="openAuthModal()">Get Started</button>
+  <!-- Left Brand Panel (Same as before) -->
+  <section class="auth-left">
+    <div class="left-content">
+      <h1>{{ isRegisterMode ? 'Join TradeWise' : 'Welcome Back!' }}</h1>
+      <p>
+        {{ isRegisterMode
+           ? 'Create your account today and unlock AI-driven trading insights.'
+           : 'Log in to access your dashboard, monitor risks, and manage your portfolio.' }}
+      </p>
+      <div class="brand-badges">
+        <span class="badge">🔒 Secure</span>
+        <span class="badge">⚡ Realtime</span>
+        <span class="badge">🤖 AI-Insights</span>
       </div>
-    </div>
-  </header>
-
-  <!-- Features Section -->
-  <section class="features">
-    <div class="feature-card">
-      <div class="icon">📈</div>
-      <h2>Real-Time Market Data</h2>
-      <p>Stay ahead with live updates on stocks, forex, and crypto.</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">🤖</div>
-      <h2>AI Insights</h2>
-      <p>Get personalized trading recommendations powered by AI.</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">🔒</div>
-      <h2>Secure & Reliable</h2>
-      <p>Your trades and data are protected with enterprise-grade security.</p>
-  
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-grid">
-      <div>
-        <h3>About Us</h3>
-        <p>Tradewise empowers traders with real-time insights, AI-driven recommendations, and secure transactions.</p>
-      </div>
-      <div>
-        <h3>Contact Us</h3>
-        <p>Email: support@tradewise.com<br>Phone: +91-9876543210</p>
-      </div>
-      <div>
-        <h3>Disclaimer</h3>
-        <p>Trading involves risk. Tradewise provides tools and insights but does not guarantee profits. Please trade responsibly.</p>
-      </div>
+  <!-- Right Form Panel -->
+  <section class="auth-right">
+    <div class="form-wrapper">
+
+      <!-- ================= LOGIN FORM (Same as before) ================= -->
+      <form *ngIf="!isRegisterMode" #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" class="elevated-card">
+        <h2>Login</h2>
+
+        <div class="field">
+          <label for="loginUsername">Username</label>
+          <input id="loginUsername" type="text" placeholder="Enter username"
+                 [(ngModel)]="loginData.username" name="loginUsername"
+                 required minlength="3"
+                 #loginUser="ngModel" />
+
+          <div *ngIf="loginUser.invalid && (loginUser.dirty || loginUser.touched)" class="error-msg">
+            <span *ngIf="loginUser.errors?.['required']">Username is required.</span>
+            <span *ngIf="loginUser.errors?.['minlength']">Must be at least 3 characters.</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <input id="loginPassword" type="password" placeholder="Enter password"
+                 [(ngModel)]="loginData.password" name="loginPassword"
+                 required
+                 #loginPass="ngModel" />
+
+          <div *ngIf="loginPass.invalid && (loginPass.dirty || loginPass.touched)" class="error-msg">
+            Password is required.
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+            Sign In
+          </button>
+        </div>
+
+        <p class="switch-link">
+          Don’t have an account?
+          <a (click)="toggleMode()">Register Now</a>
+        </p>
+      </form>
+
+      <!-- ================= REGISTER FORM (UPDATED VALIDATION) ================= -->
+      <form *ngIf="isRegisterMode" #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)" class="elevated-card">
+        <h2>Create Account</h2>
+
+        <!-- Username -->
+        <div class="field">
+          <label for="registerUsername">Username</label>
+          <input id="registerUsername" type="text" placeholder="Choose a username"
+                 [(ngModel)]="registerData.username" name="registerUsername"
+                 required minlength="4"
+                 #regUser="ngModel" />
+
+          <div *ngIf="regUser.invalid && (regUser.dirty || regUser.touched)" class="error-msg">
+            <span *ngIf="regUser.errors?.['required']">Username is required.</span>
+            <span *ngIf="regUser.errors?.['minlength']">Minimum 4 characters required.</span>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="field">
+          <label for="registerEmail">Email</label>
+          <input id="registerEmail" type="email" placeholder="you@example.com"
+                 [(ngModel)]="registerData.email" name="registerEmail"
+                 required email
+                 pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                 #regEmail="ngModel" />
+
+          <div *ngIf="regEmail.invalid && (regEmail.dirty || regEmail.touched)" class="error-msg">
+            <span *ngIf="regEmail.errors?.['required']">Email is required.</span>
+            <span *ngIf="regEmail.errors?.['pattern'] || regEmail.errors?.['email']">Please enter a valid email address.</span>
+          </div>
+        </div>
+
+        <!-- ✅ PASSWORD FIELD (UPDATED) -->
+        <div class="field">
+          <label for="registerPassword">Password</label>
+          <input id="registerPassword" type="password" placeholder="Password"
+                 [(ngModel)]="registerData.password" name="registerPassword"
+                 required
+                 minlength="8"
+                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                 #regPass="ngModel" />
+
+          <div *ngIf="regPass.invalid && (regPass.dirty || regPass.touched)" class="error-msg">
+            <span *ngIf="regPass.errors?.['required']">Password is required.</span>
+            <span *ngIf="regPass.errors?.['minlength']">Must be at least 8 characters.</span>
+            <!-- Specific Pattern Error -->
+            <span *ngIf="regPass.errors?.['pattern']" style="display: block; line-height: 1.4;">
+              Must include: <br>
+              • 1 Uppercase (A-Z) <br>
+              • 1 Lowercase (a-z) <br>
+              • 1 Number (0-9) <br>
+              • 1 Special Char (@$!%*?&)
+            </span>
+          </div>
+        </div>
+
+        <!-- Role -->
+        <div class="field">
+          <label for="registerRole">I am a</label>
+          <select id="registerRole" [(ngModel)]="registerData.role" name="registerRole"
+                  required #regRole="ngModel">
+            <option value="" disabled selected>Select Role</option>
+            <option value="investor">Investor</option>
+            <option value="broker">Broker</option>
+          </select>
+
+          <div *ngIf="regRole.invalid && regRole.touched" class="error-msg">
+            Please select a role.
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
+            Register
+          </button>
+        </div>
+
+        <p class="switch-link">
+          Already have an account?
+          <a (click)="toggleMode()">Login</a>
+        </p>
+      </form>
+
     </div>
-    <p class="footer-copy">© 2025 Tradewise. All rights reserved.</p>
-  </footer>
-</div>
-
-<!-- Auth Modal -->
-
-<div class="auth-modal" *ngIf="showAuthModal">
-  <div class="auth-container" [class.register-mode]="isRegisterMode">
-    <!-- Left Side -->
-    <div class="auth-left">
-      <h2>{{ isRegisterMode ? 'Join Tradewise!' : 'Welcome Back!' }}</h2>
-      <p>{{ isRegisterMode ? 'Create your account and start trading smarter.' : 'Login to access your trading dashboard.' }}</p>
-    </div>
-
-    <!-- Right Side -->
-    <div class="auth-right">
-      <div class="form-wrapper">
-        <!-- Login Form -->
-        <form *ngIf="!isRegisterMode" (ngSubmit)="onLogin()">
-          <h3>Login</h3>
-          <div class="field">
-            <input type="text" placeholder="Username" [(ngModel)]="loginData.username" name="loginUsername" required />
-          </div>
-          <div class="field">
-            <input type="password" placeholder="Password" [(ngModel)]="loginData.password" name="loginPassword" required />
-          </div>
-          <button type="submit" class="primary-btn">Login</button>
-          <p class="switch-link">Don’t have an account? <a (click)="toggleMode()">Register</a></p>
-        </form>
-
-        <!-- Register Form -->
-        <form *ngIf="isRegisterMode" (ngSubmit)="onRegister()">
-          <h3>Register</h3>
-          <div class="field">
-            <input type="text" placeholder="Username" [(ngModel)]="registerData.username" name="registerUsername" required />
-          </div>
-          <div class="field">
-            <input type="email" placeholder="Email" [(ngModel)]="registerData.email" name="registerEmail" required />
-          </div>
-          <div class="field">
-            <input type="password" placeholder="Password" [(ngModel)]="registerData.password" name="registerPassword" required />
-          </div>
-          <div class="field">
-            <select [(ngModel)]="registerData.role" name="registerRole" required>
-              <option value="" disabled selected>Select Role</option>
-              <option value="INVESTOR">Investor</option>
-              <option value="BROKER">Broker</option>
-            </select>
-          </div>
-          <button type="submit" class="primary-btn">Register</button>
-          <p class="switch-link">Already have an account? <a (click)="toggleMode()">Login</a></p>
-        </form>
-      </div>
-    </div>
-
-    <button class="close-btn" (click)="closeAuthModal()">×</button>
-  </div>
-</div>
+  </section>
+</main>

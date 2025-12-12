@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TradeService, MarketOffer, BoughtTrade } from '../../../services/trade.service';
+import { TradeService, MarketData } from '../../../services/trade.service';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, switchMap, take } from 'rxjs';
+import { Order } from '../../../models/order-record.model';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-investor-trade',
@@ -11,85 +15,107 @@ import { TradeService, MarketOffer, BoughtTrade } from '../../../services/trade.
   styleUrls: ['./investor-trade.css']
 })
 export class InvestorTrade implements OnInit {
-  marketOffers: MarketOffer[] = [];
-  boughtTrades: BoughtTrade[] = [];
   instruments: string[] = [];
 
-  // Form model
   selectedInstrument = '';
   side: 'BUY' | 'SELL' = 'BUY';
   orderType: 'MARKET' | 'LIMIT' = 'MARKET';
   quantity = 1;
   price?: number;
 
-  loadingMarket = true;
-  loadingBought = true;
+  loadingMarketInfo = false;
+  marketInfo$!: Observable<MarketData | null>;
   message = '';
 
-  constructor(private tradeService: TradeService) {}
+  private initialSymbol: string | null = null;
+
+  constructor(private tradeService: TradeService, private route: ActivatedRoute, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.loadMarket();
-    this.loadBought();
-    this.tradeService.instruments().subscribe(list => this.instruments = list);
-  }
-
-  loadMarket(): void {
-    this.loadingMarket = true;
-    this.tradeService.listMarketOffers().subscribe({
-      next: data => { this.marketOffers = data || []; this.loadingMarket = false; },
-      error: () => { this.marketOffers = []; this.loadingMarket = false; }
+    this.tradeService.instruments().subscribe(list => {
+      this.instruments = list;
     });
+
+    this.marketInfo$ = this.route.queryParams.pipe(
+      switchMap(params => {
+        const symbol = params['symbol'] || this.selectedInstrument;
+        this.selectedInstrument = symbol;
+        return symbol ? this.tradeService.getMarketDataBySymbol(symbol) : [null];
+      })
+    );
+
   }
 
-  loadBought(): void {
-    this.loadingBought = true;
-    this.tradeService.listBoughtTrades().subscribe({
-      next: data => { this.boughtTrades = data || []; this.loadingBought = false; },
-      error: () => { this.boughtTrades = []; this.loadingBought = false; }
-    });
-  }
-
-  placeOrder(): void {
-    if (!this.selectedInstrument) { this.message = 'Select instrument'; return; }
-    if (!this.quantity || this.quantity <= 0) { this.message = 'Enter quantity'; return; }
-    if (this.orderType === 'LIMIT' && (this.price === undefined || this.price <= 0)) { this.message = 'Enter limit price'; return; }
-
-    this.message = 'Placing order...';
-    // For this module main flow: BUY creates a bought trade
-    if (this.side === 'BUY') {
-      this.tradeService.buy(this.selectedInstrument, this.orderType, this.quantity, this.orderType === 'LIMIT' ? this.price : undefined)
-        .subscribe({
-          next: () => { this.message = 'Buy executed'; this.loadBought(); this.tradeService.instruments().subscribe(); },
-          error: () => { this.message = 'Buy failed'; }
-        });
-    } else {
-      // SELL: attempt to create a sell order record (for simplicity we create an Investororders SELL)
-      // Find existing bought trade matching instrument and available quantity
-      const owned = this.boughtTrades.find(b => b.instrument === this.selectedInstrument && b.status === 'BOUGHT' && b.quantity >= this.quantity);
-      if (!owned) { this.message = 'No sufficient bought position to sell'; return; }
-      this.tradeService.sellBoughtTrade(owned).subscribe({
-        next: () => { this.message = 'Sell executed'; this.loadBought(); },
-        error: () => { this.message = 'Sell failed'; }
-      });
+  onInstrumentChanged(): void {
+    if (this.selectedInstrument) {
+      this.marketInfo$ = this.tradeService.getMarketDataBySymbol(this.selectedInstrument);
     }
   }
 
-  buyFromMarket(offer: MarketOffer): void {
-    if (!offer || offer.availableQuantity <= 0) { this.message = 'No quantity available'; return; }
-    const qty = Math.min( offer.availableQuantity, 1 );
-    this.message = 'Buying from market...';
-    this.tradeService.buyOffer(offer, qty, 'MARKET').subscribe({
-      next: () => { this.message = 'Bought from market'; this.loadMarket(); this.loadBought(); },
-      error: () => { this.message = 'Buy failed'; }
+  placeOrder(): void {
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser || currentUser.role !== 'investor') {
+        this.message = 'Authentication error: Please log in as an investor to place an order.';
+        return;
+    }
+    const investorId: string = currentUser.id!;
+    if (!this.selectedInstrument || !this.quantity || this.quantity <= 0) {
+      this.message = 'Please select an instrument and specify a valid quantity.';
+      return;
+    }
+
+    const confirmMessage = `Confirm ${this.side} order for ${this.quantity} shares of ${this.selectedInstrument}?`;
+    if (!window.confirm(confirmMessage)) {
+      this.message = 'Order cancelled by user.';
+      return;
+    }
+
+    this.message = 'Placing order...';
+
+    this.marketInfo$.pipe(take(1)).subscribe(marketInfo => {
+        if (!marketInfo) {
+            this.message = 'Could not retrieve market data. Order failed.';
+            return;
+        }
+
+        const executionPrice = marketInfo.currentPrice;
+
+        this.tradeService.getInstrumentId(this.selectedInstrument).pipe(take(1)).subscribe(instrumentId => {
+            if (!instrumentId) {
+                this.message = 'Instrument not found. Order failed.';
+                return;
+            }
+
+            const newOrder: Order = {
+                investorId: investorId,
+                instrumentId: instrumentId,
+                orderType: this.side,
+                quantity: this.quantity,
+                price: executionPrice,
+                status: 'PENDING',
+                timestamp: new Date().toISOString()
+            };
+
+            this.tradeService.placeOrder(newOrder).subscribe({
+                next: (response) => {
+                    this.message = `Order successfully placed! Order ID: ${response.id}`;
+                    this.quantity = 1;
+                },
+                error: (err) => {
+                    this.message = 'Order placement failed due to a server error.';
+                    console.error('Order Error:', err);
+                }
+            });
+        });
+
     });
   }
 
-  sellBought(b: BoughtTrade): void {
-    if (b.status !== 'BOUGHT') return;
-    this.tradeService.sellBoughtTrade(b).subscribe({
-      next: () => { this.message = 'Sold'; this.loadBought(); },
-      error: () => { this.message = 'Sell failed'; }
-    });
+get estimatedPrice(): number {
+    return this.orderType === 'MARKET' ? 0 : (this.price ?? 0);
   }
+  get estimatedTotal(): number {
+    return (this.estimatedPrice || 0) * (this.quantity || 0);
+  }
+
 }

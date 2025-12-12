@@ -1,121 +1,79 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError, map } from 'rxjs';
+import { Observable, forkJoin, map, switchMap, of } from 'rxjs';
+import { Order } from '../models/order-record.model';
 
-export interface MarketOffer {
-  id?: number;
-  instrument: string;
-  availableQuantity: number;
-  price: number;
-  type: 'SELL' | 'BUY'; // market side
-  timestamp?: string;
-}
-
-export interface BoughtTrade {
-  id?: number;
-  instrument: string;
-  quantity: number;
-  price: number;
-  status: 'BOUGHT' | 'SOLD';
-  timestamp?: string;
-}
-
-export interface OrderRecord {
-  id?: number;
-  orderId: string;
-  instrument: string;
-  type: 'BUY' | 'SELL';
-  quantity: number;
-  price: number;
-  status: 'PENDING' | 'EXECUTED' | 'CANCELLED';
-  timestamp: string;
+export interface MarketData {
+    symbol: string;
+    currentPrice: number;
+    dayHigh: number;
+    dayLow: number;
+    volume: number;
 }
 
 @Injectable({ providedIn: 'root' })
 export class TradeService {
   private base = 'http://localhost:3000';
-  private marketCollection = 'marketOffers';
-  private boughtCollection = 'boughtTrades';
-  private investorOrderCollection = 'Investororders';
 
   constructor(private http: HttpClient) {}
 
-  listMarketOffers(): Observable<MarketOffer[]> {
-    return this.http.get<MarketOffer[]>(`${this.base}/${this.marketCollection}`);
-  }
-
-  listBoughtTrades(): Observable<BoughtTrade[]> {
-    return this.http.get<BoughtTrade[]>(`${this.base}/${this.boughtCollection}`);
-  }
-
   instruments(): Observable<string[]> {
-    return this.listMarketOffers().pipe(
-      map(list => Array.from(new Set((list || []).map(i => i.instrument))).sort())
+    return this.http.get<any[]>(`${this.base}/instruments`).pipe(
+        map(instruments => instruments.map(i => i.tickerSymbol).sort())
     );
   }
 
-  // Buy from a market offer (or place limit -> treated same for mock)
-  buy(instrument: string, orderType: 'MARKET' | 'LIMIT', quantity: number, price?: number): Observable<BoughtTrade> {
-    const timestamp = new Date().toISOString();
-    const payload: BoughtTrade = {
-      instrument,
-      quantity,
-      price: price ?? 0,
-      status: 'BOUGHT',
-      timestamp
-    };
+  getInstrumentId(symbol: string): Observable<number | undefined> {
+        if (!symbol) return of(undefined);
+        return this.http.get<any[]>(`${this.base}/instruments?tickerSymbol=${symbol}`).pipe(
+            map(instruments => instruments.length > 0 ? instruments[0].instrumentId : undefined)
+        );
+    }
 
-    // create bought trade record
-    return this.http.post<BoughtTrade>(`${this.base}/${this.boughtCollection}`, payload).pipe(
-      // also create Investororders record for audit/compliance
-      map(created => {
-        const order: OrderRecord = {
-          orderId: `ORD-${Math.floor(1000 + Math.random() * 9000)}`,
-          instrument,
-          type: 'BUY',
-          quantity,
-          price: payload.price,
-          status: 'EXECUTED',
-          timestamp
-        };
-        // fire-and-forget investor order creation
-        this.http.post(`${this.base}/${this.investorOrderCollection}`, order).subscribe({ error: () => {} });
-        return created;
-      })
-    );
-  }
+  placeOrder(order: Order): Observable<Order> {
+        return this.http.post<Order>(`${this.base}/orders`, order);
+    }
 
-  // Buy a given market offer id: optionally reduce quantity on marketOffers
-  buyOffer(offer: MarketOffer, quantity: number, orderType: 'MARKET' | 'LIMIT', price?: number) {
-    // post bought record then patch market offer availableQuantity
-    return this.buy(offer.instrument, orderType, quantity, orderType === 'MARKET' ? offer.price : price).pipe(
-      map(created => {
-        const remaining = Math.max(0, (offer.availableQuantity || 0) - quantity);
-        // update market offer
-        this.http.patch(`${this.base}/${this.marketCollection}/${offer.id}`, { availableQuantity: remaining }).subscribe({ error: () => {} });
-        return created;
-      })
-    );
-  }
+  getMarketDataBySymbol(symbol: string): Observable<MarketData | null> {
+        if (!symbol) return of(null);
+        
+        const symbolLower = symbol.toLowerCase();
+        
+        const instruments$ = this.http.get<any[]>(`${this.base}/instruments`);
+        const priceHistories$ = this.http.get<any[]>(`${this.base}/priceHistories`);
+        
+        return forkJoin({ instruments: instruments$, histories: priceHistories$ }).pipe(
+            map(data => {
+                const instrument = data.instruments.find(i => i.tickerSymbol.toLowerCase() === symbolLower);
+                
+                if (!instrument) return null;
+                
+                const relevantHistory = data.histories.filter(h => h.instrumentId === instrument.instrumentId);
+                
+                if (relevantHistory.length === 0) {
+                     return { 
+                        symbol: instrument.tickerSymbol, 
+                        currentPrice: 0, 
+                        dayHigh: 0, 
+                        dayLow: 0, 
+                        volume: 0 
+                     } as MarketData;
+                }
 
-  // Sell a bought trade: mark as SOLD and create Investororders SELL record
-  sellBoughtTrade(bought: BoughtTrade): Observable<BoughtTrade> {
-    const timestamp = new Date().toISOString();
-    // mark bought trade as SOLD
-    return this.http.patch<BoughtTrade>(`${this.base}/${this.boughtCollection}/${bought.id}`, { status: 'SOLD' }).pipe(
-      map(updated => {
-        const order: OrderRecord = {
-          orderId: `ORD-${Math.floor(1000 + Math.random() * 9000)}`,
-          instrument: bought.instrument,
-          type: 'SELL',
-          quantity: bought.quantity,
-          price: bought.price,
-          status: 'EXECUTED',
-          timestamp
-        };
-        this.http.post(`${this.base}/${this.investorOrderCollection}`, order).subscribe({ error: () => {} });
-        return updated;
-      })
-    );
-  }
+                const prices = relevantHistory.map(h => h.price);
+                const currentPrice = prices[prices.length - 1];
+                const dayHigh = Math.max(...prices);
+                const dayLow = Math.min(...prices);
+                const totalVolume = relevantHistory.reduce((sum, h) => sum + (h.volume || 0), 0);
+                
+                return {
+                    symbol: instrument.tickerSymbol,
+                    currentPrice,
+                    dayHigh,
+                    dayLow,
+                    volume: totalVolume,
+                } as MarketData;
+            })
+        );
+    }
 }

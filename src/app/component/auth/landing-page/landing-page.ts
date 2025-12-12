@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -13,94 +13,79 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class LandingPage {
   constructor(private router: Router, private authService: AuthService) {}
-  
+
   isRegisterMode = false;
-  showAuthModal = false;
 
-  openAuthModal() {
-    this.showAuthModal = true;
+  // Models
+  loginData = { username: '', password: '' };
+  registerData = { username: '', email: '', password: '', role: '' };
+
+  toggleMode() {
+    this.isRegisterMode = !this.isRegisterMode;
+    // Clear forms when switching
+    this.loginData = { username: '', password: '' };
+    this.registerData = { username: '', email: '', password: '', role: '' };
   }
 
-  closeAuthModal() {
-    this.showAuthModal = false;
-  }
+  // --- LOGIN LOGIC ---
+  onLogin(form: NgForm) {
+    if (form.invalid) return; // Stop if somehow bypassed
 
+    const { username, password } = this.loginData;
 
-loginData = { username: '', password: '' };
-registerData = { username: '', email: '', password: '', role: '' };
+    this.authService.login(username, password).subscribe({
+      next: (users) => {
+        // json-server returns an array. Check if user exists.
+        if (Array.isArray(users) && users.length > 0) {
+          const user = users[0];
 
-toggleMode() {
-  this.isRegisterMode = !this.isRegisterMode;
-}
+          this.authService.setCurrentUser(user);
+          localStorage.setItem('userId', String(user.id)); // Important for other pages
 
-onLogin() {
-  const { username, password } = this.loginData;
-
-  if (!username || !password) {
-      alert('Please enter both username and password.');
-      return;
-    }
-
-  this.authService.login(username, password).subscribe({
-    next: (users) => {
-      if (!Array.isArray(users) || users.length === 0) {
-        alert('Invalid credentials');
-        return;
+          // Route based on role
+          const targetUrl = user.role === 'broker' ? '/broker/dashboard' : '/investor/dashboard';
+          this.router.navigate([targetUrl]);
+        } else {
+          alert('Invalid credentials. Please check your username or password.');
         }
-
-      const user = users[0];
-      const role = user.role 
-
-      this.authService.setCurrentUser(user);
-      localStorage.setItem('userId', String(user.id));
-      localStorage.setItem('role', role);
-      localStorage.setItem('username', user.username);
-      
-      const targetUrl = `/${role}/dashboard`;
-
-      console.log('[Login] user:', user);
-      console.log('[Login] navigating to:', targetUrl);
-      console.log('[Login] router.config paths:', this.router.config.map(r => r.path));
-
-      this.router.navigateByUrl(targetUrl)
-        .then(() => {
-          alert('Login successful');
-          this.closeAuthModal();
-        })
-        .catch(err => {
-          console.error('Navigation failed:', err);
-          alert('Navigation failed. Check routes and casing.');
-        });
-
-  },
-  error: (err) => {
+      },
+      error: (err) => {
         console.error('Login error:', err);
-        alert('Login failed. Please try again.');
+        alert('Server error. Please try again later.');
       },
     });
   }
 
-onRegister() {
-  
-const newUser = {
-    ...this.registerData,
-    fullName: '',
-    phone: '',
-    accountNumber: '',
-    panNumber: '',
-    bankAccount: '',
-    ifscCode: '',
-    profilePicture: ''
-  };
+  // --- REGISTER LOGIC ---
+  onRegister(form: NgForm) {
+    if (form.invalid) {
+      // Mark all fields as touched to show errors if user force-submits (e.g. hitting enter)
+      Object.keys(form.controls).forEach(field => {
+        const control = form.control.get(field);
+        control?.markAsTouched({ onlySelf: true });
+      });
+      return;
+    }
 
-  
-this.authService.register(newUser).subscribe({
+    const newUser = {
+      ...this.registerData,
+      fullName: this.registerData.username, // Default full name
+      profilePicture: 'https://i.pravatar.cc/150?img=12', // Default Avatar
+      // Initialize empty financial fields to prevent null errors later
+      phone: '',
+      accountNumber: '',
+      panNumber: '',
+      bankAccount: '',
+      ifscCode: ''
+    };
+
+    this.authService.register(newUser).subscribe({
       next: () => {
         alert('Registration successful! Please log in.');
-        this.toggleMode(); // switch to login form
+        this.toggleMode(); // Switch back to login
       },
       error: (err) => {
-               console.error('Registration error:', err);
+        console.error('Registration error:', err);
         alert('Registration failed. Please try again.');
       },
     });

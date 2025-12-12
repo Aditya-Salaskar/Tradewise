@@ -29,7 +29,7 @@ export class AuthService {
 
   updateUser(id: string, user: Partial<User>): Observable<User> {
     return this.http.put<User>(`${this.apiUrl}/${id}`, user);
-  } 
+  }
 
   setCurrentUser(user: User): void {
     localStorage.setItem('currentUser', JSON.stringify(user));

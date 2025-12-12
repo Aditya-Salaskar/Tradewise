@@ -11,7 +11,7 @@ type MenuItem = {
   exact?: boolean;
 };
 
-type Role = 'broker' | 'investor';
+type Role = 'broker' | 'investor' | 'admin';
 
 @Component({
   selector: 'app-sidebar',
@@ -26,6 +26,7 @@ export class Sidebar {
   
   get role(): Role {
     const url = this.router.url; // e.g., '/broker/dashboard' or '/investor/portfolio'
+    if (url.startsWith('/admin')) return 'admin';
     if (url.startsWith('/investor')) return 'investor';
     return 'broker';
   }
@@ -35,10 +36,17 @@ export class Sidebar {
   }
 
   get menu(): MenuItem[] {
+    if (this.role === 'admin') {
+      return [
+        { icon: '📊', label: 'Dashboard', segment: 'dashboard', exact: true },
+        { icon: '👥', label: 'Users', segment: 'users' },
+        { icon: '🔐', label: 'Roles', segment: 'roles' },
+      ];
+    }
+
     if (this.role === 'broker') {
       return [
         { icon: '📊', label: 'Dashboard', segment: 'dashboard', exact: true },
-        { icon: '📈', label: 'Market Data', segment: 'market' },
         { icon: '⚠️', label: 'Risk Analysis', segment: 'risk-analysis' },
         { icon: '👤', label: 'Profile', segment: 'profile' }
       ];

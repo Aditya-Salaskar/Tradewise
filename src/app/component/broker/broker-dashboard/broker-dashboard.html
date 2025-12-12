@@ -1,81 +1,104 @@
+<div class="main-content" *ngIf="dashboardData$ | async as data">
 
-<!-- Stats -->
-<section class="stats">
-  <div class="card">
-    <h3>Total Clients</h3>
-    <p>{{ stats?.totalClients }}</p>
-  </div>
-  <div class="card">
-    <h3>Active Orders</h3>
-    <p>{{ stats?.activeOrders }}</p>
-  </div>
-  <div class="card">
-    <h3>Today's Volume</h3>
-    <p>{{ stats?.todaysVolume }}</p>
-  </div>
-  <div class="card">
-    <h3>Today's Commission</h3>
-    <p>{{ stats?.todaysCommission }}</p>
-  </div>
-</section>
+  <header>
+    <h2>Broker Dashboard</h2>
+  </header>
 
-<!-- Client Overview -->
-<section class="table-section">
-  <h3>Client Overview</h3>
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>Client ID</th>
-          <th>Name</th>
-          <th>Portfolio Value</th>
-          <th>Today's Orders</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let client of clients">
-          <td>{{ client.id }}</td>
-          <td>{{ client.name }}</td>
-          <td>{{ client.portfolioValue }}</td>
-          <td>{{ client.todaysOrders }}</td>
-          <td [class.active]="client.status === 'ACTIVE'" [class.inactive]="client.status === 'INACTIVE'">{{ client.status }}</td>
-          <td><button>View Details</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+  <!-- STATS -->
+  <section class="stats">
+    <div class="card">
+      <h3>Total Clients</h3>
+      <p>{{ data.stats.totalClients }}</p>
+    </div>
+    <div class="card">
+      <h3>Active Orders</h3>
+      <p class="pending">{{ data.stats.activeOrders }}</p>
+    </div>
+    <div class="card">
+      <h3>Total Volume</h3>
+      <p>{{ data.stats.todaysVolume | currency:'INR':'symbol':'1.0-0' }}</p>
+    </div>
+  </section>
 
-<!-- Recent Orders -->
-<section class="table-section">
-  <h3>Recent Client Orders</h3>
-  <div class="table-container">
+  <!-- CLIENT OVERVIEW -->
+  <section class="table-section">
+    <h3>Client Overview</h3>
+    <div class="table-container" style="max-height: 380px; overflow-y: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Client ID</th>
+            <th>Name</th>
+            <th>Portfolio Value</th>
+            <th>Total Orders</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let client of data.clients; trackBy: trackById">
+            <td style="font-family: monospace; color: #666;">{{ client.id }}</td>
+            <td style="font-weight: 600;">{{ client.name }}</td>
+            <!-- Portfolio Value: Sum of Executed Buy Orders -->
+            <td style="font-weight: 700; color: #0078d7;">
+              {{ client.portfolioValue | currency:'INR':'symbol':'1.0-0' }}
+            </td>
+            <td>{{ client.todaysOrders }}</td>
+            <td><span class="active">{{ client.status }}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Client</th>
-          <th>Symbol</th>
-          <th>Type</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let order of orders">
-          <td>{{ order.orderId }}</td>
-          <td>{{ order.client }}</td>
-          <td>{{ order.symbol }}</td>
-          <td>{{ order.type }}</td>
-          <td>{{ order.quantity }}</td>
-          <td>{{ order.price }}</td>
-          <td [class.executed]="order.status === 'EXECUTED'" [class.pending]="order.status === 'PENDING'">{{ order.status }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+  <!-- RECENT ORDERS -->
+  <section class="table-section">
+    <h3>Recent Client Orders</h3>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Client</th>
+            <th>Symbol</th>
+            <th>Type</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of data.orders; trackBy: trackById">
+            <td style="font-family: monospace;">{{ order.orderId }}</td>
+            <td>{{ order.client }}</td>
+            <td style="font-weight: 700;">{{ order.symbol }}</td>
+            <td>
+              <span [class.active]="order.type === 'BUY'" [class.inactive]="order.type === 'SELL'">
+                {{ order.type }}
+              </span>
+            </td>
+            <td>{{ order.quantity }}</td>
+            <td>{{ order.price | currency:'INR':'symbol':'1.0-0' }}</td>
+            <td>
+              <span [class.executed]="order.status === 'EXECUTED'"
+                    [class.pending]="order.status === 'PENDING'"
+                    [class.inactive]="order.status === 'CANCELLED'">
+                {{ order.status }}
+              </span>
+            </td>
+            <td>
+              <div class="button-group" *ngIf="order.status === 'PENDING'">
+                <button class="accept" (click)="approveOrder(order)">Approve</button>
+                <button class="decline" (click)="rejectOrder(order)">Reject</button>
+              </div>
+              <span *ngIf="order.status !== 'PENDING'" style="color: #999; font-size: 12px;">
+                Completed
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>

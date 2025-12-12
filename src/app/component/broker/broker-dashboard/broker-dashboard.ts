@@ -1,44 +1,72 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
-import { DashboardService } from '../../../services/dashboard.service';
+import { DashboardService, OrderDisplay, ClientDisplay, DashboardStats } from '../../../services/dashboard.service';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { map, switchMap, shareReplay } from 'rxjs/operators';
+
+interface DashboardViewData {
+  orders: OrderDisplay[];
+  clients: ClientDisplay[];
+  stats: DashboardStats;
+}
 
 @Component({
   selector: 'app-broker-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule],
   templateUrl: './broker-dashboard.html',
-  styleUrls: ['./broker-dashboard.css']
+  styleUrls: ['./broker-dashboard.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BrokerDashboard implements OnInit {
-  stats: any;
-  clients: any[] = [];
-  orders: any[] = [];
-  loading = true;
+  private refresh$ = new BehaviorSubject<void>(undefined);
 
-  constructor(private router: Router, private dashboardService: DashboardService) {}
+  dashboardData$!: Observable<DashboardViewData>;
 
-  ngOnInit(): void {
-    this.dashboardService.getStats().subscribe(data => this.stats = data);
-    this.dashboardService.getClients().subscribe(data => this.clients = data);
-    this.dashboardService.getOrders().subscribe(data => {
-      this.orders = data;
-      this.loading = false;
+  constructor(private dashboardService: DashboardService) {}
+
+  ngOnInit() {
+    // When refresh$ emits, re-fetch all data
+    const orders$ = this.refresh$.pipe(
+      switchMap(() => this.dashboardService.getOrders()),
+      shareReplay(1)
+    );
+
+    const clients$ = this.refresh$.pipe(
+      switchMap(() => this.dashboardService.getClients()),
+      shareReplay(1)
+    );
+
+    const stats$ = this.refresh$.pipe(
+      switchMap(() => this.dashboardService.getStats()),
+      shareReplay(1)
+    );
+
+    this.dashboardData$ = combineLatest([orders$, clients$, stats$]).pipe(
+      map(([orders, clients, stats]) => ({ orders, clients, stats }))
+    );
+  }
+
+  approveOrder(order: OrderDisplay) {
+    // Calling approveOrder updates the DB, then we trigger refresh$.next()
+    this.dashboardService.approveOrder(order.orderId).subscribe({
+      next: () => {
+        this.refresh$.next();
+      },
+      error: (err) => console.error('Approve failed', err)
     });
   }
 
-  approveOrder(orderId: string): void {
-    const order = this.orders.find(o => o.orderId === orderId);
-    if (order) order.status = 'EXECUTED';
+  rejectOrder(order: OrderDisplay) {
+    this.dashboardService.rejectOrder(order.orderId).subscribe({
+      next: () => {
+        this.refresh$.next();
+      },
+      error: (err) => console.error('Reject failed', err)
+    });
   }
 
-  rejectOrder(orderId: string): void {
-    const order = this.orders.find(o => o.orderId === orderId);
-    if (order) order.status = 'CANCELLED';
-  }
-
-  goToOrderDetails(orderId: string): void {
-    this.router.navigate(['/broker/orders', orderId]);
+  trackById(index: number, item: any) {
+    return item.orderId || item.id;
   }
 }
-

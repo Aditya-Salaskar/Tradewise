@@ -71,6 +71,10 @@ header h2 {
   opacity: 0.9;
 }
 
+.search-input {
+  width: 250px;
+}
+
 /* Table */
 .table-section h3 {
   margin-bottom: 10px;
